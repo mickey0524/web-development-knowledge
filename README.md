@@ -160,6 +160,85 @@
 	外边距合并指的是，当两个垂直外边距相遇时，它们将形成一个外边距，合并后的外边距的高度等于两个发生合并的外边距的高度中的较大者，下面url中详细介绍了外边距合并
 	http://www.w3school.com.cn/css/css_margin_collapsing.asp
 
+* 请解释一下为什么需要清除浮动？清除浮动的方式
+
+	清除浮动是为了清除使用浮动元素产生的影响。浮动的元素，高度会塌陷，而高度的塌陷是我们页面后面的布局不能正常显示。
+	
+	1. 父级div定义height
+	2. 父级div也一起浮动
+	3. 父级div变为BFC，这样计算高度的时候会把浮动元素算进去
+	4. 常规的使用一个class
+	```
+		.clearfix: before, .clearfix: after {
+			content: '';
+			display: table;
+		}
+		.clearfix: after {
+			clear: both;
+		}	
+		.clearfix {
+			*zoom: 1;	为了兼容IE出发haslayout
+		}
+
+* zoom: 1的清楚浮动的原理
+
+	清楚浮动，出发hasLayout
+
+	Zoom属性是IE浏览器的专有属性，它可以设置或检索对象的缩放比例。解决IE下比较奇葩的问题
+
+	当设置了zoom的值后，所设置的元素就会扩大或者缩小，高度宽度就会重新计算了，这里一旦改变zoom值时其实也会发生重新渲染，运用这个原理，也就解决了ie下子元素浮动时候父元素不随着自动扩大的问题。
+
+* 浏览器是怎样解析CSS选择器的
+	
+	样式系统从关键选择器开始匹配，何为关键选择器，就是选择器的最后面的部分，如果规则拥有ID选择器作为其关键选择器，则不要为规则添加标签，过滤掉无关的规则，这样速度会变快，话说回来，样式系统从关键选择器开始匹配，然后左移查找规则选择器的祖先元素，只要选择器的子树一直在工作，样式系统就会持续左移，直到和规则匹配，或者是因为不匹配而放弃该规则	
+
+* 元素竖向的百分比设定是相对于容器的高度吗？
+
+	这个知识点很有意思，之前我觉得肯定是相对于容器的高度，后来才知道是要分height和padding-top，margin-top，padding-bottom，margin-bottom这些属性设置百分比的话参照的是容器的宽度而不是高度，很神奇，height属性还是和常理一样参照的是容器的高度。
+
+* 响应式设计的基本原理是什么？如何兼容低版本的IE？
+
+	基本原理是媒体查询 @media
+
+	低版本的IE之所以不支持响应式是因为其不能识别选择器，可以依靠外部js来实现兼容，例如respond.js
+
+* 如何修改chrome记住密码后自动填充表单的黄色背景？
+
+	黄色背景是因为chrome会默认给自动填充的input表单加上input:-webkit-autofill属性
+
+```
+	input:-webkit-autofill textarea:-webkit-autofill, select:-webkit-autofill {
+		background-color: #FAFFBD;
+		background-image: none;
+		color: white;	
+	}
+```
+
+	可以使用足够大的纯色内阴影来覆盖input输入框的黄色背景
+
+```
+	input:-webkit-autofill {
+		border-shadow: 0 0 0px 1000px white inset;
+	}
+```
+
+* line-height的一些理解
+
+	如果子元素自己有line-height, 则肯定是和子元素自己的font-size去做相乘得到子元素的line-height
+
+	如果子元素自己没有line-height, 也没有font-size，则无论哪种写法，都是用父亲元素的font-size和line-height去相乘
+
+	如果子元素有font-size没有line-height，则父元素line-height为px直接继承，父元素为%和em，用父元素的font-size和line-height相乘，父元素为数字, 用父元素line-height和子元素的font-size相乘得到子元素的line-height
+
+* 如果要手写动画，你认为最小时间间隔是多久，为什么？
+
+	多数显示器默认频率为60Hz，即1s刷新60次，所以理论上最小间隔为1/60 * 1000ms = 16.7ms
+
+* 什么是CSS预处理器/后处理器
+
+	1. 预处理器例如：less，sass，stylus，用来预编译sass或less，增强了css代码的复用性，还有层级，mixin，变量，循环，函数等，具有很方便的UI组件模块化开发能力，极大的提高了工作效率
+	2. 后处理器例如：PostCSS，通常被视为在完成的样式表中根据CSS规范处理CSS，让其更有效；目前最常用的是给CSS属性添加浏览器私有前缀，实现跨浏览器的兼容性问题
+
 <h2 id="JavaScript">JavaScript</h2>
 
 * 如何区分{} 和 [] 
