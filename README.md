@@ -64,7 +64,23 @@
 	strong, em, ins, del, code
 	应该准确适用语义样式标签，但不能滥用，如果不能确定时首选使用自然样式标签
 
-<h2 id="CSS">CSS</h3>
+<h2 id="CSS">CSS</h2>
 
 
-<h2 id="JavaScript">JavaScript</h3>
+<h2 id="JavaScript">JavaScript</h2>
+
+* 如何区分{} 和 [] 
+
+	使用typeof得到的都是object
+
+	最好的方法是使用object原型的toString方法
+
+```
+	function isArray(o) {
+	    return Object.prototype.toString.call(o) === ‘[object Array]‘;
+	}
+```
+
+* 使用jQuery，找到id位selector的select标签中有用data-target属性为isme的option的值
+
+    `$('#selector option[data-target=isme]')`
