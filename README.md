@@ -278,5 +278,89 @@
 	});
 ```
 
+* eval是做什么的？
 
+	它的功能是把对应的字符串解析成JS代码并运行；
+	应该避免使用eval，不安全，非常耗性能（2次，一次解析为JS代码，一次执行）
+
+* ['1', '2', '3'].map(parseInt)答案是多少?
+
+	很多人第一眼看到这个问题肯定回答是[1, 2, 3]，但是尝试一下，发现不是这样，是不是觉得很奇怪，就很气，下面我们来分析一下。
+
+	map()函数的参数是一个函数，这个函数的参数为(item, index, array), 在这个等式中，parseInt为map的参数，那么map就会将上书三个参数传给parseInt
+
+	下面我们来分析一下parseInt函数，这个函数可以将2-36进制的字符串转为10进制，它接受2个参数，parseInt(num, scale), 因此map函数传给其的三个参数取前两个参数
+	
+	1传递过来的参数是 (1,0) 0会被parseInt默认按10进制来计算，因此得到的结果是1
+	
+	2传递过来的参数是 (2,1) 由于parseInt接受的参数为2-36，因此无法解析，得到的结果是NaN
+
+	3传递过来的参数是 (3,2) 有的小伙伴就会说啦，你看，现在是2-36范围内的值了，为啥还不对，23333，因为3要按2进制来解析，要怎么样解析嘛，因此得到的结果也是NaN
+
+	因此['1', '2', '3'].map(parseInt)得到的答案就是[1, NaN, NaN]，是不是很神奇
+
+* 事件是什么？(给出官方解释)IE和FireFox的事件机制有什么区别?如何阻止冒泡
+
+	我们在网页中的某个操作(有的操作对应多个事件)。例如：当我们点击一个按钮就会产生一个事件，这是可以被Javascript所侦测到的行为。
+
+	IE的事件事件处理只支持冒泡，Firefox的事件处理支持冒泡和捕获
+
+	如何组织冒泡，也需要兼容性的考虑, event.stopPropagation()(旧IE方法 event.cancelBubble = true;)
+
+* new操作符具体干了些什么？
+
+	1. 创建了一个新对象，并且this变量引用该对象，同时还继承了该函数的原型
+	2. 属性和方法被加入到this引用的对象中
+	3. 新创建的对象由this所引用，并且最后隐式的返回this对象
+
+* Javascript中，有一个函数，执行对象查找时，永远不会去查找原型，这个函数是
+
+	hasOwnProperty
+
+	javascript中hasOwnProperty函数方法是返回一个布尔值，指出一个对象是否具有制定名称的属性，该方法不会去对象的原型链中查找
+	
+	object.hasOwnProperty(attribute)
+
+	我这有个方法可以判断属性是否为其原型链中的属性
+```
+	function isPropertyAttr(obj, proName) {
+		return !obj.hasOwnProperty(proName) && proName in obj;
+	}
+```
+
+* [].forEach.call($$("*"),function(a){a.style.outline="1px solid #"+(~~(Math.random()*(1<<24))).toString(16)}) 能解释一下这段代码的意思吗？
+
+	说实话，第一眼看到这么长的代码，肯定是蒙蔽的，所以只能按部就班一步一步分析啦
+
+	$$('*')这是chrome的api，用于获取页面上所有元素，$$('*')相当于document.querySelectorAll('*')，得到一个NodeLists，这不是真正的数组，因此需要采用[].forEach.call来改变this，也可以使用Array.property.forEach.call，前者少些一些代码
+
+	后面代码可以很清晰的看到，是改动css的outline获得彩色轮廓，outline游离于盒子模型之外，因此不会影响元素之前的布局
+
+	1<<24，css中，颜色值为6位16进制值，因此使用Math.random() * (1 << 24)可以得到范围内的一个小数，再采用~~两次取反得到整数部分，最后将10进制的数转为16进制，即大功告成啦2333
+
+* 模块化开发怎么做？
+
+	我一看到这个问题，想到的就是Nodejs的commonjs模块化，模块化将很多地方可能用到的代码块封装起来，隐藏具体的变量和实现方法，暴露出接口。
+
+	然后联想到立即执行函数，reture一个对象变量，暴露出接口
+```
+	var module = (function() {
+		var _count = 0;
+		var m1 = function() {
+		}
+		var m2 = function() {
+		}
+		return {
+			m1 : m1,
+			m2 : m2
+		}
+	})();
+```
+	这样就暴露除了m1, m2两个接口，隐藏了模块的具体实现
+
+* document.write 和 innerHTML的区别
+	
+	document.write能够重绘整个页面
+
+    innerHTML能够重构部分页面
 
