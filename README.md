@@ -7,6 +7,7 @@
 * [HTML](#HTML) 
 * [CSS](#CSS) 
 * [JavaScript](#JavaScript)
+* [jQuery](#jQuery)
 
 <h2 id="HTML">HTML</h2> 
 
@@ -363,4 +364,195 @@
 	document.write能够重绘整个页面
 
     innerHTML能够重构部分页面
+
+* 如何判断当前脚本运行在浏览器还是node环境中?
+
+	`this === window` ? 'brower' : 'node'`
+	node中this应该等于global
+
+* 实现一个页面操作不会整页刷新的网站，并且能在浏览器前进、后退时正确响应。给出你的技术实现方案？
+
+	我觉得这道题考的就是ajax干掉浏览器前进后退键的知识点，因为看到题目，首先想到的肯定是ajax优秀的部分刷新机制，然后再往后面看就会想到上面的问题，那么如何解决呢
+
+	1. 加入页面操作改变了URL，可以在每个url后面加上hash，然后监听onHashChange，监听到变化后，重新执行数据拉取
+	2. 使用Html5的Hisroty API 具体实现是使用pushState popState window.location.href这几个api
+	3. 使用history.js
+
+* 移动端最小触控的区域是多大?
+
+	这个我也不知道，去百度了一下，好像ios是44pt * 44pt，android是48dp * 48dp，下次碰到了有机会再补充
+
+* 把Script标签放在页面的最底部的body封闭之前和封闭之后有什么区别？浏览器会如何解析它们？
+
+	==我以前接触的问题都是把script放在head中还是放在body标签结束之前(阻塞加载的问题)，从结果来看，放在body标签之内和body标签之外并没有什么区别，但是貌似有规则规定过html标签下只能有head和body，其中的script也会被错误修复机制放置到body内部去，有哪位老哥确切知道这个问题，可以告诉小弟一波~
+
+* 移动端的点击事件有延迟，时间是多久，为什么会有？
+
+	click有300ms延迟，为了实现safari的双击事件的设计，浏览器要知道你是不是要双击操作
+
+	我想到最粗暴的方法就是user-scalable=no，禁用缩放美滋滋
+
+* 用js实现千位分隔符？
+
+	这个题目有很多种解决的方法，可以使用三位循环，字符串数组分隔，也可以使用正则，这里我给出正则的实现方式，其他两种较为简单就不给出实现方法了
+
+```
+	function changeFormat(num) {
+		if (!num) {
+			return ;
+		}
+		num = num.toString();
+		return (num.indexOf('.') == -1) ?
+			num.replace(/(\d)(?=(\d{3})+$)/g, function($0) {
+				return $0 + ',';
+			}) :
+			num.replace(/(\d)(?=(\d{3})+\.)/g, function($0) {
+				return $0 + ',';
+			});
+	}
+	console.log(changeFormat(1234567.90));
+	console.log(changeFormat(123123123));
+```
+	可能有同学会问？=是什么，？=表示正向引用，可以作为匹配的条件，但是匹配的内容不获取，并且作为下一次循环的开始，下面以123123123来分析一下
+	第一次(\d)匹配到了3, 因为后面要满足(\d{3})+，后面模式匹配到的是456789，依此类推，匹配到的就是3和6，得到的结果就是123,456,789，需要注意的就是整数匹配时候，由于不像小数一样最后总有.限制条件，需要使用$关闭懒惰匹配，不然得到的就是1,2,3,4,5,6,789
+
+* 我们给一个DOM元素同时绑定两个点击事件，一个用捕获，一个用冒泡。会执行几次事件，会先执行冒泡还是捕获？
+
+	http://www.cnblogs.com/greatluoluo/p/5882508.html
+	
+	这里需要注意的是所有事件的顺序是：其他元素捕获阶段事件->本元素代码顺序事件->其他元素冒泡阶段事件
+
+	下面来解释一下上面这句话的意思，如果点击的元素是本元素，那么执行的顺序就是捕获事件和冒泡事件定义的先后顺序，那个先定义，哪个就先执行，假如点击的元素是本元素的子元素，那么先执行捕获事件再执行冒泡事件，因为在W3C下，都是先从根元素执行捕获到目标元素，再从目标元素向上执行。
+
+<h2 id="jQuery">jQuery</h2>
+
+* jQuery中jQuery和jQuery.fn的区别
+
+	你可以把jQuery理解为jQuery的类，把jQuery.fn理解为jQuery的实例(那些通过jQuery选择器选择的元素都可以理解为jQuery的实例)
+
+* jQuery.fn的init方法是否返回的this是指什么对象？为什么要返回this？
+
+	当你使用jQuery去生成jQuery实例也就是$()的时候，你也就调用了jQuery.fn.init方法，其返回的this自然就是你找到的元素了，即jQuery.fn.init的实例，也就是一个类数组对象，至于为什么要返回this，不返回this，无法进行后续对jQuery元素的操作啊23333.
+
+* jQuery中如何将数组转化为json字符串，然后再转化回来?
+
+	我印象中好像是没有这个方法，下次发现了再更新啦
+
+```
+	$.fn.stringifyArray = function(array) {
+		return JSON.stringify(array);	
+	}
+
+	$.fn.parseArray = function() {
+		return JSON.parse(array);	
+	}
+```
+	这样就给jQuery的实例添加了两个方法，`$("").stringifyArray(array)`这样使用就行
+
+* 针对jQuery的优化方法？
+
+	1. 基于class的选择器性能行对于ID选择器开销大得多，因为需要遍历所有DOM元素，因此，能用ID选择器的就不要用class选择器
+	2. 频繁操作的DOM，先缓存起来再操作，用jQ的链式调用更好，反正我平时就特别喜欢链式调用233，我个人觉得链式调用更加清晰
+	3. `for (var i = size, len = arr.length; i < length; i++)`for循环每一次都查找了arr数组的长度，如果在循环过程中长度不变的话，可以使用一个变量将其保存，这样循环可以跑的更快
+
+* $.extend()和$.fn.extend()的区别?
+	
+	上面有个题目讲到$是jQuery类，$.fn是jQuery实例，然后我们又知道extend是扩展方法，那么自然而然就能理解$.extend()扩展的是jQuery类的方法，可以理解为jQuery类的静态方法，$.fn.extend()自然就是扩展jQuery实例的方法，下面举两个栗子来加强记忆
+
+```
+	$.extend({
+		minValue: function(a, b) { return a > b ? b : a }
+	})
+	$.extend(1, 2); //1
+
+	$.fn.extend({
+		sayHello: function() {
+			console.log('Hello');
+		}	
+	})
+	$('#id').sayHello();  //$.fn是实例，那么该方法只能是实例来调用，$.sayHello会报错
+```
+
+* jQuery的属性拷贝(extend)的实现原理是什么，如何实现深拷贝?
+
+	看到这里，可能会有疑问，上面一个问题明明讲了$.extend()就是为JQuery类扩展方法的，这里又说道属性拷贝，其实没有冲突，上文只是为了抓住重点进行解释。
+
+	$.extend(boolean, target, object1, object2)
+
+	第一个boolean值是指定是否采用深拷贝的标志，可以显示的指示为true，不能显示的指定为false，假如不用深拷贝的话，这个属性不赋值就行；
+
+	target是进行属性拷贝的源对象，加入未定义，就默认为jQuery
+
+	object1/object2即为一个一个的对象，后面对象中假如有和前面对象重复的定义，则后面的覆盖前面定义的属性
+
+* jQuery的队列是如何实现的？队列可以用在哪些地方？
+
+	说实话，我之前也没有用过jQuery的队列，正好借此机会，学习了一下关于队列的方法
+
+	jQuery中，jQuery和jQuery.fn中都有queue相关的api，需要牢记的一点是队列中只能存函数
+
+	首先我们看一下jQuery类中的队列
+
+```
+	function aaa() {
+		alert(1);
+	}
+
+	function bbb() {
+		alert(2);
+	}
+
+	$.queue(document, "q1", aaa);  //在document中创建一个队列q1，并往q1中添加aaa函数
+	$.queue(document, "q1", bbb);  //在document下q1队列中添加bbb函数
+	$.queue(document, "q1", [aaa, bbb]) //和上方代码效果一样，只是合起来写
+	
+	$.dequeue(document, "q1")  //取出document下q1队列中第一个函数并执行
+``` 
+	下面我们看一下jQuery实例中的队列
+
+```	
+	$(document).queue("q1", aaa); //入队
+	$(document).dequeue("q1") //出队
+	$(document).clearQueue("q1") //清空队列
+```	
+	至于队列有什么作用呢，大家可以想想，在接触jQuery动画的时候，是不是有动画依次执行的例子
+
+```
+	$(this).animate({ width: 300 }, 2000).animate({ left: 300 }, 2000);
+```
+
+* 谈一下jQuery中的bind(), live(), delegate(), on()的区别?
+
+	bind()方法用来给当前已经存在的元素绑定事件处理函数(click, change等)，我个人喜欢用click()这样的写法
+
+	live()，delegate()，on()我认为他们的作用是用来给当前还未被添加到DOM中的元素绑定事件处理函数，他们使用的都是事件委托原理，其中live()效率底下已经被废弃
+
+	$('selector').live(type, callback) //live是使用document的事件委托，因此效率非常低
+	
+	$('parent').delegate(selector, type, callback) //delegate使用的是父亲元素的事件委托
+
+	$('parent').on(type, selector, callback) 
+
+* jQuery的slideUp动画，如果目标元素是被外部事件驱动，当鼠标快速地连续触发外部元素事件，动画会滞后的反复执行，该如何处理呢？
+
+	利用stop()方法，如`$('#div').stop().animate({ width: 100 }, 100)`
+
+	这里再回忆一下jQuery的stop()方法
+
+	stop(): 停止当前执行的动画，如果动画存在队列的话，只能停止当前的，无法停止后续的动画队列
+
+	stop(true)：停止当前执行的动画随后所有动画，且不会跳转到当前动画的终态
+
+	stop(true, true)：停止当前执行的动画随后所有的动画，然后跳转到当前动画的终态，要记住，jQuery是无法跳转到动画队列最后一个动画的终态的，无论什么方法都不行
+
+* jQuery一个对象可以同时绑定多个事件，这是如何实现的？
+
+	1. 多个事件同一个函数：`$('div').bind('click change', function() {});`
+	2. 多个事件不同函数：
+	```
+		$('div').bind({
+			click: function() {},
+			change: function() {}
+		})
+	```
 
