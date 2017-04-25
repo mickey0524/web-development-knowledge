@@ -1,6 +1,6 @@
 ## 前言
 
-本文由我收集整理了一些前端知识点，参考自各前端大大的博客，github以及各社区的热点题目，前端的知识点多而繁杂，将知识点集中起来温故而知新是极好的。
+本文由我收集整理了一些前端知识点，参考自各前端大大的博客，github以及各社区的热点题目，前端的知识点多而繁杂，将知识点集中起来温故而知新是极好的，大家觉得有用的话就给个星星吧~
 
 ## 目录
 
@@ -76,6 +76,29 @@
 	6. 返回response请求
 	7. 浏览器会渲染response中的body，接下来就是DOM树的建立，同步解析css，最后就是render页面
 
+* input属性disabled和readonly的区别
+	
+	readonly只针对input(text/password)和textarea有效，而disabled对于所有的表单元素都有效，但是表单元素在使用disabled后，当我们将表单以post或get方法提交之后，这个元素的值不会被传递出去，而readonly会将该值传递出去，因为当设置为disabled时候，该元素无法获得焦点，而设置为readonly的时候，使能够获得焦点的，因此会被当作form中的一项提交
+
+* https为什么比http更安全
+
+	具体的见http权威指南/图解http，下面给出基本解释
+	
+	1. http的通信是使用明文不加密的，很可能会被窃听，而https是由http + ssl加密实现的，对通信进行加密
+	2. http并不知道实际与其通信的对方是谁，很可能gg，而https使用一种证书的方法，证书由第三方权威机构发布，很难伪造，https通过验证证书，判断对方身份，是否是我们需要通信的目标
+	3. http消息传输途中，很可能信息遭到篡改(增加或者删除)，而https能够保证http通信消息的完整性
+
+* 点击图片的某些位置，是可以跳转到你对应的网站的，需要使用到map和area
+    
+    	<img src="./avatar.jpg" usemap="#map">
+    	<map name="map">
+    		<area shape="rect" coords="0, 0, 10, 10" href="https://www.baidu.com" target="_blank">
+    	</map>
+
+* html在title中显示小图标的方法
+
+	`<link red="shortcut icon" href="./webp.ico">`
+
 <h2 id="CSS">CSS</h2>
 
 * BFC(Box Formatting Context) 块级格式化上下文
@@ -138,7 +161,12 @@
 ```
 
 * 八种创建等高布局的方法
+
 	http://www.w3cplus.com/css/creaet-equal-height-columns
+
+* css中的两栏布局和三栏布局
+
+	http://blog.csdn.net/crystal6918/article/details/55224670
 
 * 为什么要初始化CSS样式
 
@@ -251,6 +279,64 @@
 	1. 预处理器例如：less，sass，stylus，用来预编译sass或less，增强了css代码的复用性，还有层级，mixin，变量，循环，函数等，具有很方便的UI组件模块化开发能力，极大的提高了工作效率
 	2. 后处理器例如：PostCSS，通常被视为在完成的样式表中根据CSS规范处理CSS，让其更有效；目前最常用的是给CSS属性添加浏览器私有前缀，实现跨浏览器的兼容性问题
 
+* 为什么阿里，腾讯等公司要把图片和css等资源放在单独的域名下？
+
+	1. cookie free，读取这部分资源的时候，没有必要使用cookie，减少很多负载
+	2. 负载均衡，便于管理
+	3. 制作CDN，一劳永逸，不然图片这些挂在ip地址上的话，万一改了ip就麻烦了
+
+* 回流，重绘以及回流重绘的优化
+
+	http://www.cnblogs.com/nanshanlaoyao/p/5876018.html
+
+* css中opacity和rgba的使用
+
+	假如给父亲元素设置了opacity的话，所有的子元素都会受这个opacity的影响，如果要使得子元素不受父亲元素的限制，可以使用absolute绝对定位将原先的父子布局变为兄弟布局，这样父亲的opacity就不会影响孩子了
+
+	rgba完美解决这个问题，只是ie不支持，就很气，rgba可以用于设置前景色，阴影色等各种颜色
+
+* display为inline-block的元素之间会自动出现间距
+
+	有很多种解决方法
+
+	http://www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-%E5%8E%BB%E9%99%A4%E9%97%B4%E8%B7%9D/
+
+	我个人喜欢将父亲元素font-size设置为0，然后孩子元素重新设置font-size
+
+* 前端什么时候用png，什么时候用jpg
+
+	1. png支持透明，jpg不支持透明，需要使用透明的地方必须使用png
+	2. png支持无损保存，jpg支持压缩不可逆保存，多次保存后质量会越来越差
+	3. png比jpg大的多，能用jpg的地方尽量使用jpg
+
+* 一个浮动元素如何与正常流中的内容发生重叠呢
+
+	这需要用到margin的负值，例如，一个元素 float: left; margin-right: -10px;
+	
+	这里还有一个关于正常流元素内容显示的问题，当正常流和浮动元素重叠的时候，但是内容的显示就需要按行内元素和块元素区分记忆了
+
+	假如正常流是行内元素，那么正常流的边框，背景和内容都将在浮动元素上面
+
+	假如正常流是块状元素，那么正常流的内容会出现在浮动元素上面，边框和背景则在浮动元素之下
+
+* 关于z-index的一些理解
+
+	有关z-index 的一些理解（包括static / relative / absolute / fixed） 首先，static是默认状态，是不受top，left等和z-index的影响的，这种时候使用margin的负px移动div，会将下方的东西直接覆盖在当前div上 如果是使用relative等，则会先定位，然后再画图，就会使当前的div在下方div的上面
+
+	父亲和孩子拥有相同z-index的时候，孩子会覆盖父亲
+
+	兄弟拥有相同z-index的时候，后面的会覆盖前面的
+	
+* css属性clip裁剪矩形
+
+	裁剪一个矩形，可以采用rect(top, right, bottom, left)
+	
+	top，right，bottom，left四个距离为四个方向距离左上角的距离，只能用auto或者长度，不能为百分数，right，bottom可以比父亲元素大，而top和left绝对不允许
+	
+	clip: rect(0px, 60px, 200px, 0px)
+
+	需要记住的是，需要让这个属性生效的话，元素必须是absolute的	
+
 <h2 id="JavaScript">JavaScript</h2>
 
 * 如何区分{} 和 [] 
@@ -264,10 +350,6 @@
 	    return Object.prototype.toString.call(o) === ‘[object Array]‘;
 	}
 ```
-
-* 使用jQuery，找到id位selector的select标签中有用data-target属性为isme的option的值
-
-    `$('#selector option[data-target=isme]')`
 
 * JavaScript有几种数据类型？
 
@@ -436,11 +518,12 @@
 	下面来解释一下上面这句话的意思，如果点击的元素是本元素，那么执行的顺序就是捕获事件和冒泡事件定义的先后顺序，那个先定义，哪个就先执行，假如点击的元素是本元素的子元素，那么先执行捕获事件再执行冒泡事件，因为在W3C下，都是先从根元素执行捕获到目标元素，再从目标元素向上执行。
 
 * 列举IE与其他浏览器之间不一样的特性？
-
-	1. 其他浏览器触发事件的目标是event.target，而在IE中则是event.srcElement属性
-	2. 获取字符代码，DOM需要使用charCode，而IE需要使用keyCode
-	3. 阻止某个事件的默认行为，IE中将returnValue设为false，其他浏览器调用preventDefault()
-	4. 停止事件冒泡，IE中设置cancelBubble为true，其他浏览器调用stopPropagation()
+	
+	1. 其他浏览器事件状态为event，IE中为window.event，为了方便下面统称为event 
+	2. 其他浏览器触发事件的目标是event.target，而在IE中则是event.srcElement属性
+	3. 获取字符代码，DOM需要使用charCode，而IE需要使用keyCode
+	4. 阻止某个事件的默认行为，IE中将returnValue设为false，其他浏览器调用preventDefault()
+	5. 停止事件冒泡，IE中设置cancelBubble为true，其他浏览器调用stopPropagation()
 
 * 前端优化的大体思路？
 
@@ -450,6 +533,161 @@
 	2. 减少数据库操作指的是，减少更新次数，缓存结果减少查询次数，将数据库执行的操作尽可能的让你的程序完成(例如join查询)。
 	3. 减少磁盘IO指尽量不适用文件系统作为缓存、减少读写文件次数等。
 	4. 程序优化永远要优化慢的部分，换语言是无法优化的。
+
+* ajax处理跨域有哪几种方式
+
+	1. 代理：通过后台获取其他域名下的内容，然后再把获取的内容返回到前端，这样在同一个域名下，就不会出现跨域的问题
+	2. jsonp
+	3. 推荐使用的方法（XHR 2方法）在服务端头部加上允许跨域的标签
+
+* js事件委托（事件代理）
+
+	事件委托就是利用事件冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件
+
+	http://www.cnblogs.com/liugang-vip/p/5616484.html
+
+	这个博客讲解的非常清楚，事件委托确实和取快递差不多，一个一个dom节点去绑定事件就好比每个人都自己去取快递，而整体绑定到dom节点的父亲节点上，利用事件的冒泡属性去处理事件的话，好比委托前台小姐姐签收，然后小姐姐再去通知你去领取一样
+
+	适合用事件委托的事件 : click, mousedown, mouseup, keyon, keydown, keypress
+
+	mouseover和mouseout虽然也有冒泡属性，但是需要经常计算其位置，也不是很好用
+
+	像focus，blur之类根本就没有冒泡属性的，就更不用说了
+
+* js中的数据类型 typeof instanceof
+
+	js的基本数据类型有String，Number，Boolean，Undefined，Null，Object
+	
+	typeof是用于判断一个变量或者表达式的类型，typeof一般只能返回如下几个结果
+
+	number，boolean，string，undefined，function，object(array, 对象, null)
+
+	这里有个容易忘记的知识点
+	
+	`var num = 1; num instanceof Number // false`
+	`var num = new Number(1); num instanceof Number // true`
+	
+	String，Boolean和Number是一样的，Array无论是直接定义还是调用构造函数，都为Array的实例
+
+* document.getElementsByClassName()的兼容问题
+
+	又是IE==, IE6，7，8没有getElementsByClassName方法，因此需要兼容
+```
+	function getName(obj, cName) {
+		var obj = obj || document;
+		if (obj.getElementsByClassName) {
+			return obj.getElementsByClassName(cName);
+		}	
+		else {
+			var arr = [];
+			var all = obj.getElementsByTagName('*');
+			for (var i in all) {
+				if (all[i].className.indexOf('cName') != -1) {
+					arr.push(all[i]);
+				}			
+			}
+			return arr;
+		}
+	}
+```
+
+* caller和callee的区别
+
+	其实caller和callee是风马牛，不相及的两个东西，之所以把这个属性拿来比较记忆，是因为两个属性长的很像
+
+	callee是arguments的一个属性，有两个作用
+	
+	arguments.callee.length 函数形参的个数
+	arguments.callee() 可以用于函数递归调用自身
+
+	arguments.length 函数实参的个数
+
+	caller仅仅是当函数执行的时候才会有用，返回调用该函数的函数，如果是顶层函数调用的话，则返回null
+
+    	var a = function() {
+    		alert(a.caller);
+    	}
+    
+    	var b = function() {
+    		a();
+    	}
+    	
+    	a() // 弹出null
+    
+    	b() // 弹出function() { a(); }
+
+* 闭包的出现是基于什么机制的
+
+	那必须是作用域机制，闭包的机制就是一个函数中返回另外一个函数，而返回的这个函数能够访问外围函数的属性，有一些oo的感觉
+
+* window.onload和$(document).ready(function())的区别
+
+	window.onload要等到页面上所有的元素加载完毕才会执行
+	
+	$(document).ready(function())在DOM树加载完毕的时候就会执行
+
+	$(window).load() === window.onload
+
+* 用setTimeout模拟setInterval
+
+    	setTimeout(function() {
+    		do something
+    		setTimeout(arguments.callee, 1000);
+    	}, 1000);
+    	
+    	===
+    
+    	setInterval(function() {
+    		do something
+    	}, 1000);
+
+* 如何判断浏览器的种类和版本
+
+	navigator.userAgent.indexOf('Chrome') //判断是哪种浏览器
+	
+	navigator.appVersion //浏览器的版本
+
+	http://www.jb51.net/article/27876.htm
+
+* 严格模式和非严格模式的一些区别
+
+	http://blog.csdn.net/sunshinegirl_7/article/details/49510371
+	
+	1. 没有with语句，无法延长作用域链
+	2. 使用未定义的变量，不再提示undefined，而是报错
+	3. 没有caller，argument.callee
+	4. 字面量属性重复报错
+	5. eval，arguments变为关键字，不能作为变量名字
+	6. 一般函数调用的时候，this指向undefined，不指向window
+
+* javascript中的~运算符
+
+    	var num = 25;
+    	~num = -26; //也就是说非运算符其实就是原数的负数减去1
+
+	这里小小复习一下，~~num可以对num取整数	
+
+* DOM2的事件处理程序是addEventListener('click', function() {}, false)，这里想挖个坑的话，就问这样写如何清除这个事件处理程序，想当然脱口而出就是removeEventListener，那就完蛋了，**如果addEventListener的处理处理函数是匿名的话，是无法删除的**。
+
+* setTimeout的第三个参数
+
+	setTimeout可以通过第三个参数给其中的延时处理函数传递参数
+
+    	for (var i = 0; i < 5; i++) {
+    		setTimeout(function(j) {
+    			console.log(j);
+    		}, 1000, i);
+    	}	
+	
+	这样的话，会在1s后同时输出0，1，2，3，4，也就证明将最后一个参数i成功传入了第一个函数中
+
+	假如要延时输出0，1，2，3，4
+	
+    	for (var i = 0; i < 5; i++) {
+    		setTimeout(function(j) {
+    			console.log(j);
+    		}, 1000 * i, i);
+    	}
 
 <h2 id="jQuery">jQuery</h2>
 
@@ -583,3 +821,10 @@
 		})
 	```
 
+* 使用jQuery，找到id位selector的select标签中有用data-target属性为isme的option的值
+
+    `$('#selector option[data-target=isme]')`
+
+* 需要注意的是$('#id')获取的永远是对象，因此不能用if($('#id'))来判断，可以使用if($('#id').length > 0)或者if($('#id')[0])来判断
+
+* jQuery的遍历方法each中的index不能省略
