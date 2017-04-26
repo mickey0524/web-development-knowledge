@@ -99,6 +99,34 @@
 
 	`<link red="shortcut icon" href="./webp.ico">`
 
+* 知道浏览器的requestAnimationFrame这个API么？
+
+	可能有很多大兄弟绝对transform, keyframe或者transition很好用，当然我也是这么觉得的，然后有一天我看到一个面试题目，大概是往一个ul里面插入30000个li，我想到了documentFragment，用的是setTimeout，然后看了解答发现用的是polyfill，我用的是requestAnimationFrame的备胎！！！
+
+	使用setTimeout的问题是，画面的更新频率要达到每秒60s才能让肉眼看到流畅的动画效果，因为很多浏览器的频率为60HZ，这也是为啥我的setTimeout时间间隔经常使用的是1000 / 60的原因
+
+	下面给出一段由requestAnimationFrame实现进度条由0-100的代码
+	
+    	var ndProgress = document.getElementById('js-test');
+    	var proNum = 0;
+    
+    	function step () {
+    		if (proNum < 100) {
+    			proNum += 1;
+    			ndProgress.style.width = proNum + '%';
+    			ndProgress.innerHTML = proNum + '%';
+    			window.requestAnimationFrame(step);
+    		}
+    	}
+    	
+    	requestAnimationFrame(step);
+
+	requestAnimationFrame简介：http://www.cnblogs.com/Wayou/p/requestAnimationFrame.html
+
+	requestAnimationFrame polyfill：https://gist.github.com/paulirish/1579671
+
+	让我知道这个api的面试题目：https://zhuanlan.zhihu.com/p/26420034
+
 <h2 id="CSS">CSS</h2>
 
 * BFC(Box Formatting Context) 块级格式化上下文
