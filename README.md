@@ -8,6 +8,7 @@
 * [CSS](#CSS) 
 * [JavaScript](#JavaScript)
 * [jQuery](#jQuery)
+* [Node.js](#Nodejs)
 
 <h2 id="HTML">HTML</h2> 
 
@@ -101,7 +102,7 @@
 
 * 知道浏览器的requestAnimationFrame这个API么？
 
-	可能有很多大兄弟绝对transform, keyframe或者transition很好用，当然我也是这么觉得的，然后有一天我看到一个面试题目，大概是往一个ul里面插入30000个li，我想到了documentFragment，用的是setTimeout，然后看了解答发现用的是polyfill，我用的是requestAnimationFrame的备胎！！！
+	可能有很多大兄弟觉得transform, keyframe或者transition很好用，当然我也是这么觉得的，然后有一天我看到一个面试题目，大概是往一个ul里面插入30000个li，我想到了documentFragment，用的是setTimeout，然后看了解答发现用的是polyfill，我用的是requestAnimationFrame的备胎！！！
 
 	使用setTimeout的问题是，画面的更新频率要达到每秒60s才能让肉眼看到流畅的动画效果，因为很多浏览器的频率为60HZ，这也是为啥我的setTimeout时间间隔经常使用的是1000 / 60的原因
 
@@ -717,6 +718,38 @@
     		}, 1000 * i, i);
     	}
 
+* 考察Javascript的运行机制的题目
+	
+	https://zhuanlan.zhihu.com/p/25407758
+
+    	setTimeout(function() {
+    	  console.log(1)
+    	}, 0);
+    	new Promise(function executor(resolve) {
+    	  console.log(2);
+    	  for( var i=0 ; i<10000 ; i++ ) {
+    		i == 9999 && resolve();
+    	  }
+    	  console.log(3);
+    	}).then(function() {
+    	  console.log(4);
+    	});
+    	console.log(5);
+	
+	上面这个代码输出值是什么呢？
+
+	首先碰到一个setTimeout，于是会先设置一个定时，在定时结束后(当前tick结束后)，将传递这个函数放到任务队列里面，因此开始肯定不会输出1。
+
+	然后是一个Promise，里面的函数是直接执行的，因此应该直接输出2，3
+
+	然后，Promise的then应当会放到当前tick的最后，但是还是在当期tick中
+
+	因此，先输出5，再输出4
+
+	最后，到下一个tick，就是输出1
+
+	因此，输出的顺序是 2，3，5，4，1
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
@@ -856,3 +889,85 @@
 * 需要注意的是$('#id')获取的永远是对象，因此不能用if($('#id'))来判断，可以使用if($('#id').length > 0)或者if($('#id')[0])来判断
 
 * jQuery的遍历方法each中的index不能省略
+
+<h2 id="Nodejs">Node.js</h2>
+
+* js 中， 0.1 + 0.2 === 0.3 是否为 true ? 在不知道浮点数位数时应该怎样判断两个浮点数之和与第三数是否相等？
+
+	答案肯定是不为true的，因为Javascript的number类型按照ECMA的Javascript标准，它的Number类型就是IEEE 754的双精度数值，因此Javascript在做四则运算的时候，精度会丧失
+
+	至于后面这个问题，我的话，会采用这个方法
+	```
+		if (Math.abs(num1 - num2) < 1E-10) {
+			// do something
+		}
+	```
+
+* a.js和b.js两个文件互相require是否会死循环？双方是否能导出变量？如何从设计上避免这种问题？
+
+	不会的，下面给出require的实现机制
+
+    	function require(...) {
+    		var module = { exports: {} };
+    		((module, exports) => {
+    			function some_func() {};
+    			exports = some_func;
+    			module.exports = some_func;
+    		})(module, module.exports);
+    		return module.exports;
+    	}
+	从上面的实现代码也可以看出exports就是module.exports的一个引用，具体这两个之间的关系见下方url https://cnodejs.org/topic/5734017ac3e4ef7657ab1215
+
+* Event是Nodejs中一个非常重要的core模块，在node中有许多重要的core API都是依赖其建立的.比如Stream是基于Events实现的，下面我们来看几段event相关的代码
+
+    	const EventEmitter = require('events');
+    
+    	let emitter = new EventEmitter();
+    	
+    	emitter.on('myEvent', () => {
+    	  console.log('hi 1');
+    	});
+    	
+    	emitter.on('myEvent', () => {
+    	  console.log('hi 2');
+    	});
+    	
+    	emitter.emit('myEvent');
+
+	上方的代码会依次输出hi 1和hi 2
+
+	const EventEmitter = require('events');
+
+    	let emitter = new EventEmitter();
+    	
+    	emitter.on('myEvent', () => {
+    	  console.log('hi');
+    	  emitter.emit('myEvent');
+    	});
+    	
+    	emitter.emit('myEvent');
+
+	上方代码会死循环，道理也很简单，第一次监听到了myEvent，然后又发出了myEvent的信号，这个是全局的，继续监听，然后就死循环了
+
+	const EventEmitter = require('events');
+
+    	let emitter = new EventEmitter();
+    	
+    	emitter.on('myEvent', function sth () {
+    	  emitter.on('myEvent', sth);
+    	  console.log('hi');
+    	});
+    	
+    	emitter.emit('myEvent');
+
+	这样就不会死循环，因为第二次监听之后，已经没有发出myEvent事件了
+
+* 用js实现一个sleep函数？
+
+	Nodejs中执行js代码的过程是单线程的，只有当前代码都执行完，才会切入事件循环，然后从事件队列中pop出下一个回调函数开始执行代码，所以实现一个sleep函数，只要通过一个死循环就可以阻塞整个js的执行流程
+    
+    	function sleep(ms) {
+    		var start = Date.now(), expire = start + ms;
+    		while (Date.now() < expire) { }
+    		return ;
+    	}
