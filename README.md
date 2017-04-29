@@ -971,3 +971,44 @@
     		while (Date.now() < expire) { }
     		return ;
     	}
+
+* Child Process中child.kill和child.send的区别
+
+	child.kill是基于信号系统，child.send是基于IPC通道
+
+* 父进程或子进程的死亡是否会影响对方？什么是孤儿进程？
+
+	子进程死亡不会影响父进程，不过子进程死亡时，会向它的父进程发送死亡信号，反之父进程死亡，一般情况下子进程也会随之死亡，但如果此时子进程处于可运行状态的话，子进程将被init进程收养，从而成为孤儿进程，另外，子进程死亡的时候，父进程没有及时调用wait()或者waitpid()来返回死亡进程的相关信息，此时子进程还有一个PCB残留在进程表中，被称为僵尸进程
+
+* 初识cluster
+
+	Cluster是最常见的Node.js利用多核的办法，它是基于child_process.fork()来实现的，所以cluster产生的进程之间是通过IPC来通信的，并且它也没有拷贝父亲进程的空间，而是通过加入cluster.isMaster这个标识来区分父亲进程还是子进程
+
+    	const cluster = require('cluster');
+    	const http = require('http');
+    	const numCPUs = require('os').cpus().length;
+    
+    	if (cluster.isMaster) {	
+    		for (var i = 0; i < numCPUs; i++)
+    			cluster.fork();
+    		}
+    		cluster.on('exit', (worker) => {
+    			console.log(`${worker.process.pid} died`);
+    		});
+    	}
+    	else {
+    		http.createServer((req, res) => {
+    			res.writeHead(200);
+    			res.end('hello world\n');
+    		}).listen(8000);
+	在上述代码中 numCPUs 虽然是全局变量但是, 在父进程中修改它, 子进程中并不会改变, 因为父进程与子进程是完全独立的两个空间. 他们所谓的共有仅仅只是都执行了, 并不是同一份.
+	
+	你可以把父进程执行的部分当做 a.js, 子进程执行的部分当做 b.js, 你可以把他们想象成是先执行了 node a.js 然后 cluster.fork 了几次, 就执行执行了几次 node b.js. 而 cluster 模块则是二者之间的一个桥梁, 你可以通过 cluster 提供的方法, 让其二者之间进行沟通交流.
+
+	一般都会把处理逻辑封装成一个app.js，那么在else里面require('./app.js')是个不错的选择
+
+	最后大力推荐一下pm2管理，pm2 start app.js -i 4 起4个工作进程
+
+* 父进程和子进程之间的IPC通道是怎么建立的?
+	
+	在通过 `child_process` 建立子进程的时候，是可以指定子进程的env(环境变量)的，所以Node.js在启动子进程的时候，主进程会先建立IPC通道，然后将IPC通道的fd(文件描述符)通过环境变量(NODE_CHANNEL_FD)的方式传递给子进程，然后子进程通过fd连上IPC与父进程建立连接
