@@ -1012,3 +1012,74 @@
 * 父进程和子进程之间的IPC通道是怎么建立的?
 	
 	在通过 `child_process` 建立子进程的时候，是可以指定子进程的env(环境变量)的，所以Node.js在启动子进程的时候，主进程会先建立IPC通道，然后将IPC通道的fd(文件描述符)通过环境变量(NODE_CHANNEL_FD)的方式传递给子进程，然后子进程通过fd连上IPC与父进程建立连接
+
+* 如何创建一个Buffer对象，知道new Buffer()被逐渐废弃了么，知道为什么吗？
+
+	ps: 对buffer对象使用typeof得到的是object
+
+	在Node.js v6.x之前，我们创建buffer对象使用的都是new Buffer()的方法，但是在此之后，该方法开始被废弃，理由是参数类型不同会返回不同类型的Buffer对象，所以当开发者没有正确校验参数或没有正确初始化Buffer对象的内容时，以及不了解的情况下初始化就会在不经意间向代码中引入安全性和可靠性问题。
+
+	因此当前的方法是
+
+	`Buffer.from()` 根据已有数据生成一个Buffer对象
+
+	`Buffer.alloc(size)` 创建一个大小为size的Buffer对象
+
+* 自己实现一个console.log()
+
+    	let print = (str) => process.stdout.write(str + '\n');
+    	
+    	print('hello world');
+
+* Nodejs如何同步的获取用户的输入
+
+	在Nodejs中，输入流 (stdin), 输出流 (stdout), 错误流 (stderr) 三者. 在 Node.js 中分别对应 process.stdin (Readable), process.stdout (Writable) 以及 process.stderr (Writable) 三个 stream.
+
+	下面给出stackoverflow上的实现方法
+
+	    /*
+    	 * http://stackoverflow.com/questions/3430939/node-js-readsync-from-stdin
+    	 * @mklement0
+    	 */
+    	var fs = require('fs');
+    	
+    	var BUFSIZE = 256;
+    	var buf = new Buffer(BUFSIZE);
+    	var bytesRead;
+    	
+    	module.exports = function() {
+    	  var fd = ('win32' === process.platform) ? process.stdin.fd : fs.openSync('/dev/stdin', 'rs');
+    	  bytesRead = 0;
+    	
+    	  try {
+    	bytesRead = fs.readSync(fd, buf, 0, BUFSIZE);
+    	  } catch (e) {
+    	if (e.code === 'EAGAIN') { // 'resource temporarily unavailable'
+    	  // Happens on OS X 10.8.3 (not Windows 7!), if there's no
+    	  // stdin input - typically when invoking a script without any
+    	  // input (for interactive stdin input).
+    	  // If you were to just continue, you'd create a tight loop.
+    	  console.error('ERROR: interactive stdin input not supported.');
+    	  process.exit(1);
+    	} else if (e.code === 'EOF') {
+    	  // Happens on Windows 7, but not OS X 10.8.3:
+    	  // simply signals the end of *piped* stdin input.
+    	  return '';
+    	}
+    	throw e; // unexpected exception
+    	  }
+    	
+    	  if (bytesRead === 0) {
+    	// No more stdin input available.
+    	// OS X 10.8.3: regardless of input method, this is how the end 
+    	//   of input is signaled.
+    	// Windows 7: this is how the end of input is signaled for
+    	//   *interactive* stdin input.
+    	return '';
+    	  }
+    	  // Process the chunk read.
+    	
+    	  var content = buf.toString(null, 0, bytesRead - 1);
+    	
+    	  return content;
+    	};
