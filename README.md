@@ -750,6 +750,10 @@
 
 	因此，输出的顺序是 2，3，5，4，1
 
+* JS中变量名作为if条件的真/假
+	
+	以下情况会被认为返回false，""为空的字符串，为0的数字，为null的对象，为undefined的对象，布尔值false，其他情况下会被认为返回真
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
