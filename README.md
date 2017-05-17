@@ -787,6 +787,10 @@
 
 	具体的例子见上面的URL
 
+* Web 中的一些黑话（2333）
+
+	写论文看到的Vanilla JavaScript，我一看，卧槽，这不是香草Javascript，一查才发现这就是原生Js的意思，然后Polyfill上面已经做过阐述了，就是兼容。
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
