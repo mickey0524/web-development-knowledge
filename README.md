@@ -18,7 +18,7 @@
 
   （2）、标准模式的排版 和JS运作模式都是以该浏览器支持的最高标准运行。在兼容模式中，页面以宽松的向后兼容的方式显示,模拟老式浏览器的行为以防止站点无法工作。
 
-* HTML5 为什么只需要写 <!DOCTYPE HTML>？
+* HTML5 为什么只需要写` <!DOCTYPE HTML>`？
 	
 	HTML5不基于SGML，因此不需要对DTD进行引用，但是需要doctype来规范浏览器的行为(让浏览器按照它们应该的方式来运行)
 	而HTML4.01基于SGML，所以需要对DTD进行引用，才能告知浏览器文档所使用的文档类型
@@ -51,7 +51,7 @@
 
 * iframe有哪些缺点?
 
-	1.iframe会阻塞主页面的Onload事件
+	1.iframe会阻塞主页面的onload事件
 
 	2.搜索引擎的检索程序无法解读这种页面，不利于SEO(search engine optimistion)搜索引擎优化
 
@@ -98,7 +98,7 @@
 
 * html在title中显示小图标的方法
 
-	`<link red="shortcut icon" href="./webp.ico">`
+	`<link rel="shortcut icon" href="./webp.ico">`
 
 * 知道浏览器的requestAnimationFrame这个API么？
 
