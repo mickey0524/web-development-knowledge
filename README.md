@@ -793,6 +793,33 @@
 
 	写论文看到的Vanilla JavaScript，我一看，卧槽，这不是香草Javascript，一查才发现这就是原生Js的意思，然后Polyfill上面已经做过阐述了，就是兼容。
 
+* 原生JS的Object上一些常用的方法（ES5/ES6）
+
+	1. Object.defineProperty()              设置enumerabel等参数
+	2. Object.getOwnPropertyDescriptor()    获取对象的一个属性的描述符
+	3. Object.getOwnPropertyDescriptors()   获取对象全部属性的描述符
+	3. Object.getOwnPropertyNames()         获取对象全部的属性（包括能用for-in遍历的和不能用for-in遍历的）
+	4. Object.hasOwnProperty()              判断该属性是否是自己的，而不是原型上的
+	5. Object.getOwnPropertySymbols()        获取对象中的symbol
+	6. Object.create()                      
+	7. Object.assign()
+
+* 原生JS中的prototype和__proto__的区别
+	
+	http://rockyuse.iteye.com/blog/1426510
+	
+	简单来说，这两个属性和原型链的关系都很大，prototype是构造函数的，而__proto__可以看作是对象的一个属性
+	
+    	function Person() {
+    		Person.prototype.say = function() {
+    			alert('name');
+    		}
+    	}
+    
+    	var person = new Person();
+    
+    	person.__proto__ === Person.prototype (true)
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
