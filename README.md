@@ -128,6 +128,13 @@
 
 	让我知道这个api的面试题目：https://zhuanlan.zhihu.com/p/26420034
 
+* 各大浏览器的内核
+
+	1. IE一直使用的是trident
+	2. safari, chrome使用的是webkit
+	3. opera原来使用的是presto（速度超过了当年的webkit），然后13年后使用blink(webkit的分支)
+	4. Firefox使用的是gecko内核
+
 <h2 id="CSS">CSS</h2>
 
 * BFC(Box Formatting Context) 块级格式化上下文
