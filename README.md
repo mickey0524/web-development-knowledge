@@ -373,7 +373,15 @@
 	
 	clip: rect(0px, 60px, 200px, 0px)
 
-	需要记住的是，需要让这个属性生效的话，元素必须是absolute的	
+	需要记住的是，需要让这个属性生效的话，元素必须是absolute的
+
+* css图片的预加载和懒加载
+	
+	http://blog.csdn.net/YiDaShi33/article/details/54316126
+
+	css图片的预加载是在页面渲染之前，提前加载图片，当用户需要查看的时候可以直接从本地缓存中渲染，牺牲效率，提高用户体验
+
+	css图片的懒加载(甚至是不加载)，指的是，将页面中的img标签的src属性设置为一个1px*1px的图片，而将图片真正的url放在标签的自定义属性中，类似data-origin，当图片真正被访问的时候，再将src设置为data-origin，极大的减轻了服务器的压力	
 
 <h2 id="JavaScript">JavaScript</h2>
 
