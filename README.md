@@ -838,6 +838,15 @@
 
 	CommonJS模块发生循环加载的时候不会发送死循环，因为返回的是当前执行的部分的值，因此require()得出的就是一个{}
 
+* 双向绑定的原理
+
+	https://segmentfault.com/a/1190000006599500
+
+	http://liuwanlin.info/jian-dan-de-shuang-xiang-shu-ju-bang-ding/
+
+	简单的发布-订阅模式，Vue使用的是数据劫持，在我的github 2017ife的rep中有简单的实现
+	
+	https://github.com/mickey0524/2017ife/tree/master/vue-learning-5
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
