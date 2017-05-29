@@ -816,8 +816,12 @@
 	3. Object.getOwnPropertyNames()         获取对象全部的属性（包括能用for-in遍历的和不能用for-in遍历的）
 	4. Object.hasOwnProperty()              判断该属性是否是自己的，而不是原型上的
 	5. Object.getOwnPropertySymbols()        获取对象中的symbol
-	6. Object.create()                      
-	7. Object.assign()
+	6. Object.create(proto[, 参数描述符]) 这里参数描述默认是不可枚举的，需要手动显示的将enumerable设为true                      
+	7. Object.assign()   只拷贝对象本身的属性，不拷贝对象继承的属性，也不拷贝enumerable为false的属性，使用Object.assign({}, obj)可以拷贝自身对象，假如不想丢失原型上的属性，如下所示
+    
+    	var origin = Object.getPrototypeOf(obj);
+
+    	var newObj = Object.assign(Object.create(origin), obj);
 
 * 原生JS中的prototype和__proto__的区别
 	
@@ -855,6 +859,26 @@
 	简单的发布-订阅模式，Vue使用的是数据劫持，在我的github 2017ife的rep中有简单的实现
 	
 	https://github.com/mickey0524/2017ife/tree/master/vue-learning-5
+
+* JavaScript中的继承
+
+	在ES5，ES6中，继承其实都是基于原型链的操作，ES6中class的extends就是一个语法糖，但是ES5和ES6的this操作顺序是不同的，ES5的继承，其实是先创建子类的this，再通过Parent.apply()添加属性，而ES6的继承则是先创建父亲对象的this，然后再调用子类的构造函数修改this，因此在constructor函数中，必须先调用super()函数
+
+    	class Child extends Parent {
+    		constructor (x, y, z) {
+    			super(x);
+    			this.y = y;
+    			this.z = z;
+    		}
+    	}
+
+* http请求中get和post的区别
+
+	1. get是幂等的操作，post不是幂等的操作
+	2. get会将参数跟在url后面进行传递，而post请求则是作为http消息的实体内容发送给web服务器
+	3. get请求对传输数据的大小有限制（通常不能大于2KB），而使用post方法传递数据量的上限要比get方法大得多（理论上不受限制）
+	4. get方法默认会被浏览器缓存，容易被窃取
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
