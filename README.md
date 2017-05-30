@@ -100,6 +100,14 @@
 
 	`<link rel="shortcut icon" href="./webp.ico">`
 
+* 在HTML页面内兼容移动端的操作
+
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-saclable=no">
+
+	如果不在HTML页面中加入这句话，css中@media无法根据device-width做兼容，js代码中获取的页面宽度一直为900
+
+
+
 * 知道浏览器的requestAnimationFrame这个API么？
 
 	可能有很多大兄弟觉得transform, keyframe或者transition很好用，当然我也是这么觉得的，然后有一天我看到一个面试题目，大概是往一个ul里面插入30000个li，我想到了documentFragment，用的是setTimeout，然后看了解答发现用的是polyfill，我用的是requestAnimationFrame的备胎！！！
