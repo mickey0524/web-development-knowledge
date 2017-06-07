@@ -109,6 +109,8 @@
 
 
 * 知道浏览器的requestAnimationFrame这个API么？
+	
+	requestAnimationFrame在React和Angular中都有使用	
 
 	可能有很多大兄弟觉得transform, keyframe或者transition很好用，当然我也是这么觉得的，然后有一天我看到一个面试题目，大概是往一个ul里面插入30000个li，我想到了documentFragment，用的是setTimeout，然后看了解答发现用的是polyfill，我用的是requestAnimationFrame的备胎！！！
 
@@ -895,6 +897,14 @@
 	3. get请求对传输数据的大小有限制（通常不能大于2KB），而使用post方法传递数据量的上限要比get方法大得多（理论上不受限制）
 	4. get方法默认会被浏览器缓存，容易被窃取
 
+* JavaScript既然是单线程的，那么异步要怎么理解？
+
+	所谓单线程，是指负责解释并执行JS代码的线程只有一个，其实还是有很多其他线程的，比如进行Ajax请求的线程、监控用户事件的线程、定时器线程、读写文件的线程（NodeJs中）等等。
+
+	以Ajax来解释异步，主线程执行到发送Ajax的代码时，通知负责处理Ajax请求的线程(不妨叫做Ajax线程)：你给我发个请求吧，我把请求地址和参数都给你了。然后主线程就不管这事了，继续执行后面的代码。等Ajax线程收到HTTP响应的时候，就通知主线程：你的响应来了，快来取吧。主线程在合适的时候就会去取响应，进行适当的处理。
+
+	多说一句，Ajax线程通知主线程的方式就是所谓的事件队列和事件循环机制。	
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
@@ -934,7 +944,7 @@
 	$.extend({
 		minValue: function(a, b) { return a > b ? b : a }
 	})
-	$.extend(1, 2); //1
+	$.minValue(1, 2); //1
 
 	$.fn.extend({
 		sayHello: function() {
