@@ -145,6 +145,18 @@
 	3. opera原来使用的是presto（速度超过了当年的webkit），然后13年后使用blink(webkit的分支)
 	4. Firefox使用的是gecko内核
 
+* 在Chrome控制台用dataset设置data-*属性（需要使用驼峰式命名方法，浏览器会自动将其转为data-*形式）
+
+    	$0.dataset.aBC = 1;
+    	<div class="" id="lga" data-a-b-c="1">...</div>
+    	$0.dataset.aBC;  // 1
+    	$0.getAttribute('data-a-b-c'); // 1 
+
+	css中也可以通过自定义data-*属性选中Element
+	[data-a-b-c="1"] {
+		color: red;	
+	}
+
 <h2 id="CSS">CSS</h2>
 
 * BFC(Box Formatting Context) 块级格式化上下文
