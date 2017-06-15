@@ -917,6 +917,8 @@
 
 	多说一句，Ajax线程通知主线程的方式就是所谓的事件队列和事件循环机制。	
 
+* JavaScript中可以使用！！来做强制布尔转型
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
@@ -1056,6 +1058,13 @@
 * 需要注意的是$('#id')获取的永远是对象，因此不能用if($('#id'))来判断，可以使用if($('#id').length > 0)或者if($('#id')[0])来判断
 
 * jQuery的遍历方法each中的index不能省略
+
+* jQuery的ajax操作在最后可以增加一个always操作，这样无论返回的结果是success还是error，都要执行该always中的语句
+
+    	$.ajax({
+    	}).always(function() {
+    		... //必须执行的代码
+    	})
 
 <h2 id="Nodejs">Node.js</h2>
 
