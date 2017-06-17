@@ -9,6 +9,7 @@
 * [JavaScript](#JavaScript)
 * [jQuery](#jQuery)
 * [Node.js](#Nodejs)
+* [移动端](#mobile)
 
 <h2 id="HTML">HTML</h2> 
 
@@ -1259,3 +1260,9 @@
     	
     	  return content;
     	};
+
+<h2 id="mobile">移动端</h2>
+
+* 移动端有关touch的事件
+
+	touchstart, touchmove, touchend(移动端监听用户手势事件)
