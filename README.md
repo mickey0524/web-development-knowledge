@@ -1266,3 +1266,6 @@
 * 移动端有关touch的事件
 
 	touchstart, touchmove, touchend(移动端监听用户手势事件)
+* 移动端判断是否为android或者ios
+
+	window.GlobalMobileUtil.isIos或者window.GlobalMobileUtil.isAndroid，移动端针对android和ios需要进行很多区分操作，最典型的dpr
