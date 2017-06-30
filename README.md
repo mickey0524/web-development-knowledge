@@ -1281,3 +1281,11 @@
 * 移动端判断是否为android或者ios
 
 	window.GlobalMobileUtil.isIos或者window.GlobalMobileUtil.isAndroid，移动端针对android和ios需要进行很多区分操作，最典型的dpr
+
+* dpr和移动端适配
+
+	http://www.w3cplus.com/mobile/lib-flexible-for-html5-layout.html，一般计算dpr和font-size都是动态在html上使用dataset去设定的
+
+* 网上都说操作真实 DOM 慢，但测试结果却比 React 更快，为什么？
+
+	参照知乎yyx大大的回复 https://www.zhihu.com/question/31809713/answer/53544875
