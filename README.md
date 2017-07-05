@@ -1290,6 +1290,6 @@
 
 	参照知乎yyx大大的回复 https://www.zhihu.com/question/31809713/answer/53544875
 
-* android机器经常不能高度居中
+* android机器经常不能高度居中，但是IOS和chrome devtool明明是居中的，是不是很痛苦？
 	
 	首先，需要避免使用奇数的px，android对小数不敏感，其次，由于IFC的原因，不同android height和line-height的基准是不一样的，可以试着把height去掉，让line-height自动撑起高度，这样有助于在android上实现高度居中
