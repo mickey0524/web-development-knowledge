@@ -1293,7 +1293,7 @@
 
 * android机器经常不能高度居中，但是IOS和chrome devtool明明是居中的，是不是很痛苦？
 	
-	首先，需要避免使用奇数的px，android对小数不敏感，其次，由于IFC的原因，不同android height和line-height的基准是不一样的，可以试着把height去掉，让line-height自动撑起高度，这样有助于在android上实现高度居中
+	首先，尽量不要使用奇数的px，android对小数不敏感，其次，由于IFC的原因，不同android height和line-height的基准是不一样的，可以试着把height去掉，让line-height自动撑起高度，这样有助于在android上实现高度居中
 
 <h2 id="webpack">webpack</h2>
 
