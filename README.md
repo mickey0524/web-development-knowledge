@@ -1315,3 +1315,7 @@
 * caniuse
 	
 	https://caniuse.com/ 可以在这个网站上查询HTML5和CSS最新属性的兼容性
+
+* JavaScript资源中文大全
+
+	https://github.com/jobbole/awesome-javascript-cn
