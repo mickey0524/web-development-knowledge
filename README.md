@@ -1310,6 +1310,10 @@
 	
 	https://github.com/mickey0524/awesome-webpack-cn
 
+* webpack与flexbile.js配合实现自适应
+
+	webpack在处理样式打包的时候在less,sass等loader之前，在style-loader，css-loader之后，使用postcss-loader，配置postcss-pxtorem，就能将按照设计稿设计的px属性转为自适应的rem属性 https://github.com/cuth/postcss-pxtorem	
+
 <h2 id="userfulWeb">有用的网站</h2>
 
 * 阿里妈妈icon	
