@@ -164,6 +164,10 @@
 
 	当初始HTML文档被完全加载解析时，DOMContentLoaded事件被触发，而无需等待样式表、图像和子框架完成加载。另一个不同的事件load应该仅用于检测一个完全加载的页面。在使用DOMContentLoader更加合适的情况下使用load是个非常流行的错误，所以要谨慎
 
+* 在本地当前目录启动静态文件服务器
+
+	可以用于安装apk的文件，当然正道是通过adb shell安装，不过这样暴力省事啊，python -m SimpleHTTPServer 8080 或者全局安装anywhere这个朴灵大大写的库	
+
 <h2 id="CSS">CSS</h2>
 
 * BFC(Box Formatting Context) 块级格式化上下文
