@@ -934,6 +934,18 @@
 
 * JavaScript中可以使用！！来做强制布尔转型
 
+* 请说出if([] == false) { console.log(1); }, if({} == false) { console.log(2); }, if([]) { console.log(3); }的最终结果
+
+	嗯，今天下午，撇了一眼mentor桌上的面试题，看到了这道题，发现不会，深感基础薄弱gg，这道题的答案是1，3
+
+	[] == false，这个比较首先对[]做了valueOf，然后调用toString变为“”，所以[] == false
+
+	同理，String({}) != false
+
+	Boolean([])，当参数为object（排除null，undefined），返回true，详细可以看下方的url
+
+	https://www.h5jun.com/post/why-false-why-true.html
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
