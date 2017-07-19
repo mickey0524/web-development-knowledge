@@ -166,7 +166,11 @@
 
 * 在本地当前目录启动静态文件服务器
 
-	可以用于安装apk的文件，当然正道是通过adb shell安装，不过这样暴力省事啊，python -m SimpleHTTPServer 8080 或者全局安装anywhere这个朴灵大大写的库	
+	可以用于安装apk的文件，当然正道是通过adb shell安装，不过这样暴力省事啊，python -m SimpleHTTPServer 8080 或者全局安装anywhere这个朴灵大大写的库
+
+* target和currentTarget的区别
+
+		target是事件的真实发生节点，currentTarget是绑定事件处理程序的节点
 
 <h2 id="CSS">CSS</h2>
 
