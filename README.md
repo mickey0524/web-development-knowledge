@@ -946,6 +946,18 @@
 
 	https://www.h5jun.com/post/why-false-why-true.html
 
+* 函数节流的概念
+
+	我相信很多童鞋，都用过函数节流的方法，但是听到这个名字的时候还是很陌生，嗯，函数节流就是避免响应短时间内发生的类似 resize，mouseover这种事件的技术，使用setTimeout就行啦
+
+* 如何获取当前元素距离页面左上角的坐标
+
+	1. offsetLeft, offsetTop累加
+	2. scrollTop同理
+	3. getBoundingClientRect().left, getBoundingClientRect().top
+
+	更多详细的解释见阮一峰大大的博客 http://www.ruanyifeng.com/blog/2009/09/find_element_s_position_using_javascript.html
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
