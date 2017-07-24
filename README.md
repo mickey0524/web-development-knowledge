@@ -1359,3 +1359,7 @@
 * JavaScript资源中文大全
 
 	https://github.com/jobbole/awesome-javascript-cn
+
+* 一些移动端非常好用的插件(layzr.js / swiper等)
+
+	https://github.com/jawil/blog/issues/10
