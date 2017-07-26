@@ -436,7 +436,6 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 ```
-	
 	但是这种方法并不能支持限制多行，WebKit内核的浏览器实现起来比较简单，可以通过添加一个-webkit-line-clamp的私有属性来实现
 
 ```
@@ -446,10 +445,12 @@
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 ```
-
 	如果要做兼容的话，推荐使用clamp.min.js
-
 	http://lomu.me/post/css-multiline-text-overflow
+
+* animation动画
+
+	animation默认是不保留状态的，如果需要的话，可以使用animation-fill-mode:(forwards/backwords/both);
 
 <h2 id="JavaScript">JavaScript</h2>
 
