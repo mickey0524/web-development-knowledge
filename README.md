@@ -427,6 +427,29 @@
 	2. css伪元素用于将特殊的效果添加到某些选择器 ::before ::after等
 	两者都与选择器有关，两者都是为了添加一些特殊的效果
 	
+* css限制多行，超出部分用省略号表示
+
+	文本溢出我们经常用到的应该就是text-overflow:ellipsis了，相信大家也很熟悉
+
+```
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+```
+	
+	但是这种方法并不能支持限制多行，WebKit内核的浏览器实现起来比较简单，可以通过添加一个-webkit-line-clamp的私有属性来实现
+
+```
+	overflow : hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+```
+
+	如果要做兼容的话，推荐使用clamp.min.js
+
+	http://lomu.me/post/css-multiline-text-overflow
 
 <h2 id="JavaScript">JavaScript</h2>
 
