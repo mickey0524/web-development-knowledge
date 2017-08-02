@@ -1356,6 +1356,10 @@
 	
 	首先，尽量不要使用奇数的px，android对小数不敏感，其次，由于IFC的原因，不同android height和line-height的基准是不一样的，可以试着把height去掉，让line-height自动撑起高度，这样有助于在android上实现高度居中
 
+* 移动端不能识别 $('html, body').scrollTop, 单纯就是因为moblie ios 不认识$(‘html,body’)，改成$('body')就好
+
+	http://blog.jonathanargentiero.com/jquery-scrolltop-not-working-on-mobile-devices-iphone-ipad-android-phones/
+
 <h2 id="webpack">webpack</h2>
 
 * webpack插件大全
