@@ -2,6 +2,8 @@
 
 本文由我收集整理了一些前端知识点，参考自各前端大大的博客，github以及各社区的热点题目，前端的知识点多而繁杂，将知识点集中起来温故而知新是极好的，大家觉得有用的话就给个星星吧~
 
+另外，我的博客地址为https://mickey0524.github.io/，里面有我对一些知识点的详细解读～
+
 ## 目录
 
 * [HTML](#HTML) 
@@ -1391,3 +1393,7 @@
 * 一些移动端非常好用的插件(layzr.js / swiper等)
 
 	https://github.com/jawil/blog/issues/10
+
+* npms.io，用于查询node packages，比npmjs好用的地方在于他会对包本身进行评估，通过用户人数，包活跃度等等进行评分，给予开发者参考
+
+	https://npms.io
