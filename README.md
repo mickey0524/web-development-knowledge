@@ -14,6 +14,7 @@
 * [移动端](#mobile)
 * [webpack](#webpack)
 * [有用的网站](#userfulWeb)
+* [linux指令](#linux)
 
 <h2 id="HTML">HTML</h2> 
 
@@ -1397,3 +1398,10 @@
 * npms.io，用于查询node packages，比npmjs好用的地方在于他会对包本身进行评估，通过用户人数，包活跃度等等进行评分，给予开发者参考
 
 	https://npms.io
+
+<h2 id="linux">linux指令</h2>
+
+* lsof -i:port
+
+	在开发过程中，经常出现端口被占用的情况，使用这个指令可以检测端口是否被占用
+
