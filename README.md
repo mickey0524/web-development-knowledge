@@ -15,6 +15,7 @@
 * [webpack](#webpack)
 * [有用的网站](#userfulWeb)
 * [linux指令](#linux)
+* [Vue](#vue)
 
 <h2 id="HTML">HTML</h2> 
 
@@ -1405,3 +1406,8 @@
 
 	在开发过程中，经常出现端口被占用的情况，使用这个指令可以检测端口是否被占用
 
+<h2 id="vue">Vue</h2>
+
+* 修改Vue对象数组中数组，view层不生效，原因是没有使用$set，直接修改并不会给你重新渲染
+
+ array.$set(index, {})
