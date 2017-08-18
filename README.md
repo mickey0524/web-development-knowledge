@@ -1410,4 +1410,4 @@
 
 * 修改Vue对象数组中数组，view层不生效，原因是没有使用$set，直接修改并不会给你重新渲染
 
- array.$set(index, {})
+	 array.$set(index, {})
