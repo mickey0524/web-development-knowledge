@@ -16,6 +16,7 @@
 * [有用的网站](#userfulWeb)
 * [linux指令](#linux)
 * [Vue](#vue)
+* [React](#react)
 
 <h2 id="HTML">HTML</h2> 
 
@@ -1411,3 +1412,33 @@
 * 修改Vue对象数组中数组，view层不生效，原因是没有使用$set，直接修改并不会给你重新渲染
 
 	 array.$set(index, {})
+
+<h2 id="react">React</h2>
+
+* 在react虚拟内存中获取DOM元素的方法
+
+	原先的this.refs.nodeName会有问题，现在官方提供了回调函数的新用法，未来可能会把refs这种旧的API下掉
+
+	`<input type="text" ref={(input) => { this.textInput = input; }}  />`
+
+	通过这种方法，就把该DOM元素绑定在了this.textInput上23333
+
+* React中类型检查的方法
+
+	Vue中可以直接在props中进行类型检查，React中自然也有相应的类型检查方法，但需要注意的是，React.PropTypes自React v15.5起已弃用，请使用prop-types库代替
+	
+	```
+	import PropTypes from 'prop-types';
+	
+	class Greeting extends React.Component {
+	  render() {
+	    return (
+	      <h1>Hello, {this.props.name}</h1>
+	    );
+	  }
+	}
+	
+	Greeting.propTypes = {
+	  name: PropTypes.string
+	};
+	```
