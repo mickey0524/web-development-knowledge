@@ -1413,6 +1413,10 @@
 
 	 array.$set(index, {})
 
+* 修改Vue对象数组的元素的一个字段，直接赋值是不行的，Object.assign(原对象，{ key: value })也是不行的，因为这个操作默认是浅拷贝
+
+	使用Object.assign({}, 原对象, { key: value })是可以的
+
 <h2 id="react">React</h2>
 
 * 在react虚拟内存中获取DOM元素的方法
@@ -1442,3 +1446,9 @@
 	  name: PropTypes.string
 	};
 	```
+
+* React使用webpack打包的时候，需要使用babel-loader，babel-loader需要配置一下
+	
+	`"presets": ["es2015", "react", "stage-2"],`这是babelrc中的配置
+	
+	前端想用es6的import from需要配置babel，但是webpack2之后能够识别import，所以配置了babelrc很多时候是没有用的，但是node-server和react一定要记得配置
