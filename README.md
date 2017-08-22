@@ -987,6 +987,28 @@
 
 	更多详细的解释见阮一峰大大的博客 http://www.ruanyifeng.com/blog/2009/09/find_element_s_position_using_javascript.html
 
+* 一道前端新人OOP能力测试题
+
+	实现一个前端标签管理器，M是标签容器，N是标签们
+	
+	要求：
+	1. N始终是向左浮动布局，M的宽度可以任意
+	2. 编码要求：纯粹的原生JS + CSS，JS要使用面向对象思想
+	
+	```
+	var labels = new Labeler({
+		container: '#container',
+		data: [ '苹果', '香蕉', '黎' ...]
+	});
+	
+	// 向后追加
+	labeler.append('美国开心豆');
+	
+	labeler.prepend('日本豆腐');
+	
+	labeler.delete('香蕉');
+	```
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
