@@ -1474,3 +1474,7 @@
 	`"presets": ["es2015", "react", "stage-2"],`这是babelrc中的配置
 	
 	前端想用es6的import from需要配置babel，但是webpack2之后能够识别import，所以配置了babelrc很多时候是没有用的，但是node-server和react一定要记得配置
+
+* React中类似Vue v-html 的方法
+
+	<div dangerouslySetInnerHTML={{__html: this.state.info}} />
