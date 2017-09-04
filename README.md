@@ -1388,6 +1388,10 @@
 
 	http://blog.jonathanargentiero.com/jquery-scrolltop-not-working-on-mobile-devices-iphone-ipad-android-phones/
 
+* 响应式布局（类似flexible的rem计算方式）手机字体大小会影响app中的webview元素的大小
+
+	这个简直是天坑，和组内的大佬找了2个多小时吧，最后定位到是手机字体的大小会影响webview元素的大小，大部分手机的默认字体大小是16px，这个大小不会有问题，三星默认大小比16px大一号，结果计算出来的元素均会偏大，难受的一匹，解决方法是可以让客户端将字体大小写死为16px，允悲	
+
 <h2 id="webpack">webpack</h2>
 
 * webpack插件大全
