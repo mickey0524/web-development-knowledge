@@ -1444,6 +1444,8 @@
 
 	使用Object.assign({}, 原对象, { key: value })是可以的
 
+* Vue中，尽量不要使用箭头函数，像methods中的方法，watch中的方法，箭头函数绑定了父级作用域的上下文，所以this不会按照期望指向Vue实例
+
 <h2 id="react">React</h2>
 
 * 在react虚拟内存中获取DOM元素的方法
