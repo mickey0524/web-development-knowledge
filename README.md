@@ -1493,7 +1493,7 @@
 
 * React中类似Vue v-html 的方法
 
-	<div dangerouslySetInnerHTML={{__html: this.state.info}} />
+	`<div dangerouslySetInnerHTML={{__html: this.state.info}} />`
 
 <h2 id="http">Http</h2>
 
