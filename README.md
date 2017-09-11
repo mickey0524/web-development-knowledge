@@ -1611,6 +1611,10 @@ function map(list, iteratee) {
 
 * Vue中，尽量不要使用箭头函数，像methods中的方法，watch中的方法，箭头函数绑定了父级作用域的上下文，所以this不会按照期望指向Vue实例
 
+* Vue的生命周期简介
+
+	Vue在初始化组件数据的时候，在生命周期的beforeCreate和created钩子函数之间实现了对data、props、computed、methods、events以及watch的处理，在渡过created生命周期之后，Vue会去判断options对象中是否包括el这个key，如果不存在就要等待vm.$mount()手动进行挂载，紧接着，Vue会去判断是否存在template或者render，存在的话，用template进行编译，反之，将el的outerHTML作为template进行编译，然后就是mounted()进行挂载... 
+
 <h2 id="react">React</h2>
 
 * 在react虚拟内存中获取DOM元素的方法
