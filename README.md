@@ -1086,7 +1086,7 @@ label:active{
 
 	1. offsetLeft, offsetTop累加
 	2. scrollTop同理
-	3. getBoundingClientRect().left, getBoundingClientRect().top
+	3. getBoundingClientRect().left, getBoundingClientRect().top (这里需要说明一下，getBoundingClientRect()用于得到DOM元素相对视口左上角的距离，这个在feed流之类的滚动页面中很有用，可以用于判断元素是否进入视口，用于记录曝光啥的)
 
 	更多详细的解释见阮一峰大大的博客 http://www.ruanyifeng.com/blog/2009/09/find_element_s_position_using_javascript.html
 
