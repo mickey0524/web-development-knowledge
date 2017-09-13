@@ -1,5 +1,4 @@
-## 前言
-
+## 前言 
 本文由我收集整理了一些前端知识点，参考自各前端大大的博客，github以及各社区的热点题目，前端的知识点多而繁杂，将知识点集中起来温故而知新是极好的，大家觉得有用的话就给个星星吧~
 
 另外，我的博客地址为https://mickey0524.github.io/, 里面有我对一些知识点的详细解读～
@@ -1174,6 +1173,10 @@ function map(list, iteratee) {
     return result;
 }
 ```
+
+* getComputedStyle的用法
+
+	不知道这个函数的用法之前，只用能过DOM.style获取定义在标签内部的样式，而window.getComputedStyle()方法能够给出活动样式表之后的元素的所有CSS属性的指，这就很舒服了，不过需要注意的是，解析这些值可能包含基本的计算，举个例子，移动端width和height的rem数值为小数的话，DOM.offsetWidth和getComputedStyle(el).width获得的数值是不一样的～
 
 <h2 id="jQuery">jQuery</h2>
 
