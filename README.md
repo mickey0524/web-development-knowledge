@@ -641,6 +641,10 @@ dd + dd {
 
 ![img](./images/sticky.gif)
 
+* font-boosting现象
+
+	font-boosting是指在android chrome对于高度值为auto的字体进行放大的现象，字体越大越明显。一般通过缩放的页面字体都是原来的2至3倍，所以基本上如果字体高度为auto就会触发font-boosting。解决办法给字体一个高度，通过设置height，max-height，line-height即可
+
 <h2 id="JavaScript">JavaScript</h2>
 
 * 如何区分{} 和 [] 
@@ -1259,6 +1263,17 @@ function map(list, iteratee) {
 * getComputedStyle的用法
 
 	不知道这个函数的用法之前，只用能过DOM.style获取定义在标签内部的样式，而window.getComputedStyle()方法能够给出活动样式表之后的元素的所有CSS属性的指，这就很舒服了，不过需要注意的是，解析这些值可能包含基本的计算，举个例子，移动端width和height的rem数值为小数的话，DOM.offsetWidth和getComputedStyle(el).width获得的数值是不一样的～
+
+* initial-scale兼容性
+
+	initial-scale在中低端android机并不完全支持，所以动态缩放之后布局视窗大于虚拟视窗，导致出现横向滚动条。移动端动态生成meta标签之后，判断window.innerWidth和document.documentElement.clientWidth，如果后者大于前者，则需要再次修改meta标签，制定width=window.innerWidth，伪代码如下:
+
+```
+docElem.getBoundingClientRect().width > win.innerWidth ? res.changeScale() : res.changeScale("initial");    
+ ...      
+var metaWidth = this.scale == '1.00' ? 'device-width' : win.innerWidth;
+       metaElem.setAttribute("content", "width="+metaWidth+",initial-scale=" + this.scale + ", maximum-scale=" + this.scale + ", minimum-scale=" + this.scale + ", user-scalable=no");
+```
 
 <h2 id="jQuery">jQuery</h2>
 
