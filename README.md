@@ -1275,6 +1275,100 @@ var metaWidth = this.scale == '1.00' ? 'device-width' : win.innerWidth;
        metaElem.setAttribute("content", "width="+metaWidth+",initial-scale=" + this.scale + ", maximum-scale=" + this.scale + ", minimum-scale=" + this.scale + ", user-scalable=no");
 ```
 
+* [].reduce(Math.pow)
+
+	这个语句会抛出TypeError，原因是reduce on an empty array without an initial value throws TypeError
+
+* 下面的函数会返回什么？
+
+```
+var name = 'World!';
+(function() {
+	if (typeof name === 'undefined') {
+		var name = 'Jack';
+		console.log('Goodbye ' + name);
+	} else {
+		console.log('Hello ' + name);	
+	}
+})();
+```
+
+第一眼看过去，惯性思维，name会按作用域链向上访问，于是name = 'world'，那就gg了，这里隐藏了一个变量提升的问题，上面的代码等同于
+
+```
+var name = 'World!';
+(function() {
+	var name;
+        if (typeof name === 'undefined') {
+                name = 'Jack';
+                console.log('Goodbye ' + name);
+        } else 
+             console.log('Hello ' + name);
+	}
+})();
+```
+
+这就一目了然了，因此，会输出Goodbye Jack
+
+* 这个语句的结果是啥呢？
+
+```
+var END = Math.pow(2, 53);
+var START = END - 100;
+var count = 0;
+for (var i = START; i <= END; i++) {
+    count++;
+}
+console.log(count);
+``` 
+
+答案是这是一个无限循环，JavaScript能够安全的表达[-2^53 + 1, 2^53 - 1]范围内的数，2^53是能表达的最大的不安全的数值，超过这个数值都会转为2^53，因此上面是一个无限循环
+
+* 下面语句的结果是啥？
+
+```
+var ary = [0,1,2];
+ary[10] = 10;
+ary.filter(function(x) { return x === undefined;});
+```
+
+不会为缺少的元素调用filter方法
+
+* JavaScript精度一直存在问题，不光是小数存在问题，大数计算的时候也存在问题
+
+0.8 - 0.6 != 0.2，emmmmmm
+
+```
+var a = 111111111111111110000,
+
+    b = 1111;
+    
+a + b = 111111111111111110000;
+```
+
+* Array.prototype是一个数组
+
+Array.isArray( Array.prototype ) = true
+
+* 3.toString()报错，3..toString() == '3'
+
+* 下面这个语句返回啥呢？
+
+`"1 2 3".replace(/\d/g, parseInt)`
+
+其实调用parseInt的是[1, 0], [2, 2], [3, 4]，分别为匹配项和index
+
+因此这个语句得到的结果是[1, NaN, 3]
+
+* 下面这个问题返回啥呢？
+
+```
+var lowerCaseOnly =  /^[a-z]+$/;
+[lowerCaseOnly.test(null), lowerCaseOnly.test()]
+```
+
+正则匹配的话，执行的事...test('null')和...test('undefined')
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
