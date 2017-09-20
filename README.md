@@ -1369,6 +1369,10 @@ var lowerCaseOnly =  /^[a-z]+$/;
 
 正则匹配的话，执行的事...test('null')和...test('undefined')
 
+* 使用chrome devtool调试代码的办法
+
+	http://www.css88.com/archives/8175
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
