@@ -1755,6 +1755,29 @@ var lowerCaseOnly =  /^[a-z]+$/;
 
 	这个简直是天坑，和组内的大佬找了2个多小时吧，最后定位到是手机字体的大小会影响webview元素的大小，大部分手机的默认字体大小是16px，这个大小不会有问题，三星默认大小比16px大一号，结果计算出来的元素均会偏大，难受的一匹，解决方法是可以让客户端将字体大小写死为16px，允悲	
 
+* Android浏览器文本垂直居中问题
+
+	android浏览器上下居中始终存在问题，苹果浏览器是没有问题的，解决问题的方法是使用table布局
+
+```
+<div class="container">
+	<div class="sub-container">居中</div>
+</div>
+
+.container {
+	display: table;
+        width: 100px;
+        height: 100px;
+}
+.sub-container {
+        text-align: center;
+        display: table-cell;
+        width: 40px;
+        height: 40px;
+        vertical-align: middle;
+}
+```
+
 <h2 id="webpack">webpack</h2>
 
 * webpack插件大全
