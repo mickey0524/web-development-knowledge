@@ -1726,6 +1726,17 @@ var lowerCaseOnly =  /^[a-z]+$/;
     	  return content;
     	};
 
+* path模块中path.resolve()和path.join()的区别
+
+	在很多环境下，path.resolve()和path.join()会返回相同的数值，看一看下面这个例子
+
+```js
+path.join('a', 'b1', '..', 'b2') === 'a/b1/../b2'
+path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
+```
+
+	一目了然，path.join就是用/将参数连接起来，而path.resolve返回的是执行操作最后的目录
+
 <h2 id="mobile">移动端</h2>
 
 * 移动端有关touch的事件
