@@ -1373,6 +1373,22 @@ var lowerCaseOnly =  /^[a-z]+$/;
 
 	http://www.css88.com/archives/8175
 
+* 浏览器端的Object.assign()兼容性并不好，需要使用插件才能使用，这里用原生js实现Object.assign()的兼容写法
+
+```js
+var _extend = Object.assign || function(target) {
+	for (var i = 1; i < arguments.length; i++) {
+		var source = arguments[i];
+		for (var key in source) {
+			if (Object.prototype.hasOwnProperty.call(source, key)) {
+				target[key] = source[key];
+			}	
+		}
+	}
+	return target;
+}
+``` 
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
