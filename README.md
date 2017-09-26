@@ -175,7 +175,15 @@
 
 * target和currentTarget的区别
 
-		target是事件的真实发生节点，currentTarget是绑定事件处理程序的节点
+	target是事件的真实发生节点，currentTarget是绑定事件处理程序的节点
+
+* 内容安全策略(CSP)
+	
+	预防XSS的一个重要的方法就是配置白名单，CSP就是一种快速的配置白名单的方法
+
+	`meta(http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' www.google-analytics.com")`
+	
+	上面是一个例子，pug模版写法，self代表本域名的script，unsafe-inline代表内联的script，unsafe-eval用于执行eval(webpack打包出来很多eval。。.) 最后GA的域名是允许使用GA统计
 
 <h2 id="CSS">CSS</h2>
 
