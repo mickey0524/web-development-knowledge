@@ -1115,6 +1115,8 @@ dd + dd {
     
     	person.__proto__ === Person.prototype (true)
 
+	其实prototype只是一个假象，他在实现原型链中只是起到了一个辅助作用，换句话说，他只是在new的时候有着一定的价值，而原型链的本质，其实在于__proto__。
+
 * ES6模块和CommonJS模块之间的差异
 
 	首先，他们有两个重大差异
@@ -1126,7 +1128,7 @@ dd + dd {
 
 	CommonJS模块发生循环加载的时候不会发送死循环，因为返回的是当前执行的部分的值，因此require()得出的就是一个{}
 
-* 双向绑定的原理
+* 视图数据绑定的原理
 
 	https://segmentfault.com/a/1190000006599500
 
@@ -1772,13 +1774,12 @@ path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
 * 移动端有关touch的事件
 
 	touchstart, touchmove, touchend(移动端监听用户手势事件)
-* 移动端判断是否为android或者ios
-
-	window.GlobalMobileUtil.isIos或者window.GlobalMobileUtil.isAndroid，移动端针对android和ios需要进行很多区分操作，最典型的dpr
 
 * dpr和移动端适配
 
-	http://www.w3cplus.com/mobile/lib-flexible-for-html5-layout.html，一般计算dpr和font-size都是动态在html上使用dataset去设定的
+	http://www.w3cplus.com/mobile/lib-flexible-for-html5-layout.html
+
+	一般计算dpr和font-size都是动态在html上使用dataset去设定的
 
 * 网上都说操作真实 DOM 慢，但测试结果却比 React 更快，为什么？
 
@@ -1969,7 +1970,7 @@ path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
 	
 	CSRF（Cross-site request forgery）跨站请求伪造
 	
-	XSS是CSRF的一种，把通过XSS实现的CSRF称为XSRF，CSRF和XSS的攻击方式有一些相似，都不是直接对服务器进行攻击，而是攻击使用服务器的用户，预防CSRF的基本方法是使用POST请求代替GET请求进行写入的操作，然而黑客还是可以通过不可见的表单进行攻击，这时候就需要行之有效的请求令牌来预防CSRF了，举个栗子，django中的{% cref_token %}，服务器会在session中写入csrftoken，请求的时候，需要在请求头部写入X-CSRFTOKEN，值为cookie中的csrftoken
+	XSS是CSRF的一种，把通过XSS实现的CSRF称为XSRF，CSRF和XSS的攻击方式有一些相似，都不是直接对服务器进行攻击，而是攻击使用服务器的用户，预防CSRF的基本方法是使用POST请求代替GET请求进行写入的操作，然而黑客还是可以通过不可见的表单进行攻击，这时候就需要行之有效的请求令牌来预防CSRF了，举个栗子，django中的{% csrf_token %}，服务器会在session中写入csrftoken，请求的时候，需要在请求头部写入X-CSRFTOKEN，值为cookie中的csrftoken
 	
 	[XSS,CSRF参考](http://www.cnblogs.com/lins05/archive/2012/12/02/2797996.html)
 
