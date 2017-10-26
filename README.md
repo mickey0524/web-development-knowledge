@@ -1422,6 +1422,10 @@ document.addEventListener('DOMContentLoaded', callback);
 window.addEventListener('orientationchange' in window ? 'orientationchange' : 'resize', callback);
 ```
 
+* javaScript中的in操作符
+
+	记录这个知识点是为了不和python混淆，python中的in操作符可以用来判断字串是否存在于字符串中，元素是否存在于数组中，key是否存在于dict中，然而在js中，in最好只用于判断key是否存在于对象中，当in用于数组的时候，其实判断的是索引是否存在，其实很好理解，arr是可遍历的(iterable)，可以理解为一个index: value的健值对，参照对象，用于判断的自然就是index了。
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
