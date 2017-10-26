@@ -1405,6 +1405,23 @@ var _extend = Object.assign || function(target) {
 }
 ``` 
 
+* 当用户关闭了JavaScript，可以通过`<noscript>开启JavaScript，获得更好的体验</noscript>`来提示用户
+
+* 简单的js响应式初始化代码
+
+```js
+var documentElement = document.documentElement;
+function callback() {
+	var clientWidth = documentElement.clientWidth;
+	// 屏幕宽度大于780，不再放大
+	clientWidth = clientWidth < 780 ? clientWidth: 780;
+	documentElement.style.fontSize = clientWidth / 10 + 'px';
+}
+
+document.addEventListener('DOMContentLoaded', callback);
+window.addEventListener('orientationchange' in window ? 'orientationchange' : 'resize', callback);
+```
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
