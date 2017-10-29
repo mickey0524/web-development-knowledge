@@ -1905,6 +1905,31 @@ path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
 
 	Vue在初始化组件数据的时候，在生命周期的beforeCreate和created钩子函数之间实现了对data、props、computed、methods、events以及watch的处理，在渡过created生命周期之后，Vue会去判断options对象中是否包括el这个key，如果不存在就要等待instance.$mount()手动进行挂载(instance 是由extend创建的构造器实例化出来的实例)，紧接着，Vue会去判断是否存在template或者render，存在的话，用template进行编译，反之，将el的outerHTML作为template进行编译，然后就是mounted()进行挂载... 
 
+* 计算属性的setter
+
+	计算属性默认只有getter，不过在需要时你也可以提供一个setter:
+
+	```js
+	computed: {
+ 		fullName: {
+   			 // getter
+   			 get: function () {
+     				 return this.firstName + ' ' + this.lastName
+   			 },
+   			 // setter
+   			 set: function (newValue) {
+     				 var names = newValue.split(' ')
+     				 this.firstName = names[0]
+     				 this.lastName = names[names.length - 1]
+   			 }
+ 		 }
+	}
+	```
+	
+	注意这里，Vue中是可以通过修改计算属性，以及设置set来反向修改计算属性依赖的data
+
+* vue中，在计算属性能够解决的问题作用范围内，尽量使用计算属性，但是需要注意的一点是，计算属性是同步的，有时候需要异步的修改，这个时候可以使用watch。
+
 <h2 id="react">React</h2>
 
 * 在react虚拟内存中获取DOM元素的方法
