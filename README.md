@@ -1434,6 +1434,26 @@ window.addEventListener('orientationchange' in window ? 'orientationchange' : 'r
 
 	window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop 
 
+* javaScript中判断节点是否已经被插入DOM树
+
+	今天看了一下vue-infinite-scroll的源码，记录一下如何判断节点是否被插入DOM树的代码，让我想记录的是他们的严谨性，他们判断了挂在指令的节点是否存在fragment，fragment的nodeType为11～
+
+```
+var isAttached = function isAttached(element) {
+	var currentNode = element.parentNode;
+	while (currentNode) {
+ 		if (currentNode.tagName === 'HTML') {
+    		return true;
+ 		}
+ 		if (currentNode.nodeType === 11) {
+    		return false;
+  		}
+  		currentNode = currentNode.parentNode;
+	}
+	return false;
+};
+```
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
