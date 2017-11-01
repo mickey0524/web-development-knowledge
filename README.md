@@ -1962,6 +1962,28 @@ path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
 
 	[Vue的transition钩子函数](https://cn.vuejs.org/v2/guide/transitions.html#JavaScript-钩子)
 
+* vue在处理生命周期的lifecycle.js(src/core/instance/lifecycle.js)中定义了一个callHook函数
+
+```
+export function callHook (vm: Component, hook: string) {
+  const handlers = vm.$options[hook]
+  if (handlers) {
+    for (let i = 0, j = handlers.length; i < j; i++) {
+      try {
+        handlers[i].call(vm)
+      } catch (e) {
+        handleError(e, vm, `${hook} hook`)
+      }
+    }
+  }
+  if (vm._hasHookEvent) {
+    vm.$emit('hook:' + hook)
+  }
+}
+```
+
+从上面vue的源码可以看出，vue在每个生命周期都会emit一个事件，我们可以通过$on('hook:mounted')之类的语句来监听vue的生命周期，这对于自定义指令很有用
+
 <h2 id="react">React</h2>
 
 * 在react虚拟内存中获取DOM元素的方法
