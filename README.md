@@ -1958,6 +1958,10 @@ path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
 
 * vue中，在计算属性能够解决的问题作用范围内，尽量使用计算属性，但是需要注意的一点是，计算属性是同步的，有时候需要异步的修改，这个时候可以使用watch。
 
+* vue中，transition不止可以用来设置过渡动画，还可以提供钩子函数，用于执行一些操作
+
+	[Vue的transition钩子函数](https://cn.vuejs.org/v2/guide/transitions.html#JavaScript-钩子)
+
 <h2 id="react">React</h2>
 
 * 在react虚拟内存中获取DOM元素的方法
