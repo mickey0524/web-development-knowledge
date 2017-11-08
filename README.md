@@ -659,6 +659,8 @@ dd + dd {
 
 	具体细节可以参考这篇知乎文章[border-radius的工作原理](https://zhuanlan.zhihu.com/p/20128284)
 
+* 当在移动端页面上覆盖一层宽度和高度为屏幕宽高，position为fixed的图片的时候，页面还是可以滑动的，如果需要在这种条件下禁止页面滑动的话，可以在html标签上设置overflow: hidden
+
 <h2 id="JavaScript">JavaScript</h2>
 
 * 如何区分{} 和 [] 
