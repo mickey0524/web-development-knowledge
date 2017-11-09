@@ -661,6 +661,17 @@ dd + dd {
 
 * 当在移动端页面上覆盖一层宽度和高度为屏幕宽高，position为fixed的图片的时候，页面还是可以滑动的，如果需要在这种条件下禁止页面滑动的话，可以在html标签上设置overflow: hidden
 
+* 记录一下box-shadow的每个参数的含义
+
+	box-shadow: h-shadow v-shadow blur spread color inset;
+	
+	* h-shadow: 必需，水平阴影的位置，允许负值，正数阴影偏右，负数阴影偏左
+	* v-shadow: 必需，垂直阴影的位置，允许负值，正数阴影偏下，负数阴影偏上
+	* blur    : 可选，模糊距离
+	* spread  : 可选，阴影的尺寸
+	* color   : 可选，阴影的颜色
+	* inset   : 可选，将外部的阴影改为内部阴影
+
 <h2 id="JavaScript">JavaScript</h2>
 
 * 如何区分{} 和 [] 
