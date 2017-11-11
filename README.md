@@ -1833,6 +1833,41 @@ path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
 
 * 今天在用express做图片上传的时候，node server提示我413，express默认允许上传的大小为1MB，因此需要手动修改，通过增加`app.use(bodyParser.json({limit: '50mb'}));`就可以放开限制
 
+* 记录一下npm发包到npmjs的步骤
+
+	首先，需要在www.npmjs.org注册一个账号，这个账号会被添加到npm本地的配置中，用来发布module用。
+	
+	```
+	$ npm adduser
+	Username: your name
+	Password: your password
+	Email: yourmail@gmail.com
+	```	
+	
+	如果出现错误的话，那么有可能是你的npm版本过低，可以升级npm试试
+	
+	成功之后，npm会把认证信息存储在~/.npmrc中，并且可以通过以下命令查看npm当前使用的用户：
+	
+	```
+	$ npm whoami
+	```
+	
+	以上完成之后，我们终于可以发布自己的module了：
+	
+	```
+	$ cd repos
+	$ npm publish --tag 0.1.0
+	```
+	
+	这样，我们就成功发了一个npm包到npmjs上了，下面讲一下npm社区版本号规则
+	
+	版本格式：主版号.次版号.修订号，版号递增规则如下：
+	
+	* 主版号：当你做了不相容的 API 修改
+	* 次版号：当你做了向下相容的功能性新增
+	* 修订号：当你做了向下相容的问题修正
+	* 先行版号及版本编译资讯可以加到「主版号.次版号.修订号」的后面，作为延伸
+	
 <h2 id="mobile">移动端</h2>
 
 * 移动端有关touch的事件
