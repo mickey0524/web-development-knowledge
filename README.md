@@ -17,7 +17,7 @@
 * [Vue](#vue)
 * [React](#react)
 * [Http](#http)
-
+* [其他](#others)
 <h2 id="HTML">HTML</h2> 
 
 * Doctype作用？标准模式与兼容模式各有什么区别?
@@ -2124,3 +2124,13 @@ export function callHook (vm: Component, hook: string) {
 	
 	[XSS,CSRF参考](http://www.cnblogs.com/lins05/archive/2012/12/02/2797996.html)
 
+<h2 id="others">其他</h2>
+
+* mpv中文字幕乱码
+
+	```
+	#vi ~/.config/mpv/mpv.conf
+	sub-auto=fuzzy
+	sub-text-font-size=48
+	sub-codepage=utf8:gb18030
+	```
