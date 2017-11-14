@@ -1467,6 +1467,8 @@ var isAttached = function isAttached(element) {
 };
 ```
 
+* 使用``和${}来拼接innerHTML的时候，要注意，html的自定义属性需要加上双引号，虽然有时候不加也能正常显示，不过这是由于浏览器自动纠错，当自定义属性的数值为JSON字符串的时候，记得不要加双引号，要用单引号，坑死了～
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
