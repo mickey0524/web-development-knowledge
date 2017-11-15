@@ -2038,6 +2038,14 @@ export function callHook (vm: Component, hook: string) {
 
 从上面vue的源码可以看出，vue在每个生命周期都会emit一个事件，我们可以通过$on('hook:mounted')之类的语句来监听vue的生命周期，这对于自定义指令很有用，这里有一篇讲的不错的博客[理解vue的生命周期钩子](https://segmentfault.com/a/1190000010006604)
 
+* new Vue(option)中，option中有一个key为replace，指代是否要使用template去替换el元素，如果不加这个key，template替换了el，让组件暴露在最顶层，可能会报下面的错
+
+```
+[Vue warn]: Attribute "id" is ignored on component <div> because the component is a fragment instance
+```
+
+* vue中props如果要设置default为array或者object，需要用function返回
+
 <h2 id="react">React</h2>
 
 * 在react虚拟内存中获取DOM元素的方法
