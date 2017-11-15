@@ -1469,6 +1469,8 @@ var isAttached = function isAttached(element) {
 
 * 使用``和${}来拼接innerHTML的时候，要注意，html的自定义属性需要加上双引号，虽然有时候不加也能正常显示，不过这是由于浏览器自动纠错，当自定义属性的数值为JSON字符串的时候，记得不要加双引号，要用单引号，坑死了～
 
+* 我们在使用new Date()创建一个特定时间对象的时候，最好采用new Date(timestamp)，这样不会由于时区问题导致得到错误的数据，在chrome中，我们使用new Date('2017-11-11 11:11:11')也能得到正确的时间实例，但是在safari中，这样会得到`Invalid Date`，需要加上时区，new Date('2017-11-15T06:06:14.330Z')这样，显得比较麻烦，所以最好使用timestamp～
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
