@@ -672,6 +672,13 @@ dd + dd {
 	* color   : 可选，阴影的颜色
 	* inset   : 可选，将外部的阴影改为内部阴影
 
+* flex: auto，flex: 1，flex: none以及flex的默认值
+
+	* flex的默认值为     0 1 auto
+	* flex: none         0 0 auto
+	* flex: 1            1 1 0
+	* flex: auto         1 1 auto
+
 <h2 id="JavaScript">JavaScript</h2>
 
 * 如何区分{} 和 [] 
