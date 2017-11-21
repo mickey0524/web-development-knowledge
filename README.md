@@ -1478,6 +1478,24 @@ var isAttached = function isAttached(element) {
 
 * 我们在使用new Date()创建一个特定时间对象的时候，最好采用new Date(timestamp)，这样不会由于时区问题导致得到错误的数据，在chrome中，我们使用new Date('2017-11-11 11:11:11')也能得到正确的时间实例，但是在safari中，这样会得到`Invalid Date`，需要加上时区，new Date('2017-11-15T06:06:14.330Z')这样，显得比较麻烦，所以最好使用timestamp～
 
+* 写一个_new()函数，实现new关键字的功能
+
+	分析一下，new运算符创建一个用户定义的对象类型的实例或具有构造函数的内置对象类型之一
+
+	new的结果会是一个新的对象，所以在模拟实现的时候，我们也需要建立一个新的对象，这个对象需要去继承构造函数的原型，然后需要以该对象作为this作用域获取实例属性
+
+	```
+	function _new() {
+		var obj = new Object();
+		var Constructor = [].shift.call(arguments);
+		obj.__proto__ = Constructor.prototype;
+		var ret = Constructor.apply(obj, arguments);
+		return typeof ret === 'object' ? ret || obj : obj; 
+	}
+	```
+
+	最后使用typeof判断是否为object的原因是因为构造函数默认返回的是this实例，但是也可以显示的返回一个对象，这个时候就需要进行过滤判断	
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
