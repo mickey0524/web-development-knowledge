@@ -2119,6 +2119,49 @@ export function callHook (vm: Component, hook: string) {
 	});
 	```
 
+* React中可以通过render函数返回null来hide自身
+
+* React在map函数中调用组件(例如ListItem)，key属性需要定义到ListItem上，但是需要注意的是，key属性不会作为props的属性传递给子组件，贼坑，如果在子组件里需要用到key，需要显示的传入另外一个prop~
+
+* React的包含关系（类似于Vue中的slot属性）
+	
+	一些组件不能提前知道它们的子组件是啥，对于这种组件，可以使用`children`属性将子元素直接传递到输出
+	
+	```
+	function FancyBorder(props) {
+ 	  return (
+   	    <div className={'FancyBorder FancyBorder-' + props.color}>
+     	      {props.children}
+   	    </div>
+ 	  );
+	}
+	
+	function SplitPane(props) {
+ 	  return (
+   	    <div className="SplitPane">
+     	      <div className="SplitPane-left">
+       	        {props.left}
+     	      </div>
+     	      <div className="SplitPane-right">
+       	        {props.right}
+     	      </div>
+   	     </div>
+ 	  );
+	}
+		
+	function App() {
+ 	  return (
+   	    <SplitPane
+     	      left={
+       	        <Contacts />
+     	      }
+     	      right={
+       	        <Chat />
+     	    } />
+ 	  );
+	}	
+	```
+
 <h2 id="http">Http</h2>
 
 * post请求的四种提交方式
