@@ -2111,6 +2111,14 @@ export function callHook (vm: Component, hook: string) {
 
 	`<div dangerouslySetInnerHTML={{__html: this.state.info}} />`
 
+* React中State的更新可能是异步的，因此不应该直接依赖state和props来更新现有的state，可以使用如下方法：
+
+	```js
+	this.setState((preState, props) => {
+		counter: preState.counter + props.increment
+	});
+	```
+
 <h2 id="http">Http</h2>
 
 * post请求的四种提交方式
