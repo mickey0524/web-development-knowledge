@@ -2162,6 +2162,62 @@ export function callHook (vm: Component, hook: string) {
 	}	
 	```
 
+* 从本质上来讲，JSX只是为React.createElement(component, props, ...children)方法提供的语法糖
+
+	```
+	<MyButton color="blue" shadowSize={2}>
+	  Click Me
+	</MyButton>
+	```
+
+	会被编译为
+
+	```
+	React.createElement(
+	  MyButton,
+	  { color: 'blue', shadowSize: 2 },
+	  'Click Me'
+	)
+	```
+
+* React在ES5中通过在React.createClass()函数中的getDefaultProps来给props设置默认数值，在ES6中，通过 class MyComponent extends React.Component {} 来创建组件，然后通过 MyComponent.defaultProps = { name: 'stranger' } 来为props设置默认值。
+
+* React中可以通过ref回调函数的传递来使得父亲组件直接操作儿子组件的DOM元素，如下所示：
+
+	```
+	function CustomTextInput(props) {
+ 	  return (
+   	    <div>
+     	      <input ref={props.inputRef} />
+   	    </div>
+  	  );
+	}
+
+	function Parent(props) {
+	  return (
+   	    <div>
+     	      My input: <CustomTextInput inputRef={props.inputRef} />
+   	    </div>
+ 	  );
+	}
+
+	class Grandparent extends React.Component {
+  	  render() {
+   	    return (
+     	      <Parent
+                inputRef={el => this.inputElement = el}
+     	      />
+   	    );
+ 	  }
+	}
+	```
+
+	上面的例子中，Grandparent 首先指定了 ref 回调函数。它通过一个常规的 inputRef 属性被传递到 Parent，Parent 也同样把它传递给了 CustomTextInput。最后 CustomTextInput 读取了 inputRef 属性并将传递的函数作为 ref 属性附加到 \<input>。最终，Grandparent 中的 this.inputElement 被设置为 CustomTextInput 的 input 对应的 DOM 节点.
+
+* React中的HOC
+
+	[React中的高阶组件](https://doc.react-china.org/docs/higher-order-components.html)
+
 <h2 id="http">Http</h2>
 
 * post请求的四种提交方式
