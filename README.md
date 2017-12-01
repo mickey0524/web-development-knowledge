@@ -1496,6 +1496,22 @@ var isAttached = function isAttached(element) {
 
 	最后使用typeof判断是否为object的原因是因为构造函数默认返回的是this实例，但是也可以显示的返回一个对象，这个时候就需要进行过滤判断	
 
+* JS调试技巧
+	* console.table()
+		
+		在chrome控制台可以用console.table()以表格的形式显示一个对象
+	* 用console.time()和console.timeEnd()来计算循环耗时
+		
+		```js
+			console.time('time1');
+			var a = 1;
+			for (let i = 0; i < 10; i++) {
+				a += 1;
+			}
+			console.timeEnd('time1');
+		```
+	
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
