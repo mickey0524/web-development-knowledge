@@ -2234,6 +2234,23 @@ export function callHook (vm: Component, hook: string) {
 
 	[React中的高阶组件](https://doc.react-china.org/docs/higher-order-components.html)
 
+* es5中createClass自动给其中的方法绑定了this，在es6的class方式定义中，需要在constructor中手动绑定this
+
+	```
+	import React, { Component } from 'react';
+	
+	class MyComponent extends Component {
+		constructor(props) {
+			super(props);
+			this.onClickHandler = this.onClickHandler.bind(this);
+		}
+		
+		onClickHandler() {
+			...
+		}
+	}
+	```
+
 <h2 id="http">Http</h2>
 
 * post请求的四种提交方式
