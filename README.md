@@ -2251,6 +2251,8 @@ export function callHook (vm: Component, hook: string) {
 	}
 	```
 
+* RN可以作为submodule被客户端的代码仓库依赖，也可以上传CDN，然后客户端创建一个RN的环境，直接执行js代码
+
 <h2 id="http">Http</h2>
 
 * post请求的四种提交方式
