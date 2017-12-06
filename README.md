@@ -1511,6 +1511,13 @@ var isAttached = function isAttached(element) {
 			console.timeEnd('time1');
 		```
 	
+* 在正则表达式里面使用变量只能用new RegExp()生成，用字面量方法没办法用变量
+
+	```
+	var name = 'mickey';
+	var re = new RegExp(name, 'gi');
+	re == /mickey/gi;
+	```
 
 <h2 id="jQuery">jQuery</h2>
 
