@@ -2013,6 +2013,10 @@ path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
 
 	https://npms.io
 
+* 图片压缩网站
+
+	https://tinypng.com/
+
 <h2 id="linux">linux指令</h2>
 
 * lsof -i:port
