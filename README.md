@@ -1977,6 +1977,13 @@ path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
 
 [CSS3动画在ios上为什么会因为页面滚动而停止](https://www.zhihu.com/question/24268253)
 
+* 移动端监听软键盘的"完成"按钮
+
+	* 模拟表单提交，在input元素外面包裹一层form元素，然后监听form元素的submit事件
+	* 监听input元素的keypress事件，ev.charCode == 13的时候表示按下了完成按钮
+
+* 移动端实时监听input元素的输入事件不能使用change事件，要监听input事件
+
 <h2 id="webpack">webpack</h2>
 
 * webpack插件大全
