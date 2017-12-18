@@ -1518,6 +1518,9 @@ var isAttached = function isAttached(element) {
 	var re = new RegExp(name, 'gi');
 	re == /mickey/gi;
 	```
+* JS中将数字转为字符串的四种方式
+
+	"" + 1, String(), toString(), new String()
 
 <h2 id="jQuery">jQuery</h2>
 
