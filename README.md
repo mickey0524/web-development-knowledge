@@ -16,6 +16,7 @@
 * [linux指令](#linux)
 * [Vue](#vue)
 * [React](#react)
+* [React Native](#RN)
 * [Http](#http)
 * [其他](#others)
 <h2 id="HTML">HTML</h2> 
@@ -2277,6 +2278,12 @@ export function callHook (vm: Component, hook: string) {
 	```
 
 * RN可以作为submodule被客户端的代码仓库依赖，也可以上传CDN，然后客户端创建一个RN的环境，直接执行js代码
+
+<h2 id="RN">React Native</h2>
+
+* xcode解决无法真机调试的问题
+    
+    [xcode解决真机无法调试的问题](https://stackoverflow.com/questions/39524148/requires-a-development-team-select-a-development-team-in-the-project-editor-cod)，主要是要设置personal dev account，然后要修改RN给你的项目起的默认package的名字
 
 <h2 id="http">Http</h2>
 
