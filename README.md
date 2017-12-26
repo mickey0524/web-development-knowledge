@@ -2285,6 +2285,10 @@ export function callHook (vm: Component, hook: string) {
     
     [xcode解决真机无法调试的问题](https://stackoverflow.com/questions/39524148/requires-a-development-team-select-a-development-team-in-the-project-editor-cod)，主要是要设置personal dev account，然后要修改RN给你的项目起的默认package的名字
 
+* React Navigation
+
+    [Navigation官方文档](https://reactnavigation.org/docs/navigators/stack)
+
 <h2 id="http">Http</h2>
 
 * post请求的四种提交方式
