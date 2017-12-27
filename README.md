@@ -2289,6 +2289,11 @@ export function callHook (vm: Component, hook: string) {
 
     [Navigation官方文档](https://reactnavigation.org/docs/navigators/stack)
 
+* RN中强制竖屏显示方法
+
+    * IOS把info.plist的UISupportedInterfaceOrientations中UIInterfaceOrientationLandscapeLeft、UIInterfaceOrientationLandscapeRight注释掉
+    * Android在AndroidManifest中的MainActivity后面增加android:screenOrientation="portrait"
+
 <h2 id="http">Http</h2>
 
 * post请求的四种提交方式
