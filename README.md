@@ -2294,6 +2294,21 @@ export function callHook (vm: Component, hook: string) {
     * IOS把info.plist的UISupportedInterfaceOrientations中UIInterfaceOrientationLandscapeLeft、UIInterfaceOrientationLandscapeRight注释掉
     * Android在AndroidManifest中的MainActivity后面增加android:screenOrientation="portrait"
 
+* RN中TabNavigation 文字上下文不居中的问题，需要给tabStyle设置height值
+
+    ```js
+    tabStyle: {
+        height: 30,
+    },
+    style: {
+        height: 40,
+        backgroundColor: '#FFF',
+        borderBottomWidth: 1 / dpr,
+        borderColor: '#D8D8D8',
+        borderStyle: 'solid',
+    },
+    ```
+
 <h2 id="http">Http</h2>
 
 * post请求的四种提交方式
