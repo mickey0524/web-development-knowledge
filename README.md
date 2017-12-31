@@ -2308,6 +2308,9 @@ export function callHook (vm: Component, hook: string) {
         borderStyle: 'solid',
     },
     ```
+* RN中FLatList设置getItemLayout导致仅仅渲染初始数目的item，后面渲染出空白
+
+    [VirtualizedList + getItemLayout only renders initialNumToRender items](https://github.com/facebook/react-native/issues/15734)
 
 <h2 id="http">Http</h2>
 
