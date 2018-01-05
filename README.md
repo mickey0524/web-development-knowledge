@@ -2312,6 +2312,10 @@ export function callHook (vm: Component, hook: string) {
 
     [VirtualizedList + getItemLayout only renders initialNumToRender items](https://github.com/facebook/react-native/issues/15734)
 
+* RN中drawerNavigation初始化报routeName undefined，^1.0.0-beta.22版本，需要手动添加drawerOpenRoute，drawerCloseRoute，drawerToggleRoute贼坑
+
+    [https://github.com/react-navigation/react-navigation/issues/3095]
+
 <h2 id="http">Http</h2>
 
 * post请求的四种提交方式
