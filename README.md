@@ -2316,6 +2316,16 @@ export function callHook (vm: Component, hook: string) {
 
     [https://github.com/react-navigation/react-navigation/issues/3095]
 
+* RN中react-redux 的 mapDispatchToProps 写法
+
+    ```js
+    import { connect } from 'react-redux'; 
+
+    const mapDispatchToProps = (dispatch) => {
+        action: (param) => { dispatch(action(param)) }
+    }
+    ```
+
 <h2 id="http">Http</h2>
 
 * post请求的四种提交方式
