@@ -1924,6 +1924,80 @@ path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
 	* 修订号：当你做了向下相容的问题修正
 	* 先行版号及版本编译资讯可以加到「主版号.次版号.修订号」的后面，作为延伸
 	
+* nodejs调用RPC服务
+
+    RPC（Remote Procedure Call Protocol）——远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。RPC协议假定某些传输协议的存在，如TCP或UDP，为通信程序之间携带信息数据。在OSI网络通信模型中，RPC跨越了传输层和应用层。RPC使得开发包括网络分布式多程序在内的应用程序更加容易。RPC采用客户机、服务器模式。请求程序就是一个客户机，而服务提供程序就是一个服务器。首先，客户机调用进程发送一个有进程参数的调用信息到服务进程，然后等待应答信息。在服务器端，进程保持睡眠状态直到调用信息的到达为止。当一个调用信息到达，服务器获得进程参数，计算结果，发送答复信息，然后等待下一个调用信息，最后，客户端调用进程接收答复信息，获得进程结果，然后调用执行继续进行。有多种RPC模式和执行。最初由Sun公司提出。IETF ONC宪章重新修订了Sun版本，使得ONC RPC协议成为IETF标准协议。现在使用最普遍的模式和执行是开放式软件基础的分布式计算环境（DCE）
+    
+	1. 通过Thrift生成node语言代码
+		
+		brew install thrift
+		cd 目录
+		thrift -r --gen js:node name.thrift
+	
+	2. 配置thrift.json
+
+		如果是部署在开发机上的rpc服务，知道Host和Port就行了，如果是线上环境，则需要通过psm来访问
+	
+	3. nodejs调用rpc服务
+
+		```js
+		
+		import thrift from "thrift"
+		import XXXService from "./name-nodejs/XXXService"
+		import ttypes from "./name-nodejs/XXXTypes"
+		 
+		const ThriftConfig = require("../../config/thrift.json");
+		 
+		export default class RPC{
+ 
+    	constructor(){
+        	this.connect();
+    	}
+ 
+	    	connect(){
+		        this.connection = thrift.createConnection(ThriftConfig[0].Host, ThriftConfig[0].Port);
+		        this.client = thrift.createClient(XXXService, this.connection);
+		        this.ttypes = ttypes;
+		 
+		        this.connection.on("error",function(e) {
+		            logger.error("RPC Connect Error..")
+		        });
+		 
+		        this.connection.on("connect", function(e){
+		            logger.info("RPC Connect Success..")
+		        });
+		    }
+		 
+		    //构建参数
+		    setStatRequest(objStat){
+		 
+		        if(Object.prototype.toString.call(objStat) !== '[object Object]'){
+		            logger.warn("Params objStat error");
+		        }
+		 
+		        return new this.ttypes.StatRequest(objStat);
+		    }
+		 
+		    //RPC通信
+		    getObjectStatMetric(ObjectStruct){
+		        this.connect();
+		        let res = this.client.get_object_stat_metric(ObjectStruct);
+		        //this.close();
+		        return res;
+		 
+		    }
+		 
+		    close(){
+		        this.connection.end();
+		        this.connection.on("close", function(e){
+		            logger.info("RPC Connect close..")
+		        });
+		    }
+	 
+		}
+
+		```
+
 <h2 id="mobile">移动端</h2>
 
 * 移动端有关touch的事件
