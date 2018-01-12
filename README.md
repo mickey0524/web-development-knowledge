@@ -2450,6 +2450,11 @@ export function callHook (vm: Component, hook: string) {
 	
 	[XSS,CSRF参考](http://www.cnblogs.com/lins05/archive/2012/12/02/2797996.html)
 
+* HTTP缓存机制
+
+    [HTTP 缓存 | Web | Google Developers](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=zh-cn)
+    
+    [彻底弄懂 HTTP 缓存机制 —— 基于缓存策略三要素分解法](http://geek.csdn.net/news/detail/131318)
 <h2 id="others">其他</h2>
 
 * mpv中文字幕乱码
