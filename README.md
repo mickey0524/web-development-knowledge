@@ -186,6 +186,8 @@
 	
 	上面是一个例子，pug模版写法，self代表本域名的script，unsafe-inline代表内联的script，unsafe-eval用于执行eval(webpack打包出来很多eval。。.) 最后GA的域名是允许使用GA统计
 
+* a标签将href替换为data-href，在谷歌搜索页面中能够跳转，在百度则不能，应该是谷歌自动错误修正
+
 <h2 id="CSS">CSS</h2>
 
 * BFC(Box Formatting Context) 块级格式化上下文
