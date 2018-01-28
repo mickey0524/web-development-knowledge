@@ -2402,6 +2402,10 @@ export function callHook (vm: Component, hook: string) {
     }
     ```
 
+* 利用Android的adb工具免数据线调试
+
+    在Android -> SDK -> platform-tools文件夹下运行 `adb reverse tcp:8081 tcp:8081`
+
 <h2 id="http">Http</h2>
 
 * post请求的四种提交方式
