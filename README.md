@@ -1525,6 +1525,16 @@ var isAttached = function isAttached(element) {
 
 	"" + 1, String(), toString(), new String()
 
+* Babel默认只转换新的JS句法(syntax)，而不转换新的API，比如Iterator、Generator、Set、Maps、Proxy等全局对象，以及一些定义在全局对象上的方法(比如Object.assign)都不会转码，这个时候需要引入babel-plugin-transform-runtime，默认transform-runtime会引入bable-polyfill，这样当识别出对应代码的时候，会进行转码，下面给出最基本的.babelrc
+
+    ```js
+    {
+        "presets": ["es2015", "stage-2"],
+        "plugins": ["transform-runtime"],
+        "comments": false
+    }
+    ```
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
