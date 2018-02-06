@@ -1535,6 +1535,20 @@ var isAttached = function isAttached(element) {
     }
     ```
 
+* js中的replace(re, (matched, capture1...))中的函数中的参数意义
+
+    ```js
+    '2018-02-06'.replace(re, (
+        matched, // 整个匹配结果 2018-02-06
+        capture1, // 第一个组匹配 2018
+        capture2, // 第二个组匹配 02
+        capture3, // 第三个组匹配 06
+        position, // 匹配开始的位置 0
+        S, // 原字符串 2018-02-06
+        groups // 具名组构成的一个对象(ES2018新增的) 
+    ))
+    ```
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
