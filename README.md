@@ -1549,6 +1549,24 @@ var isAttached = function isAttached(element) {
     ))
     ```
 
+* js中三种string转number的效率，易得，Number效率最高
+
+    ```js
+    console.time('time1')
+    var b = +'1'; 
+    console.timeEnd('time1');
+    console.time('time2');
+    var c = parseInt('1');
+    console.timeEnd('time2');
+    console.time('time3');
+    var c = Number('1');
+    console.timeEnd('time3');
+
+    time1: 0.01708984375ms
+    time2: 0.010009765625ms
+    time3: 0.005859375ms
+    ```
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
