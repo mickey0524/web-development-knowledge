@@ -1567,6 +1567,18 @@ var isAttached = function isAttached(element) {
     time3: 0.005859375ms
     ```
 
+* js中Array的参数数目不同的时候，表现是不同的，可以用ES6的Array.of()代替，或者下面的自定义函数
+
+    ```js
+    Array() // []
+    Array(3) // [empty * 3]
+    Array(3, 11) // [3, 11]
+    
+    function ArrayOf(){
+        return [].slice.call(arguments);
+    }
+    ```
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
