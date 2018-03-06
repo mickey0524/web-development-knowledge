@@ -1196,7 +1196,7 @@ dd + dd {
 
 	[] == false，这个比较首先对[]做了valueOf，然后调用toString变为“”，所以[] == false
 
-	同理，String({}) != false
+	同理，String({}) == '[Object Object]' != false
 
 	Boolean([])，当参数为object（排除null，undefined），返回true，详细可以看下方的url
 
@@ -1577,6 +1577,71 @@ var isAttached = function isAttached(element) {
     function ArrayOf(){
         return [].slice.call(arguments);
     }
+    ```
+
+* js中 == 操作的具体步骤
+
+    ```js
+    x == y
+    1. 如果x不是正常值（比如抛出一个错误），中断执行
+    2. 如果y不是正常值，中断执行
+    3. 如果Type(x)与Type(y)相同，执行严格相等运算x === y
+    4. 如果x是null，y是undefined，返回true
+    5. 如果x是undefined，y是null，返回true
+    6. 如果Type(x)是数值，Type(y)是字符串，返回x == ToNumber(y)的结果
+    7. 如果Type(x)是字符串，Type(y)是数值，返回ToNumber(x) == y的结果
+    8. 如果Type(x)是布尔值，返回ToNumber(x) == y的结果
+    9. 如果Type(y)是布尔值，返回x == ToNumber(y)的结果
+    10. 如果Type(x)是字符串或数值或Symbol值，Type(y)是对象，返回x == ToPrimitive(y)的结果
+    11. 如果Type(x)是对象，Type(y)是字符串或数值或Symbol值，返回ToPrimitive(x) == y的结果
+    12. 返回false
+    ```
+
+* js标准里是如何定义加法过程
+
+    ```js
+    AdditiveExpression: AdditiveExpression + MutiplicativeExpression
+    1. 把AdditiveExpression的result赋值为lref
+    2. 把GetValue(lref)的结果赋值给lval
+    3. 把MultiplicativeExpression的result赋值给rref
+    4. 把GetValue(rref)的结果赋值给rval
+    5. 把ToPrimitive(lval)的结果赋值给lprim
+    6. 把ToPrimitive(lval)的结果赋值给rprim
+    7. 如果Type(lprim)和Type(rprim)中有一个是String，则
+        a. 把ToString(lprim)的结果赋给lstr
+        b. 把ToString(rprim)的结果赋给rstr
+        c. 返回lstr和rstr拼接的字符串
+    8. 把ToNumber(lprim)的结果赋给lnum
+    9. 把ToNumber(rprim)的结果赋给rnum
+    10. 返回lnum和rnum相加的数值
+    ```
+
+* js中 ToPrimitive(input[, PreferredType]) 操作的具体步骤
+
+    ```js
+    ToPrimitive(input[, PreferredType])
+
+    1. 如果没有传入PreferredType参数，则让hint的值为'default'
+    2. 否则，如果PreferredType值为String，则让hint的值为'string'
+    3. 否则，如果PreferredType值为Number，则让hint的值为'number'
+    4. 如果input对象有@@toPrimitive方法，则让exoticToPrim的值为这个方法，否则让exoticToPrim的值为undefined
+    5. 如果exoticToPrim的值不为undefined，则
+        a. 让result的值为调用exoticToPrim之后的值
+        b. 如果Type(result)不是Object，则返回result
+        c. throw一个TypeErrory异常
+    6. 否则，如果hint的值为'default'，则把hint的值重新赋为'number'
+    7. 返回 OrdinaryToPrimitive(input, hint)
+    
+    OrdinaryToPrimitive(input,hint)
+
+    1. 如果hint的值为'string'，则
+        a. 调用input对象的toString()方法，如果Type(result)不是Object，则返回
+        b. 否则，调用input对象的valueOf()方法，如果Type(result)不是Object，则返回
+        c. 否则，抛出TypeError错误
+    2. 如果hint的值为'number'，则
+        a. 调用input对象的valueOf()方法，如果Type(result)不是Object，则返回
+        b. 否则，调用input对象的toString()方法，如果Type(result)不是Object，则返回
+        c. 否则，抛出TypeError错误
     ```
 
 <h2 id="jQuery">jQuery</h2>
