@@ -2183,6 +2183,22 @@ path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
 
 * 移动端实时监听input元素的输入事件不能使用change事件，要监听input事件
 
+* 移动端 js input 事件输入汉字的时候，拼音在输入框内也会触发input事件，可以用compositionstart和compositionend两个事件形成一个业务锁，避免发送无效的请求
+
+    ```js
+    this.searchInput.on('input', () => {
+      if (this.lock) return; // 中文输入中间的input事件过滤
+      this.fetchSearchRes();
+    });
+    this.searchInput.on('compositionstart', () => { // 开始中文打字，上锁
+      this.lock = true;
+    });
+    this.searchInput.on('compositionend', () => { // 中文选取完毕，解锁
+      this.lock = false;
+      this.fetchSearchRes();
+    });
+    ```
+
 <h2 id="webpack">webpack</h2>
 
 * webpack插件大全
