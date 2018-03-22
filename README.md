@@ -1644,6 +1644,8 @@ var isAttached = function isAttached(element) {
         c. 否则，抛出TypeError错误
     ```
 
+* Swiper常用于移动端网站的内容触摸滑动，但是层叠的轮播例子却不多，可以用`onProgress(swiper, progress)`(切换视图的时候获取每一个slide的progress数值，用于设置style属性的改变)和`onSetTransition(swiper, transition)`(获取swiper实例的speed，可以用于设置slide的动画transitionDuration)，
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
