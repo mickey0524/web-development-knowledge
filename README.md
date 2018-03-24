@@ -1644,7 +1644,53 @@ var isAttached = function isAttached(element) {
         c. 否则，抛出TypeError错误
     ```
 
-* Swiper常用于移动端网站的内容触摸滑动，但是层叠的轮播例子却不多，可以用`onProgress(swiper, progress)`(切换视图的时候获取每一个slide的progress数值，用于设置style属性的改变)和`onSetTransition(swiper, transition)`(获取swiper实例的speed，可以用于设置slide的动画transitionDuration)，
+* Swiper常用于移动端网站的内容触摸滑动，但是层叠的轮播例子却不多，可以用`onProgress(swiper, progress)`(切换视图的时候获取每一个slide的progress数值，用于设置style属性的改变)和`onSetTransition(swiper, transition)`(获取swiper实例的speed，可以用于设置slide的动画transitionDuration)，下面给出一个例子
+
+	```js
+	new Swiper('.swiper-container', {
+        direction: 'horizontal',
+        slidesPerView: 'auto',
+        loop: true,
+        centeredSlides: true,
+        watchSlidesProgress: true,
+        autoplayDisableOnInteraction: false,
+        autoplay: 5000,
+        onSlideChangeEnd: (swiper) => {
+          const bullets = this.$pagination.children('.J_swiper-pagination-bullet');
+          bullets.removeClass('active');
+          bullets.eq(swiper.realIndex).addClass('active');
+        },
+        onProgress: (swiper) => {
+          for (let i = 0, len = swiper.slides.length; i < len; i++) {
+            const slide = swiper.slides[i];
+            const progress = Math.round(Math.abs(slide.progress));
+            const progresSymbol = slide.progress < 0 ? -1 : 1;
+            const scale = 1 - progress * 0.2; // eslint-disable-line no-mixed-operators
+            const opacity = 1 - Math.min(progress / 5, 1); // eslint-disable-line no-mixed-operators
+            const slideStyle = slide.style;
+            let zIndex;
+            switch (progress) {
+              case 0: zIndex = 4; break;
+              case 1: zIndex = 3; break;
+              case 2: zIndex = 2; break;
+              case 3: zIndex = 1; break;
+              default: zIndex = 0; break;
+            }
+            slideStyle.webkitTransform = `scale(${scale}, ${scale}) translateX(${progresSymbol * 50 * progress}%)`;
+            slideStyle.transform = slideStyle.webkitTransform;
+            slideStyle.opacity = opacity;
+            slideStyle.zIndex = zIndex;
+          }
+        },
+        onSetTransition: (swiper, transition) => {
+          for (let i = 0, len = swiper.slides.length; i < len; i++) {
+            const slideStyle = swiper.slides[i].style;
+            slideStyle.webkitTransitionDuration = `${transition}ms`;
+            slideStyle.transitionDuration = `${transition}ms`;
+          }
+        }
+    });
+	```
 
 <h2 id="jQuery">jQuery</h2>
 
