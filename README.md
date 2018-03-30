@@ -1206,6 +1206,12 @@ dd + dd {
 
 	我相信很多童鞋，都用过函数节流的方法，但是听到这个名字的时候还是很陌生，嗯，函数节流就是避免响应短时间内发生的类似 resize，mouseover这种事件的技术，使用setTimeout就行啦
 
+* mouseover和mouseenter两个事件的区别
+    
+     不论鼠标指针穿过被选元素或其子元素，都会触发 mouseover 事件。对应mouseout
+    
+     只有在鼠标指针穿过被选元素时，才会触发 mouseenter 事件。对应mouseleave
+
 * 如何获取当前元素距离页面左上角的坐标
 
 	1. offsetLeft, offsetTop累加
