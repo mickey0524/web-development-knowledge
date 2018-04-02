@@ -1845,6 +1845,15 @@ var isAttached = function isAttached(element) {
     		... //必须执行的代码
     	})
 
+* jQuery可以通过trigger来触发自定义事件
+
+    ```js
+    $(window).on('', (custom:event) => {
+        // pass
+    });
+    $(window).trigger('custom:event');
+    ```
+
 <h2 id="Nodejs">Node.js</h2>
 
 * 都说Node.js是单线程，这是真的吗？
