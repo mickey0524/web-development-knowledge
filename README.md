@@ -682,6 +682,79 @@ dd + dd {
 	* flex: 1            1 1 0
 	* flex: auto         1 1 auto
 
+* 水平垂直居中的各种方法(常用)[参考](https://github.com/yanhaijing/vertical-center)
+
+	* 定宽高(假设居中块的长度和宽度为50px)
+		
+		* absolute + 负margin
+			
+			```css
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin-left: -50px;
+			margin-right: -50px;
+			```
+		* absolute + calc
+
+			```css
+			position: absolute;
+			left: calc(50% - 50px);
+			top: calc(50% - 50px);
+			```
+		
+	* 不定宽高
+
+		* absolute + translate
+
+			```css
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			```
+		* absolute + margin: auto
+
+			```css
+			position: absolute;
+			margin: auto;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			```
+		
+		* flex
+
+			```css
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			```
+		
+		* grid
+
+			```css
+			display: grid;
+			justify-items: center;
+			align-items: center;
+			```
+		
+		* text-align:center + lineheight
+
+			```css
+			line-height: 200px;
+			text-align: center;
+			```
+			
+		* table-cell
+
+			```css
+			display: table-cell;
+			vertical-align: center;
+			text-align: center;
+			```
+
 <h2 id="JavaScript">JavaScript</h2>
 
 * 如何区分{} 和 [] 
