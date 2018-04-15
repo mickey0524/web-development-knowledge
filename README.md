@@ -2632,6 +2632,9 @@ export function callHook (vm: Component, hook: string) {
 
 * RN可以作为submodule被客户端的代码仓库依赖，也可以上传CDN，然后客户端创建一个RN的环境，直接执行js代码
 
+* react在写组件的时候可以 extends Component 或者是 extends PureComponent，PureComponent只会对
+state中的数据进行浅层次的数据比较，能够大大提高update view 的效率，当需要深层比较的时候，就只能extends Component了
+
 <h2 id="RN">React Native</h2>
 
 * xcode解决无法真机调试的问题
