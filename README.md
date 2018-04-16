@@ -1771,6 +1771,36 @@ var isAttached = function isAttached(element) {
     });
 	```
 
+* 一道js的正则表达式相关的题目
+
+	> 用js的正则表达式实现下面的功能：
+	>
+	> 2[ab] 输出 abab
+	>
+	> 2[a3[b2[c]]]   输出  abccbccbccabccbccbcc
+
+	```js
+	var str1 = '2[a3[b2[c]]]';
+	var str2 = '2[ab]';
+
+	var getDecryption = (str) => {
+		var re = /^(.*)(\d+)\[(.*?)\](.*)$/g;
+		while (re.test(str)) {
+			str = str.replace(re, ($0, $1, $2, $3, $4) => {
+				var tmp = '';
+				for (let i = 0; i < $2; i++) {
+					tmp += $3;
+				}
+				return $1 + tmp + $4;
+			});  
+		}
+		return str;
+	}
+
+	console.log(getDecryption(str1));
+	console.log(getDecryption(str2));
+	```
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
