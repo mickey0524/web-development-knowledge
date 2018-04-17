@@ -755,6 +755,44 @@ dd + dd {
 			text-align: center;
 			```
 
+* 渐变文字的实现，可以用于文本和iconfont
+
+    ```css
+    background: linear-gradient(to right, #FF6600 0%, #FF003B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    ```
+
+* 渐变边框可以用border-image去做，具体可以参考张鑫旭大神的这篇blog[border-image的使用](http://www.zhangxinxu.com/wordpress/2010/01/css3-border-image/)，但是border-image和border-radius并不能同时使用，但是我们可以用伪类层叠的方式来hack一下，具体方法如下
+
+    ```css
+    .btn {
+        position: relative;
+        width: 64px;
+        height: 28px;
+        border: none;
+        color: red;
+        background: linear-gradient(to right, #FF6600 0%, #FF003B 100%);
+        border-radius: 50px;
+        span {
+            position: relative;
+            z-index: 50; //下载进度不能被遮挡
+        }
+    }
+    .btn::after {
+        content: '';
+        position: absolute;
+        border-radius: 50px;
+        background: #FFF;
+        width: 62px;
+        height: 26px;
+        left: 1px;
+        top: 1px;
+    }
+    ```
+
+    将background用渐变色填充，然后用白色背景伪类覆盖中心部分，留出四边相应宽度的边框，hack一个带有圆角的border-image
+
 <h2 id="JavaScript">JavaScript</h2>
 
 * 如何区分{} 和 [] 
