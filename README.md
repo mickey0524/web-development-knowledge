@@ -1839,6 +1839,100 @@ var isAttached = function isAttached(element) {
 	console.log(getDecryption(str2));
 	```
 
+* toString函数详解
+
+	可以使用toString函数将值转换为字符串，这个功能在不同原型之间有所不同
+
+	* String.prototype.toString 函数
+
+		返回一个字符串的值
+
+		```js
+		const name = 'mickey';
+		name.toString(); // 'mickey'
+		String.prototype.toString.call('mickey') // 'mickey'
+		String.prototype.toString.call({}) // Uncaught TypeError: String.prototype.toString requires that 'this' be a String
+		```
+
+	* Number.prototype.toString 函数
+
+		返回转换为String的数字，可以输入进制数
+
+		```js
+		(15).toString(); // '15'
+		(15).toString(2); // '1111'
+		(15).toString(2); // '-1111'
+		```
+	
+	* Symbol.prototype.toString 函数
+
+		返回`Symbol(${description})`
+
+		```js
+		Symbol('mickey').toString(); // 'Symbol(mickey)'
+		```
+
+	* Boolean.prototype.toString 函数
+
+		返回'true'和'false'
+
+	* Object.prototype.toString 函数
+
+		Object 调用内部 [[Class]] 。它是代表对象类型的标签。
+		
+		Object.prototype.toString 返回一个 `[object ${tag}]` 字符串。 要么它是内置标签之一 (例如 “Array”, “String”, “Object”, “Date” ), 或者它被明确设置
+
+		```js
+		const name = 'mickey';
+		Object.prototype.toString.call(name); // '[object String]'
+		```
+
+		随着 ES6 的推出，设置自定义标签可以用`Symbol`来完成
+
+		```js
+		const stu = {
+			name: 'mickey',
+		};
+		console.log(stu.toString()); // '[object object]'
+		stu[Symbol.toStringTag] = 'student';
+		console.log(stu.toString()); // '[object student]'
+		
+		const Student = function(name) {
+			this.name = name;
+		}
+		Student.prototype[Symbol.toStringTag] = 'student';
+
+		const stu = new Student('mickey');
+		stu.toString(); // '[object student]'
+
+		class Student {
+			constructor(name) {
+				this.name = name;
+			}
+			get [Symbol.toStringTag]() {
+				return 'student';
+			}
+		}
+
+		const stu = new Student('mickey');
+		stu.toString(); // '[object student]'
+		```
+
+	* Array.prototype.toString 函数
+
+		在每个元素上调用toString并返回一个字符串，所有的输出用逗号分隔。
+
+		```js
+		const arr = [
+			{},
+			2,
+			3,
+		];
+
+		arr.toString(); // "[object object],2,3"
+		```
+
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
