@@ -2569,6 +2569,17 @@ path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
 
 	Vue在初始化组件数据的时候，在生命周期的beforeCreate和created钩子函数之间实现了对data、props、computed、methods、events以及watch的处理，在渡过created生命周期之后，Vue会去判断options对象中是否包括el这个key，如果不存在就要等待instance.$mount()手动进行挂载(instance 是由extend创建的构造器实例化出来的实例)，紧接着，Vue会去判断是否存在template或者render，存在的话，用template进行编译，反之，将el的outerHTML作为template进行编译，然后就是mounted()进行挂载... 
 
+   * beforeCreate：组件实例刚刚被创建，组件属性计算之前，如data属性
+   * created：组件实例创建完成，属性已绑定，但是DOM还未完成，$el属性还不存在
+   * beforeMount: 模版编译/挂载之前
+   * mounted: 模版编译/挂载之后
+   * beforeUpdate: 组件更新之前
+   * updated: 组件更新之后
+   * activated: for `keep-alive`，组件被激活时调用
+   * deactivated: for `keep-alive`，组件被移除时调用
+   * beforeDestory: 组件销毁前被调用
+   * destoryed: 组件销毁后调用
+
 * 计算属性的setter
 
 	计算属性默认只有getter，不过在需要时你也可以提供一个setter:
@@ -2627,6 +2638,8 @@ export function callHook (vm: Component, hook: string) {
 ```
 
 * vue中props如果要设置default为array或者object，需要用function返回
+
+* vue中，除了顶层入口文件data可以直接返回object，其他子组件的data需要返回一个function，原因是object是引用数据类型，每个组件的data如果直接返回object的话，则组件的多个实例共享一个数据对象，这显然是不符合预期的，于是需要用一个function来返回
 
 <h2 id="react">React</h2>
 
