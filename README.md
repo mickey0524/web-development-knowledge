@@ -260,25 +260,28 @@
 * 为什么要初始化CSS样式
 
 	因为浏览器的兼容问题，不同浏览器对有些标签的默认值是不同的，如果没对CSS初始化往往会出现浏览器之间的页面之间的差异。当然，初始化样式会对SEO有一定的影响，但鱼与熊掌不可兼得，但力求影响最小的情况下初始化
+	
 	最简单的初始化方法： * { padding: 0; margin: 0 } (强烈不建议)
+	
 	淘宝的样式初始化方法：
-```
-  body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; }
-  body, button, input, select, textarea { font:12px/1.5tahoma, arial, \5b8b\4f53; }
-  h1, h2, h3, h4, h5, h6{ font-size:100%; }
-  address, cite, dfn, em, var { font-style:normal; }
-  code, kbd, pre, samp { font-family:couriernew, courier, monospace; }
-  small{ font-size:12px; }
-  ul, ol { list-style:none; }
-  a { text-decoration:none; }
-  a:hover { text-decoration:underline; }
-  sup { vertical-align:text-top; }
-  sub{ vertical-align:text-bottom; }
-  legend { color:#000; }
-  fieldset, img { border:0; }
-  button, input, select, textarea { font-size:100%; }
-  table { border-collapse:collapse; border-spacing:0; }
-```
+	
+	```
+  	body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, 	legend, button, input, textarea, th, td { margin:0; padding:0; }
+  	body, button, input, select, textarea { font:12px/1.5tahoma, arial, \5b8b\4f53; }
+  	h1, h2, h3, h4, h5, h6{ font-size:100%; }
+  	address, cite, dfn, em, var { font-style:normal; }
+  	code, kbd, pre, samp { font-family:couriernew, courier, monospace; }
+  	small{ font-size:12px; }
+  	ul, ol { list-style:none; }
+  	a { text-decoration:none; }
+  	a:hover { text-decoration:underline; }
+  	sup { vertical-align:text-top; }
+  	sub{ vertical-align:text-bottom; }
+  	legend { color:#000; }
+  	fieldset, img { border:0; }
+  	button, input, select, textarea { font-size:100%; }
+  	table { border-collapse:collapse; border-spacing:0; }
+	```
 
 * CSS里的visibility属性有个collapse属性值是干嘛用的
 
@@ -299,17 +302,19 @@
 	2. 父级div也一起浮动
 	3. 父级div变为BFC，这样计算高度的时候会把浮动元素算进去
 	4. 常规的使用一个class
+
+	
 	```
-		.clearfix: before, .clearfix: after {
-			content: '';
-			display: table;
-		}
-		.clearfix: after {
-			clear: both;
-		}	
-		.clearfix {
-			*zoom: 1;	为了兼容IE触发haslayout
-		}
+	.clearfix: before, .clearfix: after {
+		content: '';
+		display: table;
+	}
+	.clearfix: after {
+		clear: both;
+	}	
+	.clearfix {
+		*zoom: 1;	为了兼容IE触发haslayout
+	}
 
 * zoom: 1的清楚浮动的原理
 
@@ -337,21 +342,21 @@
 
 	黄色背景是因为chrome会默认给自动填充的input表单加上input:-webkit-autofill属性
 
-```
+	```
 	input:-webkit-autofill textarea:-webkit-autofill, select:-webkit-autofill {
 		background-color: #FAFFBD;
 		background-image: none;
 		color: white;	
 	}
-```
+	```
 
 	可以使用足够大的纯色内阴影来覆盖input输入框的黄色背景
 
-```
+	```
 	input:-webkit-autofill {
 		border-shadow: 0 0 0px 1000px white inset;
 	}
-```
+	```
 
 * line-height的一些理解
 
@@ -446,21 +451,21 @@
 * css限制多行，超出部分用省略号表示
 
 	文本溢出我们经常用到的应该就是text-overflow:ellipsis了，相信大家也很熟悉
-
-```
+	
+	```
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-```
+	```
 	但是这种方法并不能支持限制多行，WebKit内核的浏览器实现起来比较简单，可以通过添加一个-webkit-line-clamp的私有属性来实现
 
-```
+	```
 	overflow : hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
-```
+	```
 	如果要做兼容的话，推荐使用clamp.min.js
 	http://lomu.me/post/css-multiline-text-overflow
 
@@ -470,187 +475,186 @@
 
 * 用纯CSS实现以下效果，这逆向思维很赞
 
-![img](./images/1.gif)
+	![img](./images/1.gif)
 
-```js
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>JS Bin</title>
-</head>
-<body>
-  <ul>
-     <li></li>
-     <li></li>
-     <li></li>
-     <li></li>
-     <li></li>
-  </ul>
-</body>
-</html>
-
-*{
-  padding:0;
-  margin:0;
-}
-
-li{
-  list-style:none;
-  height:20px;
-  width:20px;
-  border-radius:50%;
-  margin:10px;
-  border:1px currentColor solid;
-}
-li:hover,li:hover~li{
-  background:gray;
-}
-ul{
-  display:flex;
-  direction:rtl;
-  width:fit-content;
-}
-
-```
+	```js
+	<!DOCTYPE html>
+	<html>
+	<head>
+	  <meta charset="utf-8">
+	  <title>JS Bin</title>
+	</head>
+	<body>
+	  <ul>
+	     <li></li>
+	     <li></li>
+	     <li></li>
+	     <li></li>
+	     <li></li>
+	  </ul>
+	</body>
+	</html>
+	
+	*{
+	  padding:0;
+	  margin:0;
+	}
+	
+	li{
+	  list-style:none;
+	  height:20px;
+	  width:20px;
+	  border-radius:50%;
+	  margin:10px;
+	  border:1px currentColor solid;
+	}
+	li:hover,li:hover~li{
+	  background:gray;
+	}
+	ul{
+	  display:flex;
+	  direction:rtl;
+	  width:fit-content;
+	}
+	```
 
 * 用纯CSS实现下列效果
 
-![img](./images/2.gif)
-
-```js
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>JS Bin</title>
-</head>
-<body>
-  <div>
-    <label for="checkbox">
-        展示
-    </label>
-    <input id="checkbox" type="checkbox"></input>
-  <div class="modal">
-    <label class="close" for="checkbox">关闭</label>
-  </div>
-  </div>
-</body>
-</html>
-
-input[type="checkbox"]{
-  display:none;
-}
-label{
-  line-height:20px;
-  padding:2px 5px;
-  background:#aaa;
-  font-size:14px;
-  color:white;
-  box-shadow: 0 0 2px #888888;
-}
-label:active{
-   box-shadow:none;
-}
-.modal{
-  display:none;
-  position:fixed;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
-  background:rgba(0,0,0,.3);
-}
-#checkbox:checked~.modal{
-  display:flex;
-}
-.close{
-  margin:auto;
-}
-
-```
+	![img](./images/2.gif)
+	
+	```js
+	<!DOCTYPE html>
+	<html>
+	<head>
+	  <meta charset="utf-8">
+	  <title>JS Bin</title>
+	</head>
+	<body>
+	  <div>
+	    <label for="checkbox">
+	        展示
+	    </label>
+	    <input id="checkbox" type="checkbox"></input>
+	  <div class="modal">
+	    <label class="close" for="checkbox">关闭</label>
+	  </div>
+	  </div>
+	</body>
+	</html>
+	
+	input[type="checkbox"]{
+	  display:none;
+	}
+	label{
+	  line-height:20px;
+	  padding:2px 5px;
+	  background:#aaa;
+	  font-size:14px;
+	  color:white;
+	  box-shadow: 0 0 2px #888888;
+	}
+	label:active{
+	   box-shadow:none;
+	}
+	.modal{
+	  display:none;
+	  position:fixed;
+	  top:0;
+	  bottom:0;
+	  left:0;
+	  right:0;
+	  background:rgba(0,0,0,.3);
+	}
+	#checkbox:checked~.modal{
+	  display:flex;
+	}
+	.close{
+	  margin:auto;
+	}
+	
+	```
 
 * CSS position属性的sticky
 
-盒位置根据正常流计算(这称为正常流动中的位置)，然后相对于该元素在流中的 flow root（BFC）和 containing block（最近的块级祖先元素）定位。在所有情况下（即便被定位元素为 table 时），该元素定位均不对后续元素造成影响。当元素 B 被粘性定位时，后续元素的位置仍按照 B 未定位时的位置来确定。position: sticky 对 table 元素的效果与 position: relative 相同。
-
-粘性定位是相对定位和固定定位的混合，元素在跨越特定阈值前为相对定位，之后为固定定位。例如：
-
-`one { position: sticky; top: 10px; }`
-
-在 viewport 视口滚动到元素 top 距离小于 10px 之前，元素为相对定位。之后，元素将固定在与顶部距离 10px 的位置，直到 viewport 视口回滚到阈值以下。
-
-粘性定位常用于定位字母列表的头部元素。标示 B 部分开始的头部元素在滚动 A 部分时，始终处于 A 的下方。而在开始滚动 B 部分时，B 的头部会固定在屏幕顶部，直到所有 B 的项均完成滚动后，才被 C 的头部替代。
-
-须指定 top, right, bottom 或 left 四个阈值其中之一，才可使粘性定位生效。否则其行为与相对定位相同。
-
-```
-<div>
-  <dl>
-    <dt>A</dt>
-    <dd>Andrew W.K.</dd>
-    <dd>Apparat</dd>
-    <dd>Arcade Fire</dd>
-    <dd>At The Drive-In</dd>
-    <dd>Aziz Ansari</dd>
-  </dl>
-  <dl>
-    <dt>C</dt>
-    <dd>Chromeo</dd>
-    <dd>Common</dd>
-    <dd>Converge</dd>
-    <dd>Crystal Castles</dd>
-    <dd>Cursive</dd>
-  </dl>
-  <dl>
-    <dt>E</dt>
-    <dd>Explosions In The Sky</dd>
-  </dl>
-  <dl>
-    <dt>T</dt>
-    <dd>Ted Leo & The Pharmacists</dd>
-    <dd>T-Pain</dd>
-    <dd>Thrice</dd>
-    <dd>TV On The Radio</dd>
-    <dd>Two Gallants</dd>
-  </dl>
-</div>
-
-* {
-  box-sizing: border-box;
-}
-
-dl {
-  margin: 0;
-  padding: 24px 0 0 0;
-}
-
-dt {
-  background: #B8C1C8;
-  border-bottom: 1px solid #989EA4;
-  border-top: 1px solid #717D85;
-  color: #FFF;
-  font: bold 18px/21px Helvetica, Arial, sans-serif;
-  margin: 0;
-  padding: 2px 0 0 12px;
-  position: -webkit-sticky;
-  position: sticky;
-  top: -1px;
-}
-
-dd {
-  font: bold 20px/45px Helvetica, Arial, sans-serif;
-  margin: 0;
-  padding: 0 0 0 12px;
-  white-space: nowrap;
-}
-
-dd + dd {
-  border-top: 1px solid #CCC
-}
-```
-
-![img](./images/sticky.gif)
+	盒位置根据正常流计算(这称为正常流动中的位置)，然后相对于该元素在流中的 flow root（BFC）和 containing block（最近的块级祖先元素）定位。在所有情况下（即便被定位元素为 table 时），该元素定位均不对后续元素造成影响。当元素 B 被粘性定位时，后续元素的位置仍按照 B 未定位时的位置来确定。position: sticky 对 table 元素的效果与 position: relative 相同。
+	
+	粘性定位是相对定位和固定定位的混合，元素在跨越特定阈值前为相对定位，之后为固定定位。例如：
+	
+	`one { position: sticky; top: 10px; }`
+	
+	在 viewport 视口滚动到元素 top 距离小于 10px 之前，元素为相对定位。之后，元素将固定在与顶部距离 10px 的位置，直到 viewport 视口回滚到阈值以下。
+	
+	粘性定位常用于定位字母列表的头部元素。标示 B 部分开始的头部元素在滚动 A 部分时，始终处于 A 的下方。而在开始滚动 B 部分时，B 的头部会固定在屏幕顶部，直到所有 B 的项均完成滚动后，才被 C 的头部替代。
+	
+	须指定 top, right, bottom 或 left 四个阈值其中之一，才可使粘性定位生效。否则其行为与相对定位相同。
+	
+	```
+	<div>
+	  <dl>
+	    <dt>A</dt>
+	    <dd>Andrew W.K.</dd>
+	    <dd>Apparat</dd>
+	    <dd>Arcade Fire</dd>
+	    <dd>At The Drive-In</dd>
+	    <dd>Aziz Ansari</dd>
+	  </dl>
+	  <dl>
+	    <dt>C</dt>
+	    <dd>Chromeo</dd>
+	    <dd>Common</dd>
+	    <dd>Converge</dd>
+	    <dd>Crystal Castles</dd>
+	    <dd>Cursive</dd>
+	  </dl>
+	  <dl>
+	    <dt>E</dt>
+	    <dd>Explosions In The Sky</dd>
+	  </dl>
+	  <dl>
+	    <dt>T</dt>
+	    <dd>Ted Leo & The Pharmacists</dd>
+	    <dd>T-Pain</dd>
+	    <dd>Thrice</dd>
+	    <dd>TV On The Radio</dd>
+	    <dd>Two Gallants</dd>
+	  </dl>
+	</div>
+	
+	* {
+	  box-sizing: border-box;
+	}
+	
+	dl {
+	  margin: 0;
+	  padding: 24px 0 0 0;
+	}
+	
+	dt {
+	  background: #B8C1C8;
+	  border-bottom: 1px solid #989EA4;
+	  border-top: 1px solid #717D85;
+	  color: #FFF;
+	  font: bold 18px/21px Helvetica, Arial, sans-serif;
+	  margin: 0;
+	  padding: 2px 0 0 12px;
+	  position: -webkit-sticky;
+	  position: sticky;
+	  top: -1px;
+	}
+	
+	dd {
+	  font: bold 20px/45px Helvetica, Arial, sans-serif;
+	  margin: 0;
+	  padding: 0 0 0 12px;
+	  white-space: nowrap;
+	}
+	
+	dd + dd {
+	  border-top: 1px solid #CCC
+	}
+	```
+	
+	![img](./images/sticky.gif)
 
 * font-boosting现象
 
@@ -801,11 +805,11 @@ dd + dd {
 
 	最好的方法是使用object原型的toString方法
 
-```
+	```
 	function isArray(o) {
 	    return Object.prototype.toString.call(o) === ‘[object Array]‘;
 	}
-```
+	```
 
 * JavaScript有几种数据类型？
 
@@ -821,12 +825,12 @@ dd + dd {
 
 * 数组随机排序新姿势get
 	
-```
+	```
 	var arr = [1, 2, 3, 4, 5, 6, 7, 8];
 	arr.sort(function() {
 		return Math.random() - 0.5;	
 	});
-```
+	```
 
 * eval是做什么的？
 
@@ -872,17 +876,18 @@ dd + dd {
 	object.hasOwnProperty(attribute)
 
 	我这有个方法可以判断属性是否为其原型链中的属性
-```
+	
+	```
 	function isPropertyAttr(obj, proName) {
 		return !obj.hasOwnProperty(proName) && proName in obj;
 	}
-```
+	```
 
-* [].forEach.call($$("*"),function(a){a.style.outline="1px solid #"+(~~(Math.random()*(1<<24))).toString(16)}) 能解释一下这段代码的意思吗？
+* [].forEach.call($$("\*"),function(a){a.style.outline="1px solid #"+(~~(Math.random()*(1<<24))).toString(16)}) 能解释一下这段代码的意思吗？
 
 	说实话，第一眼看到这么长的代码，肯定是蒙蔽的，所以只能按部就班一步一步分析啦
 
-	$$('*')这是chrome的api，用于获取页面上所有元素，$$('*')相当于document.querySelectorAll('*')，得到一个NodeLists，这不是真正的数组，因此需要采用[].forEach.call来改变this，也可以使用Array.property.forEach.call，前者少些一些代码
+	$$('\*')这是chrome的api，用于获取页面上所有元素，$$('\*')相当于document.querySelectorAll('*')，得到一个NodeLists，这不是真正的数组，因此需要采用[].forEach.call来改变this，也可以使用Array.property.forEach.call，前者少些一些代码
 
 	后面代码可以很清晰的看到，是改动css的outline获得彩色轮廓，outline游离于盒子模型之外，因此不会影响元素之前的布局
 
@@ -893,7 +898,8 @@ dd + dd {
 	我一看到这个问题，想到的就是Nodejs的commonjs模块化，模块化将很多地方可能用到的代码块封装起来，隐藏具体的变量和实现方法，暴露出接口。
 
 	然后联想到立即执行函数，reture一个对象变量，暴露出接口
-```
+	
+	```
 	var module = (function() {
 		var _count = 0;
 		var m1 = function() {
@@ -905,7 +911,7 @@ dd + dd {
 			m2 : m2
 		}
 	})();
-```
+	```
 	这样就暴露除了m1, m2两个接口，隐藏了模块的具体实现
 
 * document.write 和 innerHTML的区别
@@ -945,7 +951,7 @@ dd + dd {
 
 	这个题目有很多种解决的方法，可以使用三位循环，字符串数组分隔，也可以使用正则，这里我给出正则的实现方式，其他两种较为简单就不给出实现方法了
 
-```
+	```
 	function changeFormat(num) {
 		if (!num) {
 			return ;
@@ -961,7 +967,7 @@ dd + dd {
 	}
 	console.log(changeFormat(1234567.90));
 	console.log(changeFormat(123123123));
-```
+	```
 	可能有同学会问？=是什么，？=表示先行断言，可以作为匹配的条件，但是匹配的内容不获取，并且作为下一次循环的开始，下面以123456789来分析一下
 	第一次(\d)匹配到了3, 因为后面要满足(\d{3})+，后面模式匹配到的是456789，依此类推，匹配到的就是3和6，得到的结果就是123,456,789，需要注意的就是整数匹配时候，由于不像小数一样最后总有.限制条件，需要使用$关闭懒惰匹配，不然得到的就是1,2,3,4,5,6,789, 同理?!为先行否定断言，只有匹配内容后面不存在否定内容才完成匹配，同样，也不计入返回结果
 
@@ -1028,7 +1034,8 @@ dd + dd {
 * document.getElementsByClassName()的兼容问题
 
 	又是IE==, IE6，7，8没有getElementsByClassName方法，因此需要兼容
-```
+	
+	```
 	function getName(obj, cName) {
 		var obj = obj || document;
 		if (obj.getElementsByClassName) {
@@ -1045,7 +1052,7 @@ dd + dd {
 			return arr;
 		}
 	}
-```
+	```
 
 * caller和callee的区别
 
@@ -1339,19 +1346,19 @@ dd + dd {
 	1. N始终是向左浮动布局，M的宽度可以任意
 	2. 编码要求：纯粹的原生JS + CSS，JS要使用面向对象思想
 	
-	```
-	var labels = new Labeler({
-		container: '#container',
-		data: [ '苹果', '香蕉', '黎' ...]
-	});
-	
-	// 向后追加
-	labeler.append('美国开心豆');
-	
-	labeler.prepend('日本豆腐');
-	
-	labeler.delete('香蕉');
-	```
+		```
+		var labels = new Labeler({
+			container: '#container',
+			data: [ '苹果', '香蕉', '黎' ...]
+		});
+		
+		// 向后追加
+		labeler.append('美国开心豆');
+		
+		labeler.prepend('日本豆腐');
+		
+		labeler.delete('香蕉');
+		```
 	
 * 使用CDN的好处
 
@@ -1364,57 +1371,57 @@ dd + dd {
 
 * 实现一个flatten函数，将一个嵌套多层的数组 array（数组） (嵌套可以是任何层数)转换为只有一层的数组，数组中元素仅基本类型的元素或数组，不存在循环引用的情况。 Ex: flatten([1, [2], [3, [[4]]]]) => [1, 2, 3, 4]
 
-```js
-/*方法1*/
-function flatten(arr){
-  var newArr = []
-  function _flat(arr){
-    arr.forEach(val=>{
-      if(Array.isArray(val)){
-        _flat(val)
-      }else{
-        newArr.push(val)
-      }
-    })    
-  }
-  _flat(arr)
-  return newArr
-}
-
-/*方法2*/
-
-function flatten2(arr){
-  return arr.reduce(function(initArr, currentArr){
-    return initArr.concat(Array.isArray(currentArr)?flatten2(currentArr):currentArr)
-  }, [])
-}
-
-```
+	```js
+	/*方法1*/
+	function flatten(arr){
+	  var newArr = []
+	  function _flat(arr){
+	    arr.forEach(val=>{
+	      if(Array.isArray(val)){
+	        _flat(val)
+	      }else{
+	        newArr.push(val)
+	      }
+	    })    
+	  }
+	  _flat(arr)
+	  return newArr
+	}
+	
+	/*方法2*/
+	
+	function flatten2(arr){
+	  return arr.reduce(function(initArr, currentArr){
+	    return initArr.concat(Array.isArray(currentArr)?flatten2(currentArr):currentArr)
+	  }, [])
+	}
+	
+	```
 
 * 实现一个reduce函数，作用和原生的reduce类似，reduce(list, iteratee, [memo])，memo是reduce函数的初始值，会被每一次成功调用iteratee函数的返回值所取代 。这个迭代传递4个参数：memo,value 和 迭代的index和最后一个引用的整个 list。如果没有memo传递给reduce的初始调用，iteratee不会被列表中的第一个元素调用。第一个元素将取代memo参数传递给列表中下一个元素调用的iteratee函数。
 
-```js
-function reduce(list, f, initValue) {
-    let res = initValue ? initValue : list[0];
-    let index = initValue ? 0 : 1;
-    for (let i = index, len = list.length; i < len; i++) {
-        res = f(res, list[i]);
-    }
-    return res;
-}
-```
+	```js
+	function reduce(list, f, initValue) {
+	    let res = initValue ? initValue : list[0];
+	    let index = initValue ? 0 : 1;
+	    for (let i = index, len = list.length; i < len; i++) {
+	        res = f(res, list[i]);
+	    }
+	    return res;
+	}
+	```
 
 * 实现一个map函数，模拟原生的map函数，map(list, iteratee)，通过对list里的每个元素调用转换函数(iteratee迭代器)生成一个与之相对应的数组。iteratee传递三个参数：value，然后是迭代 index。
-
-```js
-function map(list, iteratee) {
-    let result = [];
-    for (let i = 0, len = list.length; i < len; i++) {
-        result.push(iteratee(list[i], i, list));
-    }
-    return result;
-}
-```
+	
+	```js
+	function map(list, iteratee) {
+	    let result = [];
+	    for (let i = 0, len = list.length; i < len; i++) {
+	        result.push(iteratee(list[i], i, list));
+	    }
+	    return result;
+	}
+	```
 
 * getComputedStyle的用法
 
@@ -1426,12 +1433,12 @@ function map(list, iteratee) {
 
 	initial-scale在中低端android机并不完全支持，所以动态缩放之后布局视窗大于虚拟视窗，导致出现横向滚动条。移动端动态生成meta标签之后，判断window.innerWidth和document.documentElement.clientWidth，如果后者大于前者，则需要再次修改meta标签，制定width=window.innerWidth，伪代码如下:
 
-```
-docElem.getBoundingClientRect().width > win.innerWidth ? res.changeScale() : res.changeScale("initial");    
- ...      
-var metaWidth = this.scale == '1.00' ? 'device-width' : win.innerWidth;
-       metaElem.setAttribute("content", "width="+metaWidth+",initial-scale=" + this.scale + ", maximum-scale=" + this.scale + ", minimum-scale=" + this.scale + ", user-scalable=no");
-```
+	```
+	docElem.getBoundingClientRect().width > win.innerWidth ? res.changeScale() : res.changeScale("initial");    
+	 ...      
+	var metaWidth = this.scale == '1.00' ? 'device-width' : win.innerWidth;
+	       metaElem.setAttribute("content", "width="+metaWidth+",initial-scale=" + this.scale + ", maximum-scale=" + this.scale + ", minimum-scale=" + this.scale + ", user-scalable=no");
+	```
 
 * [].reduce(Math.pow)
 
@@ -1439,130 +1446,130 @@ var metaWidth = this.scale == '1.00' ? 'device-width' : win.innerWidth;
 
 * 下面的函数会返回什么？
 
-```
-var name = 'World!';
-(function() {
-	if (typeof name === 'undefined') {
-		var name = 'Jack';
-		console.log('Goodbye ' + name);
-	} else {
-		console.log('Hello ' + name);	
-	}
-})();
-```
+	```
+	var name = 'World!';
+	(function() {
+		if (typeof name === 'undefined') {
+			var name = 'Jack';
+			console.log('Goodbye ' + name);
+		} else {
+			console.log('Hello ' + name);	
+		}
+	})();
+	```
 
-第一眼看过去，惯性思维，name会按作用域链向上访问，于是name = 'world'，那就gg了，这里隐藏了一个变量提升的问题，上面的代码等同于
+	第一眼看过去，惯性思维，name会按作用域链向上访问，于是name = 'world'，那就gg了，这里隐藏了一个变量提升的问题，上面的代码等同于
+	
+	```
+	var name = 'World!';
+	(function() {
+		var name;
+	        if (typeof name === 'undefined') {
+	                name = 'Jack';
+	                console.log('Goodbye ' + name);
+	        } else 
+	             console.log('Hello ' + name);
+		}
+	})();
+	```
 
-```
-var name = 'World!';
-(function() {
-	var name;
-        if (typeof name === 'undefined') {
-                name = 'Jack';
-                console.log('Goodbye ' + name);
-        } else 
-             console.log('Hello ' + name);
-	}
-})();
-```
-
-这就一目了然了，因此，会输出Goodbye Jack
+	这就一目了然了，因此，会输出Goodbye Jack
 
 * 这个语句的结果是啥呢？
 
-```
-var END = Math.pow(2, 53);
-var START = END - 100;
-var count = 0;
-for (var i = START; i <= END; i++) {
-    count++;
-}
-console.log(count);
-``` 
+	```
+	var END = Math.pow(2, 53);
+	var START = END - 100;
+	var count = 0;
+	for (var i = START; i <= END; i++) {
+	    count++;
+	}
+	console.log(count);
+	``` 
 
-答案是这是一个无限循环，JavaScript能够安全的表达[-2^53 + 1, 2^53 - 1]范围内的数，2^53是能表达的最大的不安全的数值，超过这个数值都会转为2^53，因此上面是一个无限循环
+	答案是这是一个无限循环，JavaScript能够安全的表达[-2^53 + 1, 2^53 - 1]范围内的数，2^53是能表达的最大的不安全的数值，超过这个数值都会转为2^53，因此上面是一个无限循环
 
 * 下面语句的结果是啥？
 
-```
-var ary = [0,1,2];
-ary[10] = 10;
-ary.filter(function(x) { return x === undefined;});
-```
+	```
+	var ary = [0,1,2];
+	ary[10] = 10;
+	ary.filter(function(x) { return x === undefined;});
+	```
 
-不会为缺少的元素调用filter方法
+	不会为缺少的元素调用filter方法
 
 * JavaScript精度一直存在问题，不光是小数存在问题，大数计算的时候也存在问题
 
-0.8 - 0.6 != 0.2，emmmmmm
-
-```
-var a = 111111111111111110000,
-
-    b = 1111;
-    
-a + b = 111111111111111110000;
-```
+	0.8 - 0.6 != 0.2，emmmmmm
+	
+	```
+	var a = 111111111111111110000,
+	
+	    b = 1111;
+	    
+	a + b = 111111111111111110000;
+	```
 
 * Array.prototype是一个数组
 
-Array.isArray( Array.prototype ) = true
+	Array.isArray( Array.prototype ) = true
 
 * 3.toString()报错，3..toString() == '3'
 
 * 下面这个语句返回啥呢？
 
-`"1 2 3".replace(/\d/g, parseInt)`
-
-其实调用parseInt的是[1, 0], [2, 2], [3, 4]，分别为匹配项和index
+	`"1 2 3".replace(/\d/g, parseInt)`
+	
+	其实调用parseInt的是[1, 0], [2, 2], [3, 4]，分别为匹配项和index
 
 因此这个语句得到的结果是[1, NaN, 3]
 
 * 下面这个问题返回啥呢？
 
-```
-var lowerCaseOnly =  /^[a-z]+$/;
-[lowerCaseOnly.test(null), lowerCaseOnly.test()]
-```
-
-正则匹配的话，执行的事...test('null')和...test('undefined')
+	```
+	var lowerCaseOnly =  /^[a-z]+$/;
+	[lowerCaseOnly.test(null), lowerCaseOnly.test()]
+	```
+	
+	正则匹配的话，执行的事...test('null')和...test('undefined')
 
 * 使用chrome devtool调试代码的办法
 
 	http://www.css88.com/archives/8175
 
 * 浏览器端的Object.assign()兼容性并不好，需要使用插件才能使用，这里用原生js实现Object.assign()的兼容写法
-
-```js
-var _extend = Object.assign || function(target) {
-	for (var i = 1; i < arguments.length; i++) {
-		var source = arguments[i];
-		for (var key in source) {
-			if (Object.prototype.hasOwnProperty.call(source, key)) {
-				target[key] = source[key];
-			}	
+	
+	```js
+	var _extend = Object.assign || function(target) {
+		for (var i = 1; i < arguments.length; i++) {
+			var source = arguments[i];
+			for (var key in source) {
+				if (Object.prototype.hasOwnProperty.call(source, key)) {
+					target[key] = source[key];
+				}	
+			}
 		}
+		return target;
 	}
-	return target;
-}
-``` 
+	``` 
 
 * 当用户关闭了JavaScript，可以通过`<noscript>开启JavaScript，获得更好的体验</noscript>`来提示用户
 
 * 简单的js响应式初始化代码
-
-```js
-var documentElement = document.documentElement;
-function callback() {
-	var clientWidth = documentElement.clientWidth;
-	// 屏幕宽度大于780，不再放大
-	clientWidth = clientWidth < 780 ? clientWidth: 780;
-	documentElement.style.fontSize = clientWidth / 10 + 'px';
-}
-
-document.addEventListener('DOMContentLoaded', callback);
-window.addEventListener('orientationchange' in window ? 'orientationchange' : 'resize', callback);
-```
+	
+	```js
+	var documentElement = document.documentElement;
+	function callback() {
+		var clientWidth = documentElement.clientWidth;
+		// 屏幕宽度大于780，不再放大
+		clientWidth = clientWidth < 780 ? clientWidth: 780;
+		documentElement.style.fontSize = clientWidth / 10 + 'px';
+	}
+	
+	document.addEventListener('DOMContentLoaded', callback);
+	window.addEventListener('orientationchange' in window ? 'orientationchange' : 'resize', callback);
+	```
 
 * javaScript中的in操作符
 
@@ -1578,21 +1585,21 @@ window.addEventListener('orientationchange' in window ? 'orientationchange' : 'r
 
 	今天看了一下vue-infinite-scroll的源码，记录一下如何判断节点是否被插入DOM树的代码，让我想记录的是他们的严谨性，他们判断了挂在指令的节点是否存在fragment，fragment的nodeType为11～
 
-```
-var isAttached = function isAttached(element) {
-	var currentNode = element.parentNode;
-	while (currentNode) {
- 		if (currentNode.tagName === 'HTML') {
-    		return true;
- 		}
- 		if (currentNode.nodeType === 11) {
-    		return false;
-  		}
-  		currentNode = currentNode.parentNode;
-	}
-	return false;
-};
-```
+	```
+	var isAttached = function isAttached(element) {
+		var currentNode = element.parentNode;
+		while (currentNode) {
+	 		if (currentNode.tagName === 'HTML') {
+	    		return true;
+	 		}
+	 		if (currentNode.nodeType === 11) {
+	    		return false;
+	  		}
+	  		currentNode = currentNode.parentNode;
+		}
+		return false;
+	};
+	```
 
 * 使用``和${}来拼接innerHTML的时候，要注意，html的自定义属性需要加上双引号，虽然有时候不加也能正常显示，不过这是由于浏览器自动纠错，当自定义属性的数值为JSON字符串的时候，记得不要加双引号，要用单引号，坑死了～
 
@@ -1623,12 +1630,12 @@ var isAttached = function isAttached(element) {
 	* 用console.time()和console.timeEnd()来计算循环耗时
 		
 		```js
-			console.time('time1');
-			var a = 1;
-			for (let i = 0; i < 10; i++) {
-				a += 1;
-			}
-			console.timeEnd('time1');
+		console.time('time1');
+		var a = 1;
+		for (let i = 0; i < 10; i++) {
+			a += 1;
+		}
+		console.timeEnd('time1');
 		```
 	
 * 在正则表达式里面使用变量只能用new RegExp()生成，用字面量方法没办法用变量
@@ -1947,7 +1954,7 @@ var isAttached = function isAttached(element) {
 
 	我印象中好像是没有这个方法，下次发现了再更新啦
 
-```
+	```
 	$.fn.stringifyArray = function(array) {
 		return JSON.stringify(array);	
 	}
@@ -1955,7 +1962,7 @@ var isAttached = function isAttached(element) {
 	$.fn.parseArray = function() {
 		return JSON.parse(array);	
 	}
-```
+	```
 	这样就给jQuery的实例添加了两个方法，`$("").stringifyArray(array)`这样使用就行
 
 * 针对jQuery的优化方法？
@@ -1968,7 +1975,7 @@ var isAttached = function isAttached(element) {
 	
 	上面有个题目讲到$是jQuery类，$.fn是jQuery实例，然后我们又知道extend是扩展方法，那么自然而然就能理解$.extend()扩展的是jQuery类的方法，可以理解为jQuery类的静态方法，$.fn.extend()自然就是扩展jQuery实例的方法，下面举两个栗子来加强记忆
 
-```
+	```
 	$.extend({
 		minValue: function(a, b) { return a > b ? b : a }
 	})
@@ -1980,7 +1987,7 @@ var isAttached = function isAttached(element) {
 		}	
 	})
 	$('#id').sayHello();  //$.fn是实例，那么该方法只能是实例来调用，$.sayHello会报错
-```
+	```
 
 * jQuery的属性拷贝(extend)的实现原理是什么，如何实现深拷贝?
 
@@ -2002,33 +2009,33 @@ var isAttached = function isAttached(element) {
 
 	首先我们看一下jQuery类中的队列
 
-```
+	```
 	function aaa() {
 		alert(1);
 	}
-
+	
 	function bbb() {
 		alert(2);
 	}
-
+	
 	$.queue(document, "q1", aaa);  //在document中创建一个队列q1，并往q1中添加aaa函数
 	$.queue(document, "q1", bbb);  //在document下q1队列中添加bbb函数
 	$.queue(document, "q1", [aaa, bbb]) //和上方代码效果一样，只是合起来写
 	
 	$.dequeue(document, "q1")  //取出document下q1队列中第一个函数并执行
-``` 
+	``` 
 	下面我们看一下jQuery实例中的队列
 
-```	
+	```	
 	$(document).queue("q1", aaa); //入队
 	$(document).dequeue("q1") //出队
 	$(document).clearQueue("q1") //清空队列
-```	
+	```	
 	至于队列有什么作用呢，大家可以想想，在接触jQuery动画的时候，是不是有动画依次执行的例子
 
-```
+	```
 	$(this).animate({ width: 300 }, 2000).animate({ left: 300 }, 2000);
-```
+	```
 
 * 谈一下jQuery中的bind(), live(), delegate(), on()的区别?
 
@@ -2299,10 +2306,10 @@ var isAttached = function isAttached(element) {
 
 	在很多环境下，path.resolve()和path.join()会返回相同的数值，看一看下面这个例子
 
-```js
-path.join('a', 'b1', '..', 'b2') === 'a/b1/../b2'
-path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
-```
+	```js
+	path.join('a', 'b1', '..', 'b2') === 'a/b1/../b2'
+	path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
+	```
 
 	一目了然，path.join就是用/将参数连接起来，而path.resolve返回的是执行操作最后的目录
 
@@ -2480,24 +2487,24 @@ path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
 
 	android浏览器上下居中始终存在问题，苹果浏览器是没有问题的，解决问题的方法是使用table布局
 
-```
-<div class="container">
-	<div class="sub-container">居中</div>
-</div>
-
-.container {
-	display: table;
-        width: 100px;
-        height: 100px;
-}
-.sub-container {
-        text-align: center;
-        display: table-cell;
-        width: 40px;
-        height: 40px;
-        vertical-align: middle;
-}
-```
+	```
+	<div class="container">
+		<div class="sub-container">居中</div>
+	</div>
+	
+	.container {
+		display: table;
+	        width: 100px;
+	        height: 100px;
+	}
+	.sub-container {
+	        text-align: center;
+	        display: table-cell;
+	        width: 40px;
+	        height: 40px;
+	        vertical-align: middle;
+	}
+	```
 
 * CSS3 动画在 iOS 上为什么会因为页面滚动也停止
 
@@ -2642,31 +2649,31 @@ path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
 
 * vue在处理生命周期的lifecycle.js(src/core/instance/lifecycle.js)中定义了一个callHook函数
 
-```
-export function callHook (vm: Component, hook: string) {
-  const handlers = vm.$options[hook]
-  if (handlers) {
-    for (let i = 0, j = handlers.length; i < j; i++) {
-      try {
-        handlers[i].call(vm)
-      } catch (e) {
-        handleError(e, vm, `${hook} hook`)
-      }
-    }
-  }
-  if (vm._hasHookEvent) {
-    vm.$emit('hook:' + hook)
-  }
-}
-```
+	```
+	export function callHook (vm: Component, hook: string) {
+	  const handlers = vm.$options[hook]
+	  if (handlers) {
+	    for (let i = 0, j = handlers.length; i < j; i++) {
+	      try {
+	        handlers[i].call(vm)
+	      } catch (e) {
+	        handleError(e, vm, `${hook} hook`)
+	      }
+	    }
+	  }
+	  if (vm._hasHookEvent) {
+	    vm.$emit('hook:' + hook)
+	  }
+	}
+	```
 
-从上面vue的源码可以看出，vue在每个生命周期都会emit一个事件，我们可以通过$on('hook:mounted')之类的语句来监听vue的生命周期，这对于自定义指令很有用，这里有一篇讲的不错的博客[理解vue的生命周期钩子](https://segmentfault.com/a/1190000010006604)
+	从上面vue的源码可以看出，vue在每个生命周期都会emit一个事件，我们可以通过$on('hook:mounted')之类的语句来监听vue的生命周期，这对于自定义指令很有用，这里有一篇讲的不错的博客[理解vue的生命周期钩子](https://segmentfault.com/a/1190000010006604)
 
 * new Vue(option)中，option中有一个key为replace，指代是否要使用template去替换el元素，如果不加这个key，template替换了el，让组件暴露在最顶层，可能会报下面的错
 
-```
-[Vue warn]: Attribute "id" is ignored on component <div> because the component is a fragment instance
-```
+	```
+	[Vue warn]: Attribute "id" is ignored on component <div> because the component is a fragment instance
+	```
 
 * vue中props如果要设置default为array或者object，需要用function返回
 
