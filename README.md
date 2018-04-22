@@ -2954,6 +2954,22 @@ state中的数据进行浅层次的数据比较，能够大大提高update view 
     [HTTP 缓存 | Web | Google Developers](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=zh-cn)
     
     [彻底弄懂 HTTP 缓存机制 —— 基于缓存策略三要素分解法](http://geek.csdn.net/news/detail/131318)
+
+* TCP的三次握手和四次挥手
+    
+    * 三次握手
+
+        * 客户端发送带有SYN标志的数据包
+        * 服务端收到了数据包之后，发送带有SYN/ACK的数据包
+        * 客户端收到ACK之后，向服务端发送ACK，开始通信
+
+    * 四次挥手
+
+        * 客户端发送一个FINISH给服务端
+        * 服务端收到之后，返回一个ACK给客户端
+        * 服务端发送一个FINISH给客户端，服务端断开连接
+        * 客户端收到之后，发送ACK给服务端，客户端断开连接
+
 <h2 id="others">其他</h2>
 
 * mpv中文字幕乱码
