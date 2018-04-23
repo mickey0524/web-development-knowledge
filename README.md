@@ -147,6 +147,18 @@
 
 	让我知道这个api的面试题目：https://zhuanlan.zhihu.com/p/26420034
 
+* requestAnimationFrame浏览器做了什么优化
+
+    [浅析requestAnimationFrame](http://taobaofed.org/blog/2017/03/02/thinking-in-request-animation-frame/)    
+
+    简单来说，requestAnimationFrame 的原理如下所示
+
+    * 注册回调函数
+    * 浏览器更新时触发animate
+    * animate会触发所有注册过的callback
+
+    这里的工作机制可以理解为所有权的转移，把触发帧更新的时间所有权交给浏览器内核，与浏览器的更新保持同步。这样做既可以避免浏览器更新与动画帧更新的不同步，又可以给予浏览器足够大的优化空间
+    
 * 各大浏览器的内核
 
 	1. IE一直使用的是trident
@@ -1938,6 +1950,22 @@
 
 		arr.toString(); // "[object object],2,3"
 		```
+
+* typeof实现的原理是什么
+
+    不同的对象在底层都表现为二进制，在 javascript 的最初版本中，使用的32位系统，为了性能考虑使用低位存储了变量的类型信息
+
+    * 000: 对象
+    * 1: 整数
+    * 010: 浮点数
+    * 100: 字符串
+    * 110: 布尔    
+
+* instanceof实现的原理是什么
+
+    instance instanceof constructor
+
+    原理就是Object.getPrototypeOf(instance) === constructor.prototype
 
 
 <h2 id="jQuery">jQuery</h2>
