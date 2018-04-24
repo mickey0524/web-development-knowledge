@@ -809,6 +809,8 @@
 
     将background用渐变色填充，然后用白色背景伪类覆盖中心部分，留出四边相应宽度的边框，hack一个带有圆角的border-image
 
+* 使用3D硬件加速提升动画性能时，最好给元素增加一个z-index属性，人为干扰复合层的排序，可以有效减少chrome创建不必要的复合层，提升渲染性能，移动端优化效果尤为明显[参考资料](https://juejin.im/entry/5adec11151882567236e64ee?utm_source=gold_browser_extension)
+
 <h2 id="JavaScript">JavaScript</h2>
 
 * 如何区分{} 和 [] 
