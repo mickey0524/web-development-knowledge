@@ -1969,6 +1969,75 @@
 
     原理就是Object.getPrototypeOf(instance) === constructor.prototype
 
+* 10 个 Ajax 同时发起请求，全部返回展示结果，并且至多允许三次失败，说出设计思路
+
+    这个问题相信很多人会第一时间想到 Promise.all ，但是这个函数有一个局限在于如果失败一次就返回了，并不符合题意，所以我们需要自己实现下
+
+    ```js
+    // 以下是伪代码，着重于思路
+    let successCount = 0;
+    let errorCount = 0;
+    let datas = [];
+    ajax(url, (res) => {
+        if (success) {
+            success++;
+            if (success + errorCount === 10) {
+                 console.log(datas);
+            } else {
+                 datas.push(res.data);
+            }
+        } else {
+            errorCount++;
+            if (errorCount > 3) {
+                // 失败次数大于3次就应该报错了
+                 throw Error('失败三次');
+            }
+        }
+    });
+    ```
+
+* js中的Event Loop
+
+    总所周知，js是门非阻塞单线程语言，因为在最初 JS 就是为了和浏览器交互而诞生的。如果 JS 是门多线程的语言话，我们在多个线程中处理 DOM 就可能会发生问题（一个线程中新加节点，另一个线程中删除节点），当然可以引入读写锁解决这个问题
+
+    JS 在执行的过程中会产生执行环境，这些执行环境会被顺序的加入到执行栈中。如果遇到异步的代码，会被挂起并加入到 Task（有多种 task） 队列中。一旦执行栈为空，Event Loop 就会从 Task 队列中拿出需要执行的代码并放入执行栈中执行，所以本质上来说 JS 中的异步还是同步行为
+
+    不同的任务源会被分配到不同的 Task 队列中，任务源可以分为 微任务（microtask） 和 宏任务（macrotask）。在 ES6 规范中，microtask 称为 jobs，macrotask 称为 task
+
+    微任务包括 process.nextTick ，promise ，Object.observe ，MutationObserver
+宏任务包括 script ， setTimeout ，setInterval ，setImmediate ，I/O ，UI rendering
+
+    很多人有个误区，认为微任务快于宏任务，其实是错误的。因为宏任务中包括了 script ，浏览器会先执行一个宏任务，接下来有异步代码的话就先执行微任务
+
+    * 浏览器中正确的一次Event Loop顺序是这样的
+
+        1. 执行同步代码，这属于宏任务
+        2. 执行栈为空，查询是否有微任务执行
+        3. 执行所有微任务
+        4. 必要的时候渲染UI
+        5. 执行宏代码中的异步代码，开始下一次Event Loop
+
+    * Nodejs中的一次 Event Loop
+
+        1. timers：会执行setTimeout和setInterval，一个 timer 指定的时间并不是准确时间，而是在达到这个时间后尽快执行回调，可能会因为系统正在执行别的事务而延迟，下限的时间有一个范围：[1, 2147483647] ，如果设定的时间不在这个范围，将被设置为1
+        2. I/O阶段会执行除了close事件，定时器
+        3. idle, prepare，内部实现
+        4. poll
+        	
+        	1. 执行到点的定时器
+        	2. 执行poll队列中的事件
+
+        	并且当 poll 中没有定时器的情况下，会发现以下两件事情
+        	
+        	1. 如果 poll 队列不为空，会遍历回调队列并同步执行，直到队列为空或者系统限制
+        	2. 如果 poll 队列为空，会有两件事发生
+
+        		* 如果有 setImmediate 需要执行，poll 阶段会停止并且进入到 check 阶段执行 setImmediate
+        		* 如果没有 setImmediate 需要执行，会等待回调被加入到队列中并立即执行回调
+
+        5. check 阶段执行 setImmediate
+        6. close callbacks 阶段执行 close 事件
+    
 
 <h2 id="jQuery">jQuery</h2>
 
