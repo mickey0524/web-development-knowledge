@@ -811,6 +811,15 @@
 
 * 使用3D硬件加速提升动画性能时，最好给元素增加一个z-index属性，人为干扰复合层的排序，可以有效减少chrome创建不必要的复合层，提升渲染性能，移动端优化效果尤为明显[参考资料](https://juejin.im/entry/5adec11151882567236e64ee?utm_source=gold_browser_extension)
 
+* css控制英文、中文强制换行与不换行的代码
+
+    ```css
+    word-break: break-all; // 只对英文起作用，以字母作为换行依据
+    word-wrap: break-word; // 只对英文起作用，以单词作为换行依据
+    white-space: nowrap; // 强制不换行，强制换行
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; // 不换行，超出部分隐藏且以省略号形式出现
+    ```
+
 <h2 id="JavaScript">JavaScript</h2>
 
 * 如何区分{} 和 [] 
