@@ -42,7 +42,8 @@
 	在用户没有与因特网连接的时候，可以正常访问站点或应用，在用户与因特网连接时候，更新用户机器上的缓存文件。
 	原理是基于一个新建的.appcache文件的缓存机制(不是缓存技术)
     使用方法是在html标签中添加后缀为manifest的缓存设置文件，一般manifest的名字和对应的html相同即可
-```
+    
+    ```
 	<html lang="en" manifest="index.manifest"></html>
 	  	CACHE MANIFEST   必要格式
 	  	#v0.11                      注释
@@ -53,7 +54,7 @@
 	  	resourse/logo.png
 	  	FALLBACK:                 当缓存gg的时候，替代的页面
 	  	/ /offline.html
-```
+    ```
 
 	可以通过操作js手动更新缓存
 	window.applicationCache.update();
@@ -100,10 +101,12 @@
 
 * 点击图片的某些位置，是可以跳转到你对应的网站的，需要使用到map和area
     
-    	<img src="./avatar.jpg" usemap="#map">
-    	<map name="map">
-    		<area shape="rect" coords="0, 0, 10, 10" href="https://www.baidu.com" target="_blank">
-    	</map>
+    ```html
+    <img src="./avatar.jpg" usemap="#map">
+    <map name="map">
+    	<area shape="rect" coords="0, 0, 10, 10" href="https://www.baidu.com" target="_blank">
+    </map>
+    ```
 
 * html在title中显示小图标的方法
 
