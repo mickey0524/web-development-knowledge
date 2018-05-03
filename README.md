@@ -2049,6 +2049,17 @@
         5. check 阶段执行 setImmediate
         6. close callbacks 阶段执行 close 事件
     
+* js有趣的链式执行(在vue源码中，有很多类似写法)
+
+    ```js
+    let d;
+    (d = []).push('asd')
+    console.log(d) // ['asd']
+
+    const event = {}
+    (event[name] || (event[name] = [])).push('mickey0524')
+    event // {name: ['mickey0524']}
+    ```
 
 <h2 id="jQuery">jQuery</h2>
 
