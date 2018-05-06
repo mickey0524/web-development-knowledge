@@ -2070,6 +2070,26 @@
     event // {name: ['mickey0524']}
     ```
 
+* 使用Object.prototype.hasOwnProperty.call(obj, key)而不是obj.hasOwnProperty(key)的原因
+
+    * 可以用使用Object.create(null)(丢弃Object原型，提高效率)创建的JavaScript对象，它将有一个null[[prototype]]链，因此在它上面没有hasOwnProperty()，无法使用obj.hasOwnProperty(key)
+    * 为了安全考虑，可能在对象初始化的时候，赋予了一个hasOwnProperty的方法，这样的话，不会去原型链上查找
+
+* js实现cache函数，缓存经常调用的函数的结果(vue源码)
+
+    ```js
+    function cached(fn) {
+        const cache = Object.create(null);
+        return function(str) {
+            return cache[str] || (cache[str] = fn(str));
+        };
+    }
+
+    const capitalize = cached((str) => {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    });
+    ```
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
