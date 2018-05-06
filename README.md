@@ -2090,6 +2090,20 @@
     });
     ```
 
+* js中实现once的思路(onceCall，vue指令中的$once)
+
+    ```
+    function once(fn) {
+        let called = false;
+        return function () {
+            if (called) {
+                called = true;
+                fn.apply(this, arguments);
+            }
+        }
+    }
+    ```
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
