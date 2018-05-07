@@ -2122,6 +2122,13 @@
 	|\u2029	| 	|段落分隔符|	行结束符|
 	|\uFEFF	| 	|字节顺序标记|	空白|
 	
+* String.raw的用法
+
+    String.raw是一个模版字符串的标签函数，可以用于转义\m或\u2028这样的字符
+
+    String.raw\`asd\masd\` // asd\\masd
+    
+    asd\\masd // asdasd
 
 <h2 id="jQuery">jQuery</h2>
 
