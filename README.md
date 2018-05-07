@@ -2845,7 +2845,7 @@
 
 * element针对vue2实现的broadcast和dispatch
 
-	核心思想是通过$parent和$children遍历虚拟dom树，比对componentName和vm.$option.componentName，成功的话，触发$emit方法，源码如下
+	核心思想是基于mixins(不知道mixin的童鞋可以移步这里[mixin](https://vuefe.cn/v2/guide/mixins.html))通过$parent和$children遍历虚拟dom树，比对componentName和vm.$option.componentName，成功的话，触发$emit方法，源码如下
 
 	```js
 	function broadcast(componentName, eventName, params) {
