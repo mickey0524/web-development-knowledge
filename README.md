@@ -2923,6 +2923,28 @@
 	```
 
 	如果要多发的话，可以将componentName类型由String => Array，如果要全部发送的话，则全部遍历$children和$parent触发$emit即可
+	
+* vue2中的extends
+
+	类型：`Object | Function`
+	
+	允许声明扩展另一个组件(可以是一个简单的选项对象或构造函数)，而无需使用`Vue.extend`，这主要是为了便于扩展单文件组件，和`mixins`类似
+	
+	```js
+	var CompA = { ... }
+
+	// 在没有调用 `Vue.extend` 时候继承 CompA
+	var CompB = {
+	  extends: CompA,
+	  ...
+	}
+	```
+	
+* vue2中的provide/inject
+
+	类似于react中的context，不推荐直接用于应用程序代码中，这对选项需要一起使用，以允许一个祖先组件向其后代注入一个依赖，不论组件层次有多深，具体见[vue2文档](https://cn.vuejs.org/v2/api/#provide-inject)
+	
+	
 
 <h2 id="react">React</h2>
 
