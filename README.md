@@ -1272,6 +1272,14 @@
 
     	var newObj = Object.assign(Object.create(origin), obj);
 
+* js中的propertyIsEnumerable方法，用于判断对象的该属性是否是可枚举的，也即enumerate为true还是false
+
+    如何获取对象的非枚举属性
+
+    '''js
+    Object.getOwnPrpertyNames(obj).filter((item) => !obj.propertyIsEnumerable(item));
+    '''
+
 * 原生JS中的prototype和__proto__的区别
 	
 	http://rockyuse.iteye.com/blog/1426510
