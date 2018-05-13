@@ -2961,7 +2961,18 @@
 
 	类似于react中的context，不推荐直接用于应用程序代码中，这对选项需要一起使用，以允许一个祖先组件向其后代注入一个依赖，不论组件层次有多深，具体见[vue2文档](https://cn.vuejs.org/v2/api/#provide-inject)
 	
-	
+* vue2中的浏览器环境检查
+
+    ```js
+    export const inBrowser = typeof window !== 'undefined'
+    export const UA = inBrowser && window.navigator.userAgent.toLowerCase()
+    export const isIE = UA && /msie|trident/.test(UA)
+    export const isIE9 = UA && UA.indexOf('msie 9.0') > 0
+    export const isEdge = UA && UA.indexOf('edge/') > 0
+    export const isAndroid = UA && UA.indexOf('android') > 0
+    export const isIOS = UA && /iphone|ipad|ipod|ios/.test(UA)
+    export const isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge
+    ```	
 
 <h2 id="react">React</h2>
 
