@@ -2138,6 +2138,15 @@
     
     asd\\masd // asdasd
 
+* JS中如何判断一个类是否是系统自带的
+
+    ```js
+    // Ctor === constructor
+    function isNative(Ctor) {
+        typeof Ctor === 'function' && /native code/.test(Ctor.toString());
+    }
+    ```
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
