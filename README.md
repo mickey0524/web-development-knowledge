@@ -2147,6 +2147,13 @@
     }
     ```
 
+* JS数组快速clear的方法
+
+    ```js
+    var a = [1, 2, 3];
+    a.length = 0; // []
+    ```
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
