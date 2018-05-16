@@ -209,6 +209,10 @@
 
 * a标签将href替换为data-href，在谷歌搜索页面中能够跳转，在百度则不能，应该是谷歌自动错误修正
 
+* 使用meta标签来调节浏览器的渲染方式，告诉浏览器用哪种内核渲染，360双核浏览器就是在ie和chrome之间来回切换，现在使用meta标签来强制使用最新的内核渲染页面
+
+    `<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">`
+
 <h2 id="CSS">CSS</h2>
 
 * BFC(Box Formatting Context) 块级格式化上下文
