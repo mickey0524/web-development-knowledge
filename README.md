@@ -833,6 +833,8 @@
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; // 不换行，超出部分隐藏且以省略号形式出现
     ```
 
+* 在移动端经常有置底的对话框，这个时候不要用fixed，要用absolute，不然容易盖住 
+
 <h2 id="JavaScript">JavaScript</h2>
 
 * 如何区分{} 和 [] 
