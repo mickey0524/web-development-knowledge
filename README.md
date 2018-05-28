@@ -2161,6 +2161,38 @@
     a.length = 0; // []
     ```
 
+* 记录一道很坑的js题
+
+    ```js
+    let x = 0;
+    async function test() {
+        x += await 2;
+        console.log(x);
+    }
+    
+    test();
+    x += 1;
+    console.log(x);
+    ```
+
+    结果是1，2
+
+    ```js
+    let x = 0;
+    async function test() {
+        x = await 2 + x;
+        console.log(x);
+    }
+    
+    test();
+    x += 1;
+    console.log(x);
+
+    结果是1，3
+
+    原因是前面的先取了x的数值，然后等待await 2，后面的直接等待await 2，取x的时候，x已经为1了
+    ```
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
