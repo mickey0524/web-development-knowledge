@@ -834,8 +834,6 @@
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; // 不换行，超出部分隐藏且以省略号形式出现
     ```
 
-* 在移动端经常有置底的对话框，这个时候不要用fixed，要用absolute，不然容易盖住 
-
 <h2 id="JavaScript">JavaScript</h2>
 
 * 如何区分{} 和 [] 
@@ -2787,6 +2785,14 @@
       this.fetchSearchRes();
     });
     ```
+
+* 移动端经常会有这样的场景，底部要fixed一个input框，这个时候不用使用`position: fixed`，input会被弹起的键盘遮盖，可以使用`position: absolute`，另外还有一个api`scrollIntoView`，用法如下，这个api还可以设置对齐方法，选择将input放在屏幕的上方/下方，类似的api还有`Element.scrollIntoViewIfNeeded`
+
+    ```js
+    const input = document.querySelector('#inputId');
+    input.scrollIntoView();
+    ```
+
 
 <h2 id="webpack">webpack</h2>
 
