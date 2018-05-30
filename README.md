@@ -2191,6 +2191,13 @@
     原因是前面的先取了x的数值，然后等待await 2，后面的直接等待await 2，取x的时候，x已经为1了
     ```
 
+* js中实现python list的extend方法
+
+    ```js
+    let arr = [];
+    arr.push.apply(arr, [1, 2, 3]);
+    ```
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
