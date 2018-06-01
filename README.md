@@ -2198,6 +2198,8 @@
     arr.push.apply(arr, [1, 2, 3]);
     ```
 
+* document.createComment()创建一个注释节点，得到的node的nodeType为8
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
