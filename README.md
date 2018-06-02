@@ -2200,6 +2200,8 @@
 
 * document.createComment()创建一个注释节点，得到的node的nodeType为8
 
+* ele.hasChildNodes()判断当前dom节点是否含有子节点
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
