@@ -3037,6 +3037,16 @@
     export const isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge
     ```	
 
+* Vue2中提供了vm.$refs来访问真实节点，如果绑定ref的节点是真实DOM，那么vm.$refs[key]指代的DOM节点，如果绑定ref的是Vue组件，那么vm.$refs[key]指代的是对应组件的componentInstance，源码如下
+
+    ```js
+    const key = vnode.data.ref
+    const ref = vnode.componentInstance || vnode.elm
+    const refs = vm.$refs
+    ...
+    refs[key] = ref 
+    ```
+
 <h2 id="react">React</h2>
 
 * 在react虚拟内存中获取DOM元素的方法
