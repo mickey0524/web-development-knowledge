@@ -3047,6 +3047,16 @@
     refs[key] = ref 
     ```
 
+* 记一次使用vue-lazyload插件的hock过程
+
+    当DOM是由display：none变为display: block出现的时候，是不会触发vue-lazyload的视图更新的，查阅了一下，发现vue-lazyload还监听如mousewheel这样的事件，可以在切换的时候，手动触发一个DOM事件，进行hock
+
+    ```js
+    const event = document.createEvent('MouseEvents');
+    event.initEvent('mouseWheel', true, true);
+    document.body.dispatchEvent(event);
+    ```
+
 <h2 id="react">React</h2>
 
 * 在react虚拟内存中获取DOM元素的方法
