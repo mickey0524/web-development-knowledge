@@ -8,6 +8,7 @@
 * [HTML](#HTML) 
 * [CSS](#CSS) 
 * [JavaScript](#JavaScript)
+* [浏览器](#explorer)
 * [jQuery](#jQuery)
 * [Node.js](#Nodejs)
 * [移动端](#mobile)
@@ -2205,6 +2206,10 @@
 * js中的基本数据类型，面试的时候容易混淆
 
     String, Number, Boolean, Null, Undefined
+
+<h2 id="explorer">浏览器</h2>
+
+* 打开chrome开发者模式，快捷键command + shift + p可以打开开发者模式的命令行，可以看到很多选项，包括render(layer border|fps meter)
 
 <h2 id="jQuery">jQuery</h2>
 
