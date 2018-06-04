@@ -2202,6 +2202,10 @@
 
 * ele.hasChildNodes()判断当前dom节点是否含有子节点
 
+* js中的基本数据类型，面试的时候容易混淆
+
+    String, Number, Boolean, Null, Undefined
+
 <h2 id="jQuery">jQuery</h2>
 
 * jQuery中jQuery和jQuery.fn的区别
