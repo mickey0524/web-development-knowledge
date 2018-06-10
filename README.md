@@ -215,6 +215,11 @@
 
     `<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">`
 
+* 看vue的源码发现parse模版的时候解析了两种注释节点，记录一下
+    
+    * \<!-- comment -->
+    * \<![ comment ]>
+    
 <h2 id="CSS">CSS</h2>
 
 * BFC(Box Formatting Context) 块级格式化上下文
