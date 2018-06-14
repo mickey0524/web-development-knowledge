@@ -177,7 +177,7 @@
 	3. opera原来使用的是presto（速度超过了当年的webkit），然后13年后使用blink(webkit的分支)
 	4. Firefox使用的是gecko内核
 
-* 在Chrome控制台用dataset设置data-*属性（需要使用驼峰式命名方法，浏览器会自动将其转为data-*形式）
+* 在Chrome控制台用dataset设置data-\*属性（需要使用驼峰式命名方法，浏览器会自动将其转为data-\*形式）
 
     	$0.dataset.aBC = 1;
     	<div class="" id="lga" data-a-b-c="1">...</div>
@@ -263,7 +263,7 @@
 * 经常遇到的浏览器的兼容性有哪些？解决方法是什么，常用的hack技巧?
 
 	1. png24位的图片在ie6浏览器上出现背景，解决方案是做成png8
-	2. 浏览器默认的margin和padding不同。解决方案是加一个全局的* { margin: 0; padding: 0 }来统一
+	2. 浏览器默认的margin和padding不同。解决方案是加一个全局的\* { margin: 0; padding: 0 }来统一
 	3. ie下，可以使用获取常规属性的方法来获取自定义属性，也可以使用getAttribute()获取自定义属性
 	Firefox下，只能使用getAttribute()来获取自定义属性，因此最好使用getAttribute获取自定义属性
 	
@@ -839,6 +839,18 @@
     white-space: nowrap; // 强制不换行，强制换行
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; // 不换行，超出部分隐藏且以省略号形式出现
     ```
+
+* background中background-attachment、background-position、background-origin的区别
+
+    * background-attachment: 当指定background-image的时候，该属性决定背景是在视口中固定的还是随包含它的区块滚动的
+
+        * fixed: 此关键字表示背景相对于视口固定。即使一个元素拥有滚动机制，背景也不会随着内容滚动
+        * local: 此关键字表示背景相对于元素的内容固定。如果一个元素拥有滚动机制，背景将会随着元素的内容滚动， 并且背景的绘制区域和定位区域是相对于可滚动的区域而不是包含他们的边框
+        * scroll: 此关键字表示背景相对于元素本身固定， 而不是随着它的内容滚动（对元素边框是有效的）
+
+    * background-position: 对于每一个被设定的背景图片来说，background-position这个CSS属性设置了一个初始位置。这个初始位置是相对以background-origin定义的背景位置图层（padding-box|border-box|content-box）来说的
+
+    * background-origin: background-origin规定了指定背景图片background-image属性的原点位置的背景相对区域
 
 <h2 id="JavaScript">JavaScript</h2>
 
