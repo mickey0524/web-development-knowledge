@@ -2226,7 +2226,7 @@
 
     String, Number, Boolean, Null, Undefined
 
-* js正则表达式容易混淆的带有?的操作符，js不支持?<=和?\<!
+* js正则表达式容易混淆的带有?的操作符，js不支持?<=和?\<\!
 
     * (?:...) 只组合，把项组合到一个单元，但不记忆与该组相匹配的字符
     * (?=p) 零宽正向先行断言，要求接下来的字符都与p匹配，但不能记忆匹配p的那些字符，同时作为下一次匹配的开始位置
@@ -2239,9 +2239,65 @@
 	|/\\[bc\\]at/|"\\\\[bc\\\\]at"|
 	|/\w\\\\hello\\\\123/|"\\\w\\\\\\\\hello\\\\\\\\123"|
 	
+* 执行线程中的定时器执行
+
+    首先，我们看一张图，来自于《js忍者秘籍》
+
+    ![展示了单线程中主线代码和处理程序代码执行的时间图](./images/5.png)
+
+    让我们看看这里发生了什么事情:
+
+    1. 首先在0毫秒的时候有一个持续18ms的js代码块要执行
+    2. 然后在0毫秒的时候设了两个10ms延迟的定时器，**setTimeout**以及**setInterval**，**setTimeout**先设定
+    3. 在第6ms的时候有一个发生了鼠标单击事件
+
+    同时发生了这么多事情，由于js的单线程特效，**当线程处于执行状态，有异步事件触发时，它就会排队，并且在线程空闲时才进行执行**，这里的异步事件包括：鼠标点击，定时器触发，ajax请求、promise等事件
+    
+    让我们回到栗子中：
+    
+    栗子中首先有一个18毫秒的代码块要执行，在这18毫秒中只能执行这段代码块，其他事件触发了之后只能排队等待执行。在代码块还在运行期间，第6毫秒的时候，发生了一个鼠标单击事件，以及第10毫秒时的setTimeout和setInterval两个处理程序，这三个事件不能立即执行，而是被添加到等待执行的队列中。
+    
+	<h3>先进先出(先排队的先执行)</h3>
+
+	18毫秒的时候代码块结束执行，有三个任务在排队等待执行，根据先进先出的原则，此时会先执行click事件，setTimeout和setInterval将继续排队等待执行。
+setInterval调用被废弃
+
+	在click事件执行时，第20毫秒处，第二个setInterval也到期了，因为此时已经click事件占用了线程，所以setInterval还是不能被执行，并且因为此时队列中已经有一个setInterval正在排队等待执行，所以这一次的setInterval的调用将被废弃。浏览器不会对同一个setInterval处理程序多次添加到待执行队列。
+
+	<h3>setTimeout/setInterval无法保证准时执行回调函数</h3>
+
+	click事件在第28毫秒处结束执行，有两个任务(setTimeout和setInterval)正在等待执行，遵循先进先出的原则，setTimeout早于setInterval设定，所以先执行setTimeout。
+	
+	so:我们期望在第10毫秒处执行的setTimeout处理程序，最终会在第28毫秒处才开始执行，这就是上文提到的setTimeout/setInterval无法保证准时执行回调函数。
+
+	在30毫秒处，setInterval又触发了，因为队列中已经有setInterval在排队，所以这次的触发又作废了。
+
+	<h3>setInterval的连续执行</h3>
+
+	setTimeout执行结束，在第36毫秒处，队列中的setInterval处理程序才开始执行，setInterval需要执行6毫秒。
+
+	在第40毫秒的时候setInterval再次触发，因为此时上一个setInterval正在执行期间，队列中并没有setInterval在排队，这次触发的setInterval将进入队列等候。
+	
+	所以：setInterval的处理时长不能比设定的间隔长，否则setInterval将会没有间隔的重复执行
+第42毫秒的时候，第一个setInterval结束，然后队列中的setInterval立即开始执行，在48毫秒的时候完成执行。然后50毫秒的时候再次触发setInterval，此时没有任务在排队，将会立即执行。
+
+	<h3>setTimeout按照一定的间隔周期性的触发定时器</h3>
+
+	上文说了，setInterval的处理时长不能比设定的间隔长，否则setInterval将会没有间隔的重复执行。
+	
+	但是对这个问题，很多情况下，我们并不能清晰的把控处理程序所消耗的时长，为了我们能按照一定的间隔周期性的触发定时器，忍者秘籍中提供了下面这种使用方法：
+    
+    ```
+    setTimeout(function repeatMe(){
+      // do something
+      setTimeout(repeatMe,10); 
+      // 执行完处理程序的内容后，在末尾再间隔10毫秒来调用该程序，这样就能保证一定是10毫秒的周期调用
+    },10)
+    ```
+
 <h2 id="explorer">浏览器</h2>
 
-* 打开chrome开发者模式，快捷键command + shift + p可以打开开发者模式的命令行，可以看到很多选项，包括render(layer border|fps meter)
+* 打开chrome开发者模式，快捷键command + shift + p可以打开开发者模式的命令行，可以看到很多选项，包括render(layer border|fps meter) 
 
 <h2 id="jQuery">jQuery</h2>
 
