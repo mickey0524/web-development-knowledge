@@ -2067,6 +2067,8 @@
         3. 执行所有微任务
         4. 必要的时候渲染UI
         5. 执行宏代码中的异步代码，开始下一次Event Loop
+        
+        ![图解event loop](./images/4.png)    
 
     * Nodejs中的一次 Event Loop
 
