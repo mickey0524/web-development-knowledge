@@ -2295,6 +2295,12 @@ setInterval调用被废弃
     },10)
     ```
 
+* 前端容灾可用手段
+
+    * localStorage缓冲接口数据
+    * 备份一份静态数据到CDN
+    * 利用Service worker的cached API做页面接口缓存，Service worker提供了fetch事件可供监听，当页面发出请求的时候，会先过fetch方法，你可以在这里定义任何你需要的缓存策略，比如请求成功后，将结果存入caches。Service worker中，你甚至可以缓存当前页面的HTML，让网站离线运行
+
 <h2 id="explorer">浏览器</h2>
 
 * 打开chrome开发者模式，快捷键command + shift + p可以打开开发者模式的命令行，可以看到很多选项，包括render(layer border|fps meter) 
