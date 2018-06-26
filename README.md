@@ -20,6 +20,7 @@
 * [React Native](#RN)
 * [Http](#http)
 * [数据库](#db)
+* [git](#git)
 * [其他](#others)
 <h2 id="HTML">HTML</h2> 
 
@@ -3456,6 +3457,18 @@ state中的数据进行浅层次的数据比较，能够大大提高update view 
 <h2 id="db">数据库</h2>
 
 * 在建表的时候，有时候会遇到下面说的情况，一样东西可以存在于多个平台，用1，2，3，4，5代替，如果用一个字段来存的话，由于mysql最近才支持list，必须存成JSON字符串，这样会有一个问题，不能对单一平台进行filter，大大降低了查询的效率，在之前的项目中，有多少个平台，我们就需要存多少列，才能满足filter的需求，其实换个角度来想，这个问题完全可以用二进制的思想来解决，将每一个平台理解为二进制的一位，00000，00100类似的，这样需要按平台查找的时候，对列进行相应位的与操作，就能够filter出来，非常巧妙
+
+<h2 id="git">git</h2>
+
+* gitlab或github下fork后如何同步源的新更新内容
+
+    1. 使用`git remote -v`查看远程状态
+    2. 确定一个将被同步给fork远程的上游仓库`git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITOR`
+    3. 再次查看状态确认是否配置成功
+    4. 从上游仓库fetch分支和提交点，提交给本地master，并会被存储在一个本地分支upstream/master`git fetch upstream`
+    5. 切换到本地主分支(如果不在的话)，`git checkout master`
+    6. `git rebase upstream/master`这里不要用merge，会留下一条merge记录，pr会被拒绝的
+    7. 如果想更新自己fork的分支，rebase之后`git push origin master`即可
 
 <h2 id="others">其他</h2>
 
