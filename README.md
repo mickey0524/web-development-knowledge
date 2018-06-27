@@ -26,11 +26,11 @@
 
 * Doctype作用？标准模式与兼容模式各有什么区别?
 
-  （1）、<!DOCTYPE>声明位于位于HTML文档中的第一行，处于 <html> 标签之前。告知浏览器的解析器用什么文档标准解析这个文档。DOCTYPE不存在或格式不正确会导致文档以兼容模式呈现。
+  （1）<!DOCTYPE>声明位于位于HTML文档中的第一行，处于 <html> 标签之前。告知浏览器的解析器用什么文档标准解析这个文档。DOCTYPE不存在或格式不正确会导致文档以兼容模式呈现。
 
-  （2）、标准模式的排版 和JS运作模式都是以该浏览器支持的最高标准运行。在兼容模式中，页面以宽松的向后兼容的方式显示,模拟老式浏览器的行为以防止站点无法工作。
+  （2）标准模式的排版 和JS运作模式都是以该浏览器支持的最高标准运行。在兼容模式中，页面以宽松的向后兼容的方式显示,模拟老式浏览器的行为以防止站点无法工作。
 
-* HTML5 为什么只需要写` <!DOCTYPE HTML>`？
+* HTML5 为什么只需要写`<!DOCTYPE HTML>`？
 	
 	HTML5不基于SGML，因此不需要对DTD进行引用，但是需要doctype来规范浏览器的行为(让浏览器按照它们应该的方式来运行)
 	而HTML4.01基于SGML，所以需要对DTD进行引用，才能告知浏览器文档所使用的文档类型
@@ -48,15 +48,15 @@
     
     ```
 	<html lang="en" manifest="index.manifest"></html>
-	  	CACHE MANIFEST   必要格式
-	  	#v0.11                      注释
-	  	CACHE:                     需要缓存的部分
-	  	js/app.js
-	  	css/style.css
-	  	NETWORK:                跳过缓存的部分，每次都要向服务器重新获取
-	  	resourse/logo.png
-	  	FALLBACK:                 当缓存gg的时候，替代的页面
-	  	/ /offline.html
+	CACHE MANIFEST   必要格式
+	#v0.11                      注释
+	CACHE:                     需要缓存的部分
+	js/app.js
+	css/style.css
+	NETWORK:                跳过缓存的部分，每次都要向服务器重新获取
+	resourse/logo.png
+	FALLBACK:                 当缓存gg的时候，替代的页面
+	//offline.html
     ```
 
 	可以通过操作js手动更新缓存
@@ -117,7 +117,7 @@
 
 * 在HTML页面内兼容移动端的操作
 
-    	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-saclable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-saclable=no">
 
 	如果不在HTML页面中加入这句话，css中@media无法根据device-width做兼容，js代码中获取的页面宽度一直为900
 
