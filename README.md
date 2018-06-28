@@ -853,6 +853,10 @@
 
     * background-origin: background-origin规定了指定背景图片background-image属性的原点位置的背景相对区域
 
+* ios的webview如何阻止"橡皮筋效果"
+    
+    [iOS safari 如何阻止"橡皮筋效果"](https://www.zhihu.com/question/22256539)
+
 <h2 id="JavaScript">JavaScript</h2>
 
 * 如何区分{} 和 [] 
