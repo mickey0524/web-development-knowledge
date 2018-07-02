@@ -2306,6 +2306,21 @@ setInterval调用被废弃
     * 备份一份静态数据到CDN
     * 利用Service worker的cached API做页面接口缓存，Service worker提供了fetch事件可供监听，当页面发出请求的时候，会先过fetch方法，你可以在这里定义任何你需要的缓存策略，比如请求成功后，将结果存入caches。Service worker中，你甚至可以缓存当前页面的HTML，让网站离线运行
 
+* addEventListener()的第三个参数
+
+    印象中的addEventListener()是`target.addEventListener(type, listener[, useCapture])`
+
+    新的语法：
+
+    target.addEventListener(type, listener[, {capture: Boolean, once: Boolean, passive: Boolean});
+
+    1. type表示监听事件类型的字符串
+    2. listener当所监听的事件类型触发的时候，会接收到一个事件通知
+    3. options(可选)
+        1. capture 表示listener会在该类型的事件捕获阶段传播到该EventTarget时触发
+        2. once 表示listener在添加之后最多调用一次，如果是true, listener会在其被调用之后自动删除
+        3. passive表示listener永远不会调用preventDefault()。如果listener仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告
+
 <h2 id="explorer">浏览器</h2>
 
 * 打开chrome开发者模式，快捷键command + shift + p可以打开开发者模式的命令行，可以看到很多选项，包括render(layer border|fps meter) 
