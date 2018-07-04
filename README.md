@@ -1098,6 +1098,8 @@
 	
 	3. 推荐使用的方法（XHR 2方法）在服务端头部加上允许跨域的标签(cors: cross-origin resource sharing)，和JSONP相比，支持更多方法，再发送非GET跨域请求的时候，会先发送一个OPTION请求来“预检”（preflight）该请求是否被允许
 
+    	[阮一峰参考资料](http://www.ruanyifeng.com/blog/2016/04/cors.html)
+
 		```js
 		// 随便找个浏览器发送跨域请求
 		let url = 'http://127.0.0.1:8888';
