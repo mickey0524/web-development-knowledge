@@ -1304,9 +1304,9 @@
 
     如何获取对象的非枚举属性
 
-    '''js
+    ```js
     Object.getOwnPrpertyNames(obj).filter((item) => !obj.propertyIsEnumerable(item));
-    '''
+    ```
 
 * 原生JS中的prototype和__proto__的区别
 	
@@ -2320,6 +2320,53 @@ setInterval调用被废弃
         1. capture 表示listener会在该类型的事件捕获阶段传播到该EventTarget时触发
         2. once 表示listener在添加之后最多调用一次，如果是true, listener会在其被调用之后自动删除
         3. passive表示listener永远不会调用preventDefault()。如果listener仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告
+
+* js实例的constructor属性
+
+    ```js
+    function Person() {}
+    let person = new Person();
+    console.log(person.constructor === Person); // true
+    ```
+
+    当获取`person.constructor`时，其实person中并没有constructor属性，当不能读取到constructor属性时，会从person的原型也就是Person.prototype中读取，正好原型中有该属性，所以：
+
+    `person.constructor === Person.prototype.constructor`
+
+* 静态作用域与动态作用域
+
+    js采用的是词法作用域，也就是静态作用域，函数的作用域在函数定义的时候就决定了
+
+    而与词法作用域相对的是动态作用域，函数的作用域是在函数调用的时候才决定的
+
+    ```js
+    var value = 1;
+    
+    function foo() {
+        console.log(value);
+    }
+
+    function bar() {
+        var value = 2;
+        foo();
+    }
+    
+    bar(); // 1
+    ```
+
+    ```bash
+    bash的栗子
+
+    value = 1
+    function foo() {
+        echo $value;
+    }
+    function bar() {
+        local value = 2;
+        foo;
+    }
+    bar # 2
+    ```
 
 <h2 id="explorer">浏览器</h2>
 
