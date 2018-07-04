@@ -1059,8 +1059,67 @@
 * ajax处理跨域有哪几种方式
 
 	1. 代理：通过后台获取其他域名下的内容，然后再把获取的内容返回到前端，这样在同一个域名下，就不会出现跨域的问题
-	2. jsonp
-	3. 推荐使用的方法（XHR 2方法）在服务端头部加上允许跨域的标签
+	2. jsonp，该方法只支持GET请求，利用script标签没有跨域限制的特点，通过script标签的src属性发送GET请求
+	
+		```js
+		// 随便找个浏览器发送跨域请求
+		let script = document.createElement('script');
+		script.type = 'text/javascript';
+		script.src = 'http://127.0.0.1:8888?callback=cb';
+		document.head.appendChild(script);
+		function cb(res) {
+			console.log(JSON.stringify(res));
+			document.head.removeChild(script);
+		}
+		
+		// 服务端
+		const http = require('http');
+		const url = require('url');
+		
+		var data = {'methods': 'jsonp', 'result': 'success'};
+
+		http.createServer(function (request, response) {
+		    var params = url.parse(request.url, true)
+		    console.log(params)
+		    response.writeHead(200, {
+		      'Content-Type': 'text/plain'
+		    });
+		    if (params.query && params.query.callback) {
+		
+		      // callback(data)
+		      var str = `${params.query.callback}(${JSON.stringify(data)})`
+		    }
+		
+		    response.end(str);
+		}).listen(8888);
+		
+		console.log('Server running at http://127.0.0.1:8888/');
+		```
+	
+	3. 推荐使用的方法（XHR 2方法）在服务端头部加上允许跨域的标签(cors: cross-origin resource sharing)，和JSONP相比，支持更多方法，再发送非GET跨域请求的时候，会先发送一个OPTION请求来“预检”（preflight）该请求是否被允许
+
+		```js
+		// 随便找个浏览器发送跨域请求
+		let url = 'http://127.0.0.1:8888';
+		let xhr = new XMLHttpRequest();
+		xhr.open('GET', url, true);
+		xhr.send();
+		
+		// 服务端代码
+		const http = require('http');
+		
+		http.createServer(function(request, response) {
+			response.writeHead(200, {
+				'Content-Type': 'text/plain',
+				'Access-Control-Allow-Origin': '*', // 允许跨域GET请求
+ 				'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE', // 允许多种方法
+			});
+			
+			response.end('response success');
+		}).listen(8888);
+		
+		console.log('Server running at http://127.0.0.1:8888/');
+		```
 
 * js事件委托（事件代理）
 
