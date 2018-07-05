@@ -1116,7 +1116,8 @@
 			response.writeHead(200, {
 				'Content-Type': 'text/plain',
 				'Access-Control-Allow-Origin': '*', // 允许跨域GET请求
- 				'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE', // 允许多种方法
+ 				'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', // 允许多种方法
+                'Access-Control-Allow-Credentials': true, // 允许携带cookie，不加这个标识位，cookie依旧是跨域的
 			});
 			
 			response.end('response success');
