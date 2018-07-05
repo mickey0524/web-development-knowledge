@@ -273,14 +273,15 @@
 	5. Chrome中文界面下默认会将小于12px的文本强制按照12px显示，可通过加入css属性 -webkit-text-size-adjust: none;解决
 	
 	6. IE兼容hack技术（渐进识别的方式，从总体中逐渐排除局部）
-```
-	.bb {
-	background-color: red; /*所有识别*/
-	background-color: #00deff\9; /*IE6，7，8识别*/
-	+background-color: #a200ff; /*IE6，7识别*/
-	_background-color: #1e0bd1; /*IE6识别*/
-	}
-```
+	
+		```css
+		.bb {
+		background-color: red; /*所有识别*/
+		background-color: #00deff\9; /*IE6，7，8识别*/
+		+background-color: #a200ff; /*IE6，7识别*/
+		_background-color: #1e0bd1; /*IE6识别*/
+		}
+		```
 
 * 八种创建等高布局的方法
 
@@ -298,7 +299,7 @@
 	
 	淘宝的样式初始化方法：
 	
-	```
+	```css
   	body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, 	legend, button, input, textarea, th, td { margin:0; padding:0; }
   	body, button, input, select, textarea { font:12px/1.5tahoma, arial, \5b8b\4f53; }
   	h1, h2, h3, h4, h5, h6{ font-size:100%; }
@@ -337,7 +338,7 @@
 	4. 常规的使用一个class
 
 	
-	```
+	```css
 	.clearfix: before, .clearfix: after {
 		content: '';
 		display: table;
@@ -348,6 +349,7 @@
 	.clearfix {
 		*zoom: 1;	为了兼容IE触发haslayout
 	}
+	```
 
 * zoom: 1的清楚浮动的原理
 
@@ -2428,6 +2430,157 @@ setInterval调用被废弃
     }
     bar # 2
     ```
+    
+* 函数执行上下文
+
+	### 函数上下文
+
+	在函数上下文中，我们用活动对象（activation object，AO）来表示变量对象
+	
+	活动对象和变量对象其实是一个东西，只是变量对象是规范上的或者说是引擎实现上的，不可在 JavaScript 环境中访问，只有到当进入一个执行上下文中，这个执行上下文的变量对象才会被激活，所以才叫 activation object 呐，而只有被激活的变量对象，也就是活动对象上的各种属性才能被访问。
+
+	活动对象是在进入函数上下文时刻被创建的，它通过函数的 arguments 属性初始化。arguments 属性值是 Arguments 对象。
+	
+	### 执行过程
+	
+	执行上下文的代码会分成两个阶段进行处理：分析和执行，我们也可以叫做：
+	
+	1. 进入执行上下文
+	2. 代码执行
+
+	#### 进入执行上下文
+	
+	当进入执行上下文的时候，这时候还没有执行代码
+	
+	变量对象会包括：
+	
+	1. 函数的所有形参（如果是函数上下文）
+	
+		1. 由名称和对应值组成的一个变量对象的属性被创建
+		2. 没有实参，属性值设为 undefined
+
+	2. 函数声明
+
+		1. 由名称和对应值（函数对象(function-object)）组成一个变量对象的属性被创建
+		2. 如果变量对象已经存在相同名称的属性，则完全替换这个属性
+
+	3. 变量声明
+
+		1. 由名称和对应值（undefined）组成一个变量对象的属性被创建
+		2. 如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性
+	
+	举个栗子
+	
+	```js
+	function foo(a) {
+	  var b = 2;
+	  function c() {}
+	  var d = function() {};
+	
+	  b = 3;
+	
+	}
+	
+	foo(1);
+	```
+	
+	在进入执行上下文后，这时候的AO是：
+	
+	```js
+	AO = {
+	    arguments: {
+	        0: 1,
+	        length: 1
+	    },
+	    a: 1,
+	    b: undefined,
+	    c: reference to function c(){},
+	    d: undefined
+	}
+	```
+	
+	#### 代码执行
+	
+	在代码执行阶段，会顺序执行代码，根据代码，修改变量对象的值
+
+	还是上面的例子，当代码执行完后，这时候的 AO 是：
+	
+	```js
+	AO = {
+	    arguments: {
+	        0: 1,
+	        length: 1
+	    },
+	    a: 1,
+	    b: 3,
+	    c: reference to function c(){},
+	    d: reference to FunctionExpression "d"
+	}
+	```
+	
+	到这里变量对象的创建过程就介绍完了，让我们简洁的总结我们上述所说：
+
+	1. 全局上下文的变量对象初始化是全局对象
+	2. 函数上下文的变量对象初始化只包括 Arguments 对象
+	3. 在进入执行上下文时会给变量对象添加形参、函数声明、变量声明等初始的属性值
+	4. 在代码执行阶段，会再次修改变量对象的属性值
+
+	### 思考题
+	
+	现在让我们看几个栗子
+	
+	1. 第一题
+
+		```js
+		function foo() {
+		    console.log(a);
+		    a = 1;
+		}
+		
+		foo(); // ???
+		
+		function bar() {
+		    a = 1;
+		    console.log(a);
+		}
+		bar(); // ???
+		```
+		
+		第一段会报错：Uncaught ReferenceError: a is not defined。
+
+		第二段会打印：1。
+		
+		这是因为函数中的 "a" 并没有通过 var 关键字声明，所有不会被存放在 AO 中。
+		
+		第一段执行 console 的时候， AO 的值是：
+		
+		```js
+		AO = {
+		    arguments: {
+		        length: 0
+		    }
+		}
+		```
+		
+		没有 a 的值，然后就会到全局去找，全局也没有，所以会报错。
+
+		当第二段执行 console 的时候，全局对象已经被赋予了 a 属性，这时候就可以从全局找到 a 的值，所以会打印 1。
+		
+	2. 第二题
+
+		```js
+		console.log(foo);
+
+		function foo(){
+		    console.log("foo");
+		}
+		
+		var foo = 1;
+		```
+		
+		会打印函数，而不是undefined
+		
+		这是因为在进入执行上下文时，首先会处理函数声明，其次会处理变量声明，如果如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性
 
 <h2 id="explorer">浏览器</h2>
 
@@ -2558,12 +2711,13 @@ setInterval调用被废弃
 
 	1. 多个事件同一个函数：`$('div').bind('click change', function() {});`
 	2. 多个事件不同函数：
-	```
+
+		```js
 		$('div').bind({
 			click: function() {},
 			change: function() {}
 		})
-	```
+		```
 
 * 使用jQuery，找到id位selector的select标签中有用data-target属性为isme的option的值
 
