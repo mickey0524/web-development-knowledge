@@ -208,11 +208,11 @@
 	在很多环境下，path.resolve()和path.join()会返回相同的数值，看一看下面这个例子
 
 	```js
-	path.join('a', 'b1', '..', 'b2') === 'a/b1/../b2'
-	path.resolve('a', 'b1', '..', 'b2') === 'a/b2'
+	path.join('a', 'b1', '..', 'b2') === 'a/b1/b2'
+	path.resolve('a', 'b1', '..', 'b2') === '/Users/yourname/a/b2'
 	```
 
-	一目了然，path.join就是用/将参数连接起来，而path.resolve返回的是执行操作最后的目录
+	一目了然，path.join就是用/将参数连接起来，而path.resolve返回的是执行操作后的绝对路径
 
 * 今天在用express做图片上传的时候，node server提示我413，express默认允许上传的大小为1MB，因此需要手动修改，通过增加`app.use(bodyParser.json({limit: '50mb'}));`就可以放开限制
 
