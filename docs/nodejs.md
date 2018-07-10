@@ -17,26 +17,70 @@
 
 	至于后面这个问题，我的话，会采用这个方法
 	```
-		if (Math.abs(num1 - num2) < 1E-10) {
-			// do something
-		}
+	if (Math.abs(num1 - num2) < 1E-10) {
+		// do something
+	}
 	```
 
 * a.js和b.js两个文件互相require是否会死循环？双方是否能导出变量？如何从设计上避免这种问题？
 
 	不会的，下面给出require的实现机制
 
-    	function require(...) {
-    		var module = { exports: {} };
-    		((module, exports) => {
-    			function some_func() {};
-    			exports = some_func;
-    			module.exports = some_func;
-    		})(module, module.exports);
-    		return module.exports;
-    	}
+    ```js
+    function require(...) {
+    	var module = { exports: {} };
+    	((module, exports) => {
+    		function some_func() {};
+    		exports = some_func;
+    		module.exports = some_func;
+    	})(module, module.exports);
+    	return module.exports;
+    }
+    ```
+
 	从上面的实现代码也可以看出exports就是module.exports的一个引用，具体这两个之间的关系见下方url https://cnodejs.org/topic/5734017ac3e4ef7657ab1215
 
+    给出一个循环引用的例子
+
+    ```js
+    a.js
+
+    console.log('a 开始');
+    exports.done = false;
+    const b = require('./b.js');
+    console.log('在 a 中，b.done = %j', b.done);
+    exports.done = true;
+    console.log('a 结束');
+    
+    b.js
+
+    console.log('b 开始');
+    exports.done = false;
+    const a = require('./a.js');
+    console.log('在 b 中，a.done = %j', a.done);
+    exports.done = true;
+    console.log('b 结束');
+
+    main.js
+
+    console.log('main 开始');
+    const a = require('./a.js');
+    const b = require('./b.js');
+    console.log('在 main 中，a.done=%j，b.done=%j', a.done, b.done);
+    ```
+
+    ```js
+    $ node main.js
+    main 开始
+    a 开始
+    b 开始
+    在 b 中，a.done = false
+    b 结束
+    在 a 中，b.done = true
+    a 结束
+    在 main 中，a.done=true，b.done=true
+    ```
+    
 * Event是Nodejs中一个非常重要的core模块，在node中有许多重要的core API都是依赖其建立的.比如Stream是基于Events实现的，下面我们来看几段event相关的代码
 
     	const EventEmitter = require('events');
@@ -355,3 +399,9 @@
 		    res.end();
 		 });
 	    ```
+
+* node中如何判断文件是否为入口文件，也就是直接用node命令执行的文件
+
+    我们都知道在python中可以用`if __name__ == '__main__'`来判断是否为入口文件，方便测试
+
+    node中也有类似的操作，可以通过`require.main === module`判断
