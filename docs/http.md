@@ -66,3 +66,11 @@
         * 服务端收到之后，返回一个ACK给客户端
         * 服务端发送一个FINISH给客户端，服务端断开连接
         * 客户端收到之后，发送ACK给服务端，客户端断开连接
+
+* header中Content-Disposition的作用
+
+	在get请求的response header中设置 Content-Disposition 可以用于文件下载，给出一个栗子
+	
+	```js
+	res.setHeader('Content-Disposition', `attachment; filename=${filename}`);
+	```
