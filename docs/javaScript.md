@@ -1719,3 +1719,59 @@ setInterval调用被废弃
 		会打印函数，而不是undefined
 		
 		这是因为在进入执行上下文时，首先会处理函数声明，其次会处理变量声明，如果如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性
+
+* 增加一道我司的前端面试题
+
+    模拟实现loadash中的_.get()函数，实现如下传入参数的取值效果
+
+    ```js
+    function get() {
+        // 请补全函数参数和实现逻辑
+    }
+    
+    const obj = { selector: { to: { toutiao: 'FE coder' } }, target: [1, 2, { name: 'byted' }] };
+
+    // 运行代码
+
+    get(obj, 'selector.to.toutiao', 'target[0]', 'target[2].name') // ['FE coder', 1, 'byted'];
+    ```
+    
+    ```js
+    function get() {
+        const argsLen = arguments.length;
+
+        if (argsLen === 0) return undefined;
+
+        if (argsLen === 1) return arguments[0];
+
+        const res = [];
+        const obj = arguments[0]; 
+        const pattern = /^(.*)\[(\d*)\]/;
+
+        for (let i = 1; i < argsLen; i++) {
+            const arg = arguments[i];
+            const levelArr = arg.split('.');
+            let cntObj = obj;
+            for (let j = 0, len = levelArr.length; j < len; j++) {
+                if (levelArr[j] in cntObj) {
+                    cntObj = cntObj[levelArr[j]];
+                } else {
+                    const re = levelArr[j].match(pattern);
+                    if (re && re[1] in cntObj && re[2] < cntObj[re[1]].length) {
+                        cntObj = cntObj[re[1]][Number(re[2])];
+                    } else {
+                        new Error('param error');
+                    }
+                }
+            }
+            res.push(cntObj);
+        }
+        return res;
+    }
+
+    const obj = { selector: { to: { toutiao: 'FE coder' }}, target: [1, 2, {name: 'byted'}]};
+
+    const res = get(obj, 'selector.to.toutiao', 'target[0]', 'target[2].name');
+
+    console.log(res);   
+    ```
