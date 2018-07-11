@@ -1,6 +1,9 @@
 * 修改Vue对象数组中数组，view层不生效，原因是没有使用$set，直接修改并不会给你重新渲染
 
-	 array.$set(index, {})
+    ```js
+    this.$set(array/object, index/key, newVal);
+    Vue.$set(array/object, index/key, newVal);
+    ```
 
 * 修改Vue对象数组的元素的一个字段，直接赋值是不行的，Object.assign(原对象，{ key: value })也是不行的，因为这个操作默认是浅拷贝
 
@@ -191,3 +194,32 @@
     event.initEvent('mouseWheel', true, true);
     document.body.dispatchEvent(event);
     ```
+
+* Vue中的eventbus
+
+    Vue中的eventbus，也可以说是eventhub，在业务逻辑不是特别复杂的时候，在兄弟组件中传递数据不需要使用vuex，使用一个vue实例做桥接就行了，例子如下
+
+    ```js
+    const eventBus = new Vue();
+    
+    // 好的代码风格，设置eventBus实例为只读的
+    Object.defineProperty(Vue.prototype, $bus, {
+        get: function() {
+            return eventBus;
+        },
+    });
+
+    ...
+
+    // componentA
+
+    this.$bus,$on('login', (eventData) => {
+        // pass
+    });
+
+    // componentB
+
+    this.$bus.$emit('login', eventData);
+    ```
+
+    需要注意的是，如果是在单页应用中使用eventBus，在页面切换的时候，记得要eventBus.$off掉创建的监听器，否则容易触发多次无用callback函数
