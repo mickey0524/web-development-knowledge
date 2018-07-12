@@ -1775,3 +1775,131 @@ setInterval调用被废弃
 
     console.log(res);   
     ```
+
+* 手动实现一个bind函数
+
+	利用apply或bind函数实现
+	
+	```js
+	Function.prototype.bind_1 = function(obj, ...args) {
+		const context = this;
+		const newBind = function(...newArgs) {
+			args.concat(newArgs);
+			context.apply(obj, args);
+		}
+		const F = function() {};
+		F.prototype = context.prototype;
+		newBind.prototype = new F();
+		return newBind;
+	}
+	```
+	
+* 类的继承
+
+	首先创建一个Animal父类
+	
+	```js
+	// 定义一个动物类
+	function Animal (name) {
+	  // 属性
+	  this.name = name || 'Animal';
+	  // 实例方法
+	  this.sleep = function(){
+	    console.log(this.name + '正在睡觉！');
+	  }
+	}
+	// 原型方法
+	Animal.prototype.eat = function(food) {
+	  console.log(this.name + '正在吃：' + food);
+	};
+	```
+
+	* 原型链继承
+
+		```js
+		function Cat(){ }
+		Cat.prototype = new Animal();
+		Cat.prototype.name = 'cat';
+		
+		var cat = new Cat();
+		console.log(cat.name);
+		console.log(cat.eat('fish'));
+		console.log(cat.sleep());
+		console.log(cat instanceof Animal); //true 
+		console.log(cat instanceof Cat); //true
+		```
+		
+		* 介绍：在这里我们可以看到new了一个空对象,这个空对象指向Animal并且Cat.prototype指向了这个空对象，这种就是基于原型链的继承。
+		* 特点：基于原型链，既是父类的实例，也是子类的实例
+		* 缺点：无法实现多继承
+
+	* 构造继承
+
+		```js
+		function Cat(name){
+		  Animal.call(this);
+		  this.name = name || 'Tom';
+		}
+		// Test Code
+		var cat = new Cat();
+		console.log(cat.name);
+		console.log(cat.sleep());
+		console.log(cat instanceof Animal); // false
+		console.log(cat instanceof Cat); // true
+		```
+		
+		* 特点：可以实现多继承
+		* 缺点：只能继承父类实例的属性和方法，不能继承原型上的属性和方法。
+
+	* 组合继承
+	
+		```js
+		function Cat(name){
+		  Animal.call(this);
+		  this.name = name || 'Tom';
+		}
+		Cat.prototype = new Animal();
+		Cat.prototype.constructor = Cat;
+		// Test Code
+		var cat = new Cat();
+		console.log(cat.name);
+		console.log(cat.sleep());
+		console.log(cat instanceof Animal); // true
+		console.log(cat instanceof Cat); // true
+		```
+		
+		* 特点：可以继承实例属性/方法，也可以继承原型属性/方法
+		* 缺点：调用了两次父类构造函数，生成了两份实例
+	
+	* 原型继承
+
+		```js
+		function inherits(Child, Parent) {
+		  var F = function () {};
+		  F.prototype = Parent.prototype;
+		  Child.prototype = new F();
+		  Child.prototype.constructor = Child;
+		}
+		```
+
+	* 寄生组合继承
+
+		```js
+		function Cat(name){
+		  Animal.call(this);
+		  this.name = name || 'Tom';
+		}
+		(function(){
+		  // 创建一个没有实例方法的类
+		  var Super = function(){};
+		  Super.prototype = Animal.prototype;
+		  //将实例作为子类的原型
+		  Cat.prototype = new Super();
+		})();
+		// Test Code
+		var cat = new Cat();
+		console.log(cat.name);
+		console.log(cat.sleep());
+		console.log(cat instanceof Animal); // true
+		console.log(cat instanceof Cat); //true
+		```
