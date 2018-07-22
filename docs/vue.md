@@ -223,3 +223,25 @@
     ```
 
     需要注意的是，如果是在单页应用中使用eventBus，在页面切换的时候，记得要eventBus.$off掉创建的监听器，否则容易触发多次无用callback函数
+
+* 在Vue中，如何实现一个组件，在不使用template的前提下，实现如下DOM结构, <component-a><component-b name="a"/></component-a>
+
+    其实就是手写render函数的问题
+
+    ```js
+    Vue.component('MyComponent', {
+        render(createElement) {
+            return createElement(
+                'component-a',
+                [
+                    createElement(
+                        'component-b',
+                        props: {
+                            name: 'a',
+                        },
+                    );
+                ],
+            );
+        },
+    });
+    ```
