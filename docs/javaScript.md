@@ -1903,3 +1903,22 @@ setInterval调用被废弃
 		console.log(cat instanceof Animal); // true
 		console.log(cat instanceof Cat); //true
 		```
+
+* 使用Boolean过滤数组中的所有假值
+
+    我们知道JS中有一些假值：`false`, `null`, `0`, `""`, `undefined`, `NaN`, 可以用Boolean构造函数进行一次过滤
+
+    ```js
+    const compact = arr => arr.filter(Boolean);
+    compact([0, 1, false, 2, '', 3, 'a', 'e' * 23, NaN, 's', 34])             // [ 1, 2, 3, 'a', 's', 34 ]
+    ```
+
+* `num | 0` 与 `num | 0`实现一样的操作，并且后者耗时更少
+
+* 将数字四舍五入到指定位数的方法
+
+    ```js
+    const round = (n, decimals = 0) => Number(`${Math.round(`${n}e${decimals}`)}e-${decimals}`);
+    round(1.345, 2); // 1.35
+    round(1.345, 1); // 1.3
+    ```
