@@ -85,3 +85,18 @@
 * 移动端JSBridge为啥先发一个dispatch\_message通知客户端，然后客户端调用js里的`_fetchQueue`方法，`_fetchQueue`里再将具体的参数发送给客户端
 
     JSBridge调用端上提供的方法其实是通过改变iframe的src来发dispatch和发真正的事件的，客户端通过拦截URL请求来监听，如果是一次JSBridge事件一跳dispatch带事件参数过去的话，会有一个问题，假设短时间内多次触发JSBridge调用，相当于是频繁改变src，这个时候，前几次的src改变完可能请求还没发出去，就被后面的覆盖了，简单来说，就是丢了事件，因此搞成这种两跳的，事件先推队列，触发dispatch message，只要随便有一个dispatch message被监听到，就fetchQueue取出整个队列通过src送回去，客户端拿到这个fetch的结果就for循环挨个执行，后面再跑过来的dispatch取出来是空队列，就丢弃掉。
+
+* 如何阻止移动端浏览器上的native scroll
+
+    ```js
+    // 原生js
+    document.addEventListener("touchmove", function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+    });
+    // jq
+    $(document).on("touchmove", function(event) {
+        event.preventDefault();
+        event.stopPropagation();    
+    });
+    ```
