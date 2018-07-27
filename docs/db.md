@@ -12,3 +12,17 @@
 
     * 如果不做任何处理，db字段是text或varchar的话，emoji表情是不能正常存库的，可以让前端整体encode一下，取出的时候decode一下
     * 修改数据库表、字段的编码方式，utf8 => utf8mb4 [参考文档](https://www.cnblogs.com/janehoo/p/5359800.html)
+
+* 联表查询的时候，经常会出现某个表的字段为null的情况(例如full join)，这个时候，在最外层的select，有时候需要if-else的逻辑，下面是写法
+
+    ```
+    select
+        IF (
+            table1.param1 is not null,
+            table1.param1,
+            table2.param1
+        ) as param1
+
+    ...
+
+    ```
