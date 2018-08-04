@@ -22,3 +22,4 @@
 * [linux指令](./docs/linux.md)
 * [数据库](./docs/db.md)
 * [其他](./docs/others.md)
+* [vim](./docs/vim.md)
