@@ -31,3 +31,31 @@
 * mysql的水平，垂直分表，水平分表是将不同的用户落到不同的表中用来减轻单表的压力，最简单的方法，就是uid % 16，这样就能将用户分到16个用户表中，垂直分表是将相同的record分到不同的表中，比如订单系统，用户的订单和商家的订单其实是相同的一条记录，但是放在一张表中就显得很冗杂，放到两张表中，必要的时候同步可以采用binlog
 
 * [SQL查询中in和exists的区别分析](https://www.jianshu.com/p/f212527d76ff)
+
+* SQL中可以set变量，下面给出一个栗子
+
+   ```sql
+	SELECT
+	    *
+	FROM
+	    game_comment gc
+	    JOIN (
+	        SELECT
+	            c.id,
+	            @rank: = IF(@group_id = group_id, @rank + 1, 1) AS rank,
+	            @group_id: = group_id AS gid
+	        FROM
+	            game_comment c,
+	            (
+	                SELECT
+	                    @rank: = 1,
+	                    @group_id: = NULL
+	            ) tmp
+	        ORDER BY
+	            c.group_id,
+	            c.id
+	    ) t ON gc.id = t.id
+	    AND t.rank < 3;
+    ```
+    
+    上面的sql可以取出每一篇group_id的前两条评论
