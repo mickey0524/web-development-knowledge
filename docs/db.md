@@ -101,3 +101,20 @@
 
     * [MySQL高级 之 order by、group by 优化](https://blog.csdn.net/wuseyukui/article/details/72627667)
     * [mysql组合索引与字段顺序](https://www.cnblogs.com/sunss/archive/2010/09/14/1826112.html)
+
+* Redis最佳实践
+
+    * 避免大key
+
+        * string value < 10KB
+        * hash/set/zset元素 < 5000
+
+    * 避免使用长时间阻塞的命令
+
+        * 禁用keys/flushall等命令
+        * 在使用命令前，先查看每个命令的时间复杂度 https://redis.io/commands
+        * hgetall等遍历命令用hscan代替
+
+    * 避免过热的key
+    
+        * 将对一个key的请求qps降低到1k以下，通过拆key达到
