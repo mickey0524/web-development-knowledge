@@ -32,33 +32,54 @@
 
 * [SQL查询中in和exists的区别分析](https://www.jianshu.com/p/f212527d76ff)
 
-* SQL中可以set变量，下面给出一个栗子
+* SQL获取分组的topk
 
    ```sql
 	SELECT
 	    *
 	FROM
-	    game_comment gc
-	    JOIN (
+	    game_v v
+	WHERE
+	    (
 	        SELECT
-	            c.id,
-	            @rank: = IF(@group_id = group_id, @rank + 1, 1) AS rank,
-	            @group_id: = group_id AS gid
+	            count(v1.user_id)
 	        FROM
-	            game_comment c,
-	            (
-	                SELECT
-	                    @rank: = 1,
-	                    @group_id: = NULL
-	            ) tmp
-	        ORDER BY
-	            c.group_id,
-	            c.id
-	    ) t ON gc.id = t.id
-	    AND t.rank < 3;
+	            game_v v1
+	        WHERE
+	            v.game_id = v1.game_id
+	            and v1.user_id > v.user_id
+	    ) < 3
     ```
     
-    上面的sql可以取出每一篇group_id的前两条评论
+    ```
+	SELECT
+		t.game_id,
+		t.user_name,
+		t.game
+	from
+		(
+			select
+				v.game_id,
+				v.user_id,
+				v.user_name,
+				v.game,
+				@rank := if (@game_id = v.game_id, @rank + 1, 1) as rank,
+				@game_id := v.game_id
+			from
+				game_v v,
+				(
+					select
+						@rank := 1,
+						@game_id := null
+				) tmp
+			order by
+				game_id,
+				user_id desc
+		) t
+	where t.rank < 4;
+    ```
+    
+    上面的两个sql都可以取出每个game_id的前几个user_id，第二种写法比较快
 
 * 哈希(hash)比树(tree)更快，索引结构为什么要设计成树型?
 
