@@ -167,3 +167,34 @@
 * innodb 索引的冗余问题
 
     当建立 (A, B) 这样的联合索引之后，再建 (A) 的单列索引就是冗余的，因为 A 满足最左匹配，而 (A, ID) 这样的联合索引也是冗余的，因为 (A) 的二级索引包含指向 ID 的指针
+
+* explain 各字段的含义
+
+	* id，id 用于标识 select
+	* select_type，select_type 用于显示对应行是简单还是复杂 select，simple 意味着查询不包括子查询和 union，如果查询有任何复杂的子部分，则最外层部分标记为 primary
+		* subquery，包含在 select 列表中的子查询
+		* derived，包含在 from 中的子查询
+		* union，在 union 中的第二个和随后的 select 被标记为 union
+		* union result，union 的结果
+		* 此外，subquery 和 union 还可以被标记为 dependent 和 uncacheable，dependent 意味着 select 依赖于外层查询中发现的数据，uncacheable 意味着 select 中的某些特性阻止结果被缓存，例如临时变量
+	* table，显示了对应 select 访问的表名，也可以是 alias
+	* type，显示 mysql 如何查找表中的行
+		* all，扫全表
+		* index，类似于 all，只是 mysql 扫描表的时候按索引次序进行而不是行
+		* range，范围扫描，是一个有限制的索引扫描
+		* ref，一种索引访问，返回所有匹配某个单个值的单行，这类索引访问只有当使用非唯一性索引或唯一性索引的非唯一性前缀时才会发生，把它叫做 ref 是因为索引要跟某个参考值相比，这个参考值或者是一个常数，或者是来自多表查询前一个表里的结果值
+		* eq_ref，使用这种索引查找，mysql 知道最多返回一条符合条件的记录，这种访问方法可以在 mysql 使用主键或唯一性索引查找时看到
+		* const, system，mysql 能对查询的某部分进行优化并将其转换为一个常量时，就会使用这些访问类型
+	* possible_keys，查询可能使用的索引
+	* key，查询真正使用的索引
+	* key_len，使用索引的长度，联合索引只用了前面部分的话只会算使用部分的子节总数
+	* ref，显示了之前的表在 key 列记录的索引中查找值所用的列或常量
+	* rows，为了得到查询结果，mysql 扫了多少行记录
+	* Extra，包含不适合出现在其他列中的额外信息
+		* using index，使用 mysql 的覆盖索引
+		* using where，意味着 mysql 服务器将在检索行后再进行过滤
+		* using filesort，mysql 会对结果使用一个外部索引排序，而不是按索引次序从表里读取行
+		* using temporary，mysql 在对查询结果排序的时候会使用一个临时表
+	
+	
+	
