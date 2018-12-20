@@ -203,5 +203,19 @@
     * 确保 on 的列上有索引。在创建索引的时候就要考虑到关联的顺序，当表 A 和表 B 用列 c 关联的时候，如果优化器的关联顺序是 B、A，那么就不需要在 B 表的对应列上建索引，没有用的索引只会带来额外的负担，一般来说，只需要在关联顺序的第二个表的相应列上建立索引
     * 确保任何的 group by 和 order by 中的表达式只涉及到一个表中的列，这样 mysql 才有可能使用索引来优化这个过程
 
+* mysql 的 MVVC
 
-
+    innodb 中通过 B+ 树作为索引的数据结构，并且主键所在的索引为 ClusterIndex(聚簇索引), ClusterIndex 中的叶子节点中保存了对应的数据内容。一个表只能有一个主键，所以只能有一个聚簇索引，如果表没有定义主键，则选择第一个非 NULL 唯一索引作为聚簇索引，如果还没有则生成一个隐藏 id 列作为聚簇索引。除了 Cluster Index 外的索引是 Secondary Index(辅助索引)，辅助索引中的叶子节点保存的是聚簇索引的叶子节点的值 + pk index。
+    
+    innodb 行记录中存在三个隐藏字段，6字节的 db\_trx\_id，表示最新修改该行的事务 id，7字节的 db\_roll\_ptr，执行 undo segment 中的 undo log，用于数据可见性的判断和数据回滚，以及 6 字节的 db\_row\_id，用于缺少 pk 的时候自动生成 pk，如果存在 pk，db\_row\_id 存在于 pk 中。
+    
+    Undo log 分为 Insert 和 Update 两种，delete 可以看做是一种特殊的 update，即在记录上修改删除标记。update undo log 记录了数据之前的数据信息，通过这些信息可以还原到之前版本的状态。当进行插入操作时，生成的 Insert undo log 在事务提交后即可删除，因为其他事务不需要这个undo log。进行删除修改操作时，会生成对应的 undo log，并将当前数据记录中的 db\_roll\_ptr 指向新的undo log。
+    
+    read view，或者说 快照 snapshot 是用来存储数据库的事务运行情况，一个事务快照的创建过程可以概括为：查看当前所有的未提交并活跃的事务，存储在数组中，选取未提交并活跃的事务中最小的XID，记录在快照的xmin中，选取所有已提交事务中最大的XID，加1后记录在xmax中。在 RR（repeatable read）级别的隔离中, 事务在begin/start transaction之后的第一条select读操作后, 会创建一个快照(read view), 将当前系统中活跃的其他事务记录记录起来，而在（read commit）级别的隔离中，事务中每条select语句都会创建一个快照(read view)。
+    
+    下面介绍一下 RR（repeatable read）隔离级别的数据可见性判断：设要读取的行的最后提交事务 id 为 trx\_id\_current，当前事务的 id 为 new\_id，当前事务创建的快照 read view 中最早的事务 id min\_id，最迟的事务 id max\_id（注意这个 max\_id 为 read view 中最大的 id + 1）
+    1. trx\_id\_current < min\_id，这种情况比较好理解, 表示, 新事务在读取该行记录时, 该行记录的稳定事务ID是小于系统当前所有活跃的事务, 所以当前行稳定数据对新事务可见, 跳到步骤5
+    2. trx\_id\_current >= max\_id, 这种情况也比较好理解, 表示, 该行记录的稳定事务id 是在本次新事务创建之后才开启的, 但是却在本次新事务执行第二个 select 前就 commit 了，所以该行记录的当前值不可见, 跳到步骤4
+    3. min\_id <= trx\_id\_current < max\_id, 表示: 该行记录所在事务在本次新事务创建的时候处于活动状态，从 min\_id 到 max\_id 进行遍历，如果 trx\_id\_current 等于他们之中的某个事务 id 的话，那么不可见, 跳到步骤4, 否则表示可见，跳到步骤5
+    4. 从该行记录的 DB\_ROLL\_PTR 指针所指向的回滚段中取出最新的 undo-log 的版本号, 将它赋值该 trx\_id\_current，然后跳到步骤1重新开始判断
+    5. 将该可见行的值返回
