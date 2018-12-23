@@ -219,3 +219,15 @@
     3. min\_id <= trx\_id\_current < max\_id, 表示: 该行记录所在事务在本次新事务创建的时候处于活动状态，从 min\_id 到 max\_id 进行遍历，如果 trx\_id\_current 等于他们之中的某个事务 id 的话，那么不可见, 跳到步骤4, 否则表示可见，跳到步骤5
     4. 从该行记录的 DB\_ROLL\_PTR 指针所指向的回滚段中取出最新的 undo-log 的版本号, 将它赋值该 trx\_id\_current，然后跳到步骤1重新开始判断
     5. 将该可见行的值返回
+
+* mysql record lock 锁的是 pk，如果 pk 不存在，锁的是自动创建的 db\_row\_id
+
+* RC 级别下，update 操作会在 where 之后就将不符合条件的行释放锁，而 RR 级别会在整个操作完成之后再释放
+
+* Mysql 默认使用 MVCC 来 read，不用上锁，也可以显式给 select 操作加上 share lock
+
+    ```
+    select ... lock in share mode
+
+    select ... for update
+    ```
