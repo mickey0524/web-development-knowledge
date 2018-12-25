@@ -231,3 +231,19 @@
 
     select ... for update
     ```
+
+* Mysql 的幻读问题
+
+    幻读：在一次 transaction 中，不同时候相同的 query 得到不同的结果 
+    
+    ```
+    SELECT * FROM child WHERE id > 100 FOR UPDATE;
+
+    INSERT INTO child values (101);
+    ```    
+
+    使用 gap lock 或者 next-key lock 锁住 gap，防止其他 transaction 在本次 transaction 未 commit 时插入数据 
+
+* Mysql 的脏读问题
+
+    事务 A 读到未提交事务 B 修改的数据，如果此时事务 B 中途执行失败回滚，那么此时事务 A 读取到的就是脏数据。比如事务 A 对 money 进行修改，此时事务 B 读取到事务 A 的更新结果，但是如果后面事务 A 回滚，那么事务 B 读取到的就是脏数据，在 Mysql 中，只有 RU 下，会发生脏读的问题
