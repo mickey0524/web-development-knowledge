@@ -247,3 +247,31 @@
 * Mysql 的脏读问题
 
     事务 A 读到未提交事务 B 修改的数据，如果此时事务 B 中途执行失败回滚，那么此时事务 A 读取到的就是脏数据。比如事务 A 对 money 进行修改，此时事务 B 读取到事务 A 的更新结果，但是如果后面事务 A 回滚，那么事务 B 读取到的就是脏数据，在 Mysql 中，只有 RU 下，会发生脏读的问题
+
+* Mysql 死锁不会被隔离级别所影响，因为隔离级别改变的是读操作的行为，然而死锁是由于写操作导致的，下面给出一个死锁的例子
+
+    ```
+    tx1
+
+    start transaction;
+    select * from t where i = 1 lock in share mode;
+
+    tx2
+    
+    start transaction;
+    delete from t where i = 1;
+
+    tx1
+
+    delete from t where i = 1;
+    ```
+
+    首先事务1给 record 加上共享锁，事务2想要删除，所以想要加上排他锁，事务2等待，然后事务1也想删除，这个时候就发生死锁了，因为事务1并不能将共享锁升级为排他锁
+
+* 如何最小化处理死锁
+
+    * 使用 SHOW ENGINE INNODB STATUS 命令去查询最近一次死锁的信息，作出相应的改变
+    * 如果死锁频繁发生的话，启用 innodb\_print\_all\_deadlocks 配置选项，可以查看全部的死锁信息，不止最后一条，全面的进行分析
+    * 代码层面进行 retry
+    * 一次事务里尽量少的请求
+    * 建立合适的索引优化查询，减少上锁的行数，加速 lock release 的速度
