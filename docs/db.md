@@ -135,6 +135,7 @@
         * 禁用keys/flushall等命令
         * 在使用命令前，先查看每个命令的时间复杂度 https://redis.io/commands
         * hgetall等遍历命令用hscan代替
+        * [redis操作之迭代器（scan和hscan）讲解](http://blog.51cto.com/13581092/2149178)
 
     * 避免过热的key
     
