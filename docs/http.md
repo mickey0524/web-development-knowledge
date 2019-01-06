@@ -148,3 +148,69 @@ web服务器通过自己的私钥解密出会话密钥。
     * 创建Listen Socket, 监听指定的端口, 等待客户端请求到来
     * Listen Socket接受客户端的请求, 得到Client Socket, 接下来通过Client Socket与客户端通信
     * 处理客户端的请求, 首先从Client Socket读取HTTP请求的协议头, 如果是POST方法, 还可能要读取客户端提交的数据, 然后交给相应的handler处理请求, handler处理完毕准备好客户端需要的数据, 通过Client Socket写给客户端
+
+* form-data 上传
+    
+    ```js
+    const fd = new FormData();
+    fd.append('file', this.fileInput.files[0]);
+    fd.append('ad_id', this.adId);
+    fd.append('app_id', this.appId);
+    fd.append('start_date', start_date);
+    fd.append('end_date', end_date);
+    fd.append('event_type', this.eventType);
+
+    然后 POST 请求的 body = fd 即可
+    ```
+
+* GET、POST 请求文件下载
+
+    服务端设置一些参数，以 python 为例
+
+    ```py
+    result = make_response(list_to_csv(conversion_kv_dict, event_list)) # 生成一个 csv 文件
+    result.headers["Content-Type"] = "text/csv"
+    result.headers["Content-Disposition"] = "attachment; filename=%s" % \
+                                              urllib.quote(filename)
+    def list_to_csv(header_dict, data_list):
+         """
+         将list转为csv格式返回
+         :param header_dict: csv表头
+         :param data_list: 代转换的数据列表
+         :return: 转换后的csv格式内容
+         """
+         output = cStringIO.StringIO()
+         csv_writer = csv.writer(output, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+         for i, each in enumerate(data_list):
+             if i == 0:
+                 csv_writer.writerow(header_dict.values())
+             csv_writer.writerow([each.get(x, "") for x in header_dict.keys()])
+         result = output.getvalue()
+         output.close()
+         return result
+    ```
+
+    如果是 GET 请求下载的话，直接 window.open()打开下载连接即可
+
+    如果是 POST 请求，使用 Blob 来进行下载
+
+    ```
+    fetch(url, { method: 'POST'})
+        .then(res => {
+            return res.blob();
+        })
+        .then(blob => {
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onload = (e) => {
+            const a = document.createElement('a');
+            a.download = filename;
+            a.href = e.target.result;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    ```
