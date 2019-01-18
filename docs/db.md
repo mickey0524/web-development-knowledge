@@ -276,3 +276,12 @@
     * 代码层面进行 retry
     * 一次事务里尽量少的请求
     * 建立合适的索引优化查询，减少上锁的行数，加速 lock release 的速度
+
+* [Redis 简介](https://juejin.im/post/5c3c1df2e51d45207f54b189)
+
+* redis server 默认有 16 个 db，使用的时候会根据 key 做 hash 映射到不同的 db 中，进行负载均衡
+
+* [redis 主从同步](https://mp.weixin.qq.com/s?__biz=MzI4Njg5MDA5NA==&mid=2247484430&idx=1&sn=be69ef08e58dc7559d054221732ee8ee&chksm=ebd7450fdca0cc19a4a8cd788161bfdebc0d51abe9989debadd61ba29e3cce6961ebe6093d5b&token=752118079&lang=zh_CN#rd)
+
+* [redis 依靠哨兵机制实现 redis 的 HA](https://mp.weixin.qq.com/s?__biz=MzI4Njg5MDA5NA==&mid=2247484451&idx=1&sn=5495b1165954cd6b84b011489e04a66b&chksm=ebd74522dca0cc3416ab0ccd3a4ddb4ddd28290c9769596a069d81df3b03f4bad72e27d30a6d&token=488172193&lang=zh_CN#rd)
+
