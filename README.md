@@ -23,3 +23,4 @@
 * [数据库](./docs/db.md)
 * [其他](./docs/others.md)
 * [vim](./docs/vim.md)
+* [OS](./docs/os.md)
