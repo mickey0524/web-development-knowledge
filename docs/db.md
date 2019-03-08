@@ -204,7 +204,7 @@
     * 确保 on 的列上有索引。在创建索引的时候就要考虑到关联的顺序，当表 A 和表 B 用列 c 关联的时候，如果优化器的关联顺序是 B、A，那么就不需要在 B 表的对应列上建索引，没有用的索引只会带来额外的负担，一般来说，只需要在关联顺序的第二个表的相应列上建立索引
     * 确保任何的 group by 和 order by 中的表达式只涉及到一个表中的列，这样 mysql 才有可能使用索引来优化这个过程
 
-* mysql 的 MVVC
+* mysql 的 MVCC
 
     innodb 中通过 B+ 树作为索引的数据结构，并且主键所在的索引为 ClusterIndex(聚簇索引), ClusterIndex 中的叶子节点中保存了对应的数据内容。一个表只能有一个主键，所以只能有一个聚簇索引，如果表没有定义主键，则选择第一个非 NULL 唯一索引作为聚簇索引，如果还没有则生成一个隐藏 id 列作为聚簇索引。除了 Cluster Index 外的索引是 Secondary Index(辅助索引)，辅助索引中的叶子节点保存的是聚簇索引的叶子节点的值 + pk index。
     
@@ -276,6 +276,19 @@
     * 代码层面进行 retry
     * 一次事务里尽量少的请求
     * 建立合适的索引优化查询，减少上锁的行数，加速 lock release 的速度
+
+* [MySQL 4种隔离模式](https://www.jianshu.com/p/8d735db9c2c0)
+
+* Innodb 事务4种隔离模式
+
+    * Read Uncommited：可以读取未提交的记录，存在脏读
+    * Read Commited：RC隔离级别保证对读取到的记录加锁 (记录锁)，存在幻读现象
+    * Repeatable Read：RR隔离级别保证对读取到的记录加锁 (记录锁)，同时保证对读取的范围加锁，新的满足查询条件的记录不能够插入 (间隙锁)，不存在幻读现象
+    * Serializable：从MVCC并发控制退化为基于锁的并发控制。不区别快照读与当前读，所有的读操作均为当前读，读加读锁 (S锁)，写加写锁 (X锁)
+
+* [MySQL 加锁](http://hedengcheng.com/?p=771%EF%BC%8C%E5%85%B3%E4%BA%8EMySQL%E7%9A%84%E5%8A%A0%E9%94%81%E5%A4%84%E7%90%86%EF%BC%8C%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E8%AE%B2%E5%BE%97%E5%BE%88%E9%80%8F%E5%BD%BB%EF%BC%81)
+
+* [SQL中的where条件，在数据库中提取与应用浅析](http://hedengcheng.com/?p=577)
 
 * [Redis 简介](https://juejin.im/post/5c3c1df2e51d45207f54b189)
 
