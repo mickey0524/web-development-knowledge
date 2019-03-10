@@ -27,3 +27,5 @@
 	* 为什么TIME_WAIT状态需要经过2MSL(最大报文段生存时间)才能返回到CLOSE状态
 	
 		虽然按道理，四个报文都发送完毕，我们可以直接进入CLOSE状态了，但是我们必须假象网络是不可靠的，有可以最后一个ACK丢失。所以TIME_WAIT状态就是用来重发可能丢失的ACK报文
+
+* [TCP 11种状态](https://blog.csdn.net/pearl_c/article/details/51226320)
