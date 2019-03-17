@@ -214,3 +214,5 @@ web服务器通过自己的私钥解密出会话密钥。
             console.log(err);
         })
     ```
+
+* [https 简介](https://zhuanlan.zhihu.com/p/34732244)
