@@ -19,3 +19,57 @@
 * linux中打log经常可以看到`2>&1`
 
     2代表stderr，1代表stdout，`2>&1`代表将错误信息同样重定向到指定输出文件中
+
+* ln [-sf] source\_file target\_file linux 链接
+
+	默认是 hard link，加上 -s 指代为符号链接
+
+* linux 指令与文件搜索
+
+	* which 指令搜索
+
+		```
+		which python -> /usr/local/bin/python
+		```
+		
+	* whereis 文件搜索，速度比较快，因为只搜索几个特定的目录
+
+		```
+		whereis python -> /usr/bin/python
+		```
+		
+	* find [basedir] [option] 文件搜索，可以使用文件的属性和权限进行搜索
+
+		```
+		find . -name 'pyth*'
+		```
+		
+* 数据流重定向
+
+	重定向指的是使用文件代替标准输入、标准输出和标准错误输出
+	
+	* 标准输入 stdin < 或 <<
+	* 标准输出 stdout > 或 >>
+	* 标准错误输出 stderr 2> 或 2>>
+	
+	其中，有一个箭头的表示以覆盖的方式重定向，而有两个箭头的表示以追加的方式重定向
+	
+	如果需要将标准输出以及标准错误输出同时重定向到一个文件，需要将某个输出转换为另一个输出，例如 2>&1 表示将标准错误输出转换为标准输出
+	
+	```
+	$ find /home -name .bashrc > list 2>&1
+	```
+
+* ps 查看进程
+
+	* ps -l 查看自己的进程
+	* ps aux 查看系统所有进程
+	* ps aux | grep 条件 查看某一条件进程
+
+* top 实时显示进程信息
+
+* netstat 查看占用端口的进程
+
+	```
+	netstat -anp | grep port 查看某一端口进程
+	```
