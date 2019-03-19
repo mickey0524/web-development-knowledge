@@ -45,6 +45,8 @@
 	XSS是CSRF的一种，把通过XSS实现的CSRF称为XSRF，CSRF和XSS的攻击方式有一些相似，都不是直接对服务器进行攻击，而是攻击使用服务器的用户，预防CSRF的基本方法是使用POST请求代替GET请求进行写入的操作，然而黑客还是可以通过不可见的表单进行攻击，这时候就需要行之有效的请求令牌来预防CSRF了，举个栗子，django中的{% csrf_token %}，服务器会在session中写入csrftoken，请求的时候，需要在请求头部写入X-CSRFTOKEN，值为cookie中的csrftoken, 也可以使用加密的cookie，但是如果网站没有预防XSS的话，执行了外站的脚本，就可能造成cookie泄露，还是不如token
 	
 	[XSS,CSRF参考](http://www.cnblogs.com/lins05/archive/2012/12/02/2797996.html)
+	
+	[CSRF](https://www.cnblogs.com/phpstudy2015-6/p/6771239.html#_label0)
 
 * HTTP缓存机制
 
