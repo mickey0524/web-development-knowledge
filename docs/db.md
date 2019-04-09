@@ -290,6 +290,8 @@
 
 * [SQL中的where条件，在数据库中提取与应用浅析](http://hedengcheng.com/?p=577)
 
+* [MySQL系列—建索引的几大原则和使用索引优化查询](https://blog.csdn.net/u012758088/article/details/77140686)
+
 * [Redis 简介](https://juejin.im/post/5c3c1df2e51d45207f54b189)
 
 * redis server 默认有 16 个 db，使用的时候会根据 key 做 hash 映射到不同的 db 中，进行负载均衡
