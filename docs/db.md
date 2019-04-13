@@ -288,7 +288,7 @@
 
 * [MySQL 加锁](http://hedengcheng.com/?p=771%EF%BC%8C%E5%85%B3%E4%BA%8EMySQL%E7%9A%84%E5%8A%A0%E9%94%81%E5%A4%84%E7%90%86%EF%BC%8C%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E8%AE%B2%E5%BE%97%E5%BE%88%E9%80%8F%E5%BD%BB%EF%BC%81)
 
-* [SQL中的where条件，在数据库中提取与应用浅析](http://hedengcheng.com/?p=577)
+* [SQL中的where条件，在数据库中提取与应用浅析，联合索引的存储结构](http://hedengcheng.com/?p=577)
 
 * [MySQL系列—建索引的几大原则和使用索引优化查询](https://blog.csdn.net/u012758088/article/details/77140686)
 
