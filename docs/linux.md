@@ -73,3 +73,8 @@
 	```
 	netstat -anp | grep port 查看某一端口进程
 	```
+
+* Linux 中的 select, poll 以及 epoll
+
+	[Linux IO模式及 select、poll、epoll详解
+](https://segmentfault.com/a/1190000003063859)
