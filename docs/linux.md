@@ -78,3 +78,8 @@
 
 	[Linux IO模式及 select、poll、epoll详解
 ](https://segmentfault.com/a/1190000003063859)
+
+* grep 处理的是哪个 fd？
+
+    处理的是 `std_out + std_err`
+
