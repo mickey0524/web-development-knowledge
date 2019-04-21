@@ -76,8 +76,8 @@
 
 * Linux 中的 select, poll 以及 epoll
 
-	[Linux IO模式及 select、poll、epoll详解
-](https://segmentfault.com/a/1190000003063859)
+	* [Linux IO模式及 select、poll、epoll详解](https://segmentfault.com/a/1190000003063859)
+    * [Linux IO](https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/Socket.md)
 
 * grep 处理的是哪个 fd？
 
