@@ -409,3 +409,13 @@
 
     [Redis 事件驱动](https://github.com/CyC2018/CS-Notes/blob/master/notes/Redis.md#%E5%8D%81%E4%BA%8B%E4%BB%B6)
 
+* 当某一列的值全是 NULL 时，count(col) 的返回结果为 0，但 sum(col) 的返回结果为 NULL，因此使用 sum() 时需要注意避免 NPE 问题
+
+    ```sql
+    SELECT
+        IF(ISNULL(SUM(g)), 0, SUM(g))
+    FROM
+        table
+    ```
+
+* 使用 ISNULL 来判断是否为 NULL 值
