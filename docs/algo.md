@@ -33,3 +33,32 @@
         return -1 
     ```
 
+* 最大频率栈
+
+    实现 FreqStack，模拟类似栈的数据结构的操作的一个类。FreqStack 有两个函数： push(int x)，将整数 x 推入栈中。pop()，它移除并返回栈中出现最频繁的元素。如果最频繁的元素不只一个，则移除并返回最接近栈顶的元素。 ◼ 示例： push [5,7,5,7,4,5] pop() -> 返回 5，因为 5 是出现频率最高的。 栈变成 [5,7,5,7,4]。 pop() -> 返回 7，因为 5 和 7 都是频率最高的，但 7 最接近栈 顶。 栈变成 [5,7,5,4]。 pop() -> 返回 5 。 栈变成 [5,7,4]。 pop() -> 返回 4 。 栈变成 [5,7]
+
+    ```python
+    from collections import deque, defaultdict    
+
+    class FreqStack(object):
+        
+        def __init__(self):
+            self.freq = defaultdict(int)
+            self.group = defaultdict(deque)
+            self.max_freq = float('-inf')        
+    
+        def push(self, x):
+            self.freq[x] = self.freq[x] + 1
+            if self.freq[x] > self.max_freq:
+                self.max_freq = self.freq[x]
+            
+            self.group[self.max_freq].append(x)
+
+        def pop(self):
+            res = self.group[self.max_freq].pop()
+            if not self.group[self.max_freq]:
+                self.max_freq -= 1
+            self.freq[res] -= 1            
+
+            return res
+    ```
