@@ -451,3 +451,6 @@
 * [分布式锁](https://www.pomelolee.com/1787.html)，文章中 redis 的部分有点问题，最好使用 set API，使用 setNX 在加过期时间是两个原子操作
 
 * [B树和B+树的插入/删除](https://www.cnblogs.com/nullzx/p/8729425.html)
+* 在 MySQL 中如何存储 IP 地址
+
+    [IP地址在数据库里面的存储方式](https://www.cnblogs.com/gomysql/p/4595621.html)
