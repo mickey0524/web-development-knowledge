@@ -62,3 +62,7 @@
 
             return res
     ```
+
+* 25匹赛马，没有秒表，五条跑道。用最少的比赛场次找出三匹跑得最快的马
+
+    https://blog.csdn.net/qq_32040767/article/details/77677186
