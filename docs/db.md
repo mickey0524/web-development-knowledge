@@ -454,3 +454,7 @@
 * 在 MySQL 中如何存储 IP 地址
 
     [IP地址在数据库里面的存储方式](https://www.cnblogs.com/gomysql/p/4595621.html)
+
+* MySQL binlog 数据格式
+
+    [Mysql Binlog三种格式详细介绍](https://www.cnblogs.com/baizhanshi/p/10512399.html)
