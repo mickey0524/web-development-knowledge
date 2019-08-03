@@ -458,3 +458,7 @@
 * MySQL binlog 数据格式
 
     [Mysql Binlog三种格式详细介绍](https://www.cnblogs.com/baizhanshi/p/10512399.html)
+
+* MySQL Innodb 三大特性 - 插入缓存，二次写，自适应哈希索引
+
+    [插入缓存](https://www.jianshu.com/p/12c5d966b2b1)
