@@ -462,3 +462,5 @@
 * MySQL Innodb 三大特性 - 插入缓存，二次写，自适应哈希索引
 
     [插入缓存](https://www.jianshu.com/p/12c5d966b2b1)
+
+* [后端程序员必备：mysql数据库相关流程图/原理图](https://juejin.im/post/5d42f48cf265da03ab422e08?utm_source=gold_browser_extension#heading-3)
