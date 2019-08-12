@@ -466,3 +466,5 @@
 * [后端程序员必备：mysql数据库相关流程图/原理图](https://juejin.im/post/5d42f48cf265da03ab422e08?utm_source=gold_browser_extension#heading-3)
 
 * [并发环境下，先操作数据库还是先操作缓存？](https://juejin.im/post/5d4a3196f265da03ab423727?utm_source=gold_browser_extension)
+
+* [MySQL 如何保证 ACID](https://www.cnblogs.com/CuiHongYu/p/10845354.html)
