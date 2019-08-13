@@ -101,3 +101,7 @@
     [怎么解决TCP网络传输“粘包”问题？](https://www.zhihu.com/question/20210025)
 
     [什么是TCP粘包、为什么UDP不会粘包](https://zhuanlan.zhihu.com/p/41709589)
+
+* TCP 可靠，UDP 不可靠的原因
+
+    TCP 有发送窗口，接受窗口，有 ACK 机制，UDP 没有 ACK 机制，而且 UDP 只有接受窗口，发送端也没有流量控制，发就完事了，这样接收端会丢失数据，UDP 也可以做到可靠，需要基于 UDP 定义一个新的协议 —— RUDP
