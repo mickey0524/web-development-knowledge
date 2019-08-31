@@ -474,3 +474,5 @@
     [LSM Tree存储组织结构介绍](https://www.cnblogs.com/bangerlee/p/4307055.html)
 
     [LSM-tree 一种高效的索引数据结构](https://bofang.iteye.com/blog/1676698)
+
+* [B树、B+树、LSM树以及其典型应用场景](https://blog.csdn.net/u010853261/article/details/78217823)
