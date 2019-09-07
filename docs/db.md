@@ -476,3 +476,11 @@
     [LSM-tree 一种高效的索引数据结构](https://bofang.iteye.com/blog/1676698)
 
 * [B树、B+树、LSM树以及其典型应用场景](https://blog.csdn.net/u010853261/article/details/78217823)
+
+* [数据库三范式](https://blog.csdn.net/chuan_zhang_ak/article/details/92765429)
+
+    * 1NF：字段要保证原子性，例如中国北京，可以拆分成中国和北京
+
+    * 2NF：非主键列必须完全依赖主键，例如学号，姓名，班级，学科，成绩，学科和成绩应该单独拆出去作为一个表的主键
+
+    * 3NF：消除传递依赖，例如学号，系名，系主任，存在学号 -> 系名 -> 系主任的依赖传递
