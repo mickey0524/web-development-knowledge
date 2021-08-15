@@ -25,3 +25,7 @@
 * 在线画图软件
 
     https://www.draw.io/
+
+* 算法小抄
+
+    https://labuladong.gitbook.io/algo/mu-lu-ye/dong-tai-gui-hua-xiang-jie-jin-jie
