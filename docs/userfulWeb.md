@@ -29,3 +29,7 @@
 * 算法小抄
 
     https://labuladong.gitbook.io/algo/mu-lu-ye/dong-tai-gui-hua-xiang-jie-jin-jie
+
+* 如何安装 git cz（规范模版化 git commit 提交）
+
+    https://blog.51cto.com/StavinLi/3056107
