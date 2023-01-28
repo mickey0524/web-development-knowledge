@@ -33,3 +33,7 @@
 * 如何安装 git cz（规范模版化 git commit 提交）
 
     https://blog.51cto.com/StavinLi/3056107
+
+* 如何解决Permission denied (publickey)
+
+    https://www.zhihu.com/question/21402411
