@@ -37,3 +37,11 @@
 * 如何解决Permission denied (publickey)
 
     https://www.zhihu.com/question/21402411
+
+* 如何免费听周杰伦的歌
+
+    https://github.com/lyswhut/lx-music-desktop
+
+    https://lxmusic.toside.cn/desktop/faq/install-failed
+
+    
